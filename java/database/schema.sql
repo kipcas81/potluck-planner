@@ -17,12 +17,14 @@ CREATE TABLE users (
 CREATE TABLE potlucks (
 	potluck_id SERIAL,
 	name varchar(50) NOT NULL,
+	description varchar,
 	date DATE NOT NULL,
 	time TIME NOT NULL,
 	creator varchar (50),
 	potluck_dietary_restrictions varchar(200),
 	isRecurring boolean NOT NULL,
 	frequency_days int,
+	location varchar(200),
 	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id)
 );
 
