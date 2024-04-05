@@ -9,6 +9,22 @@
         <label for="username">Username</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
+      
+      <div class="form-input-group">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first_name" v-model="user.first_name" required />
+      </div>
+      
+      <div class="form-input-group">
+        <label form="last-name">Last Name</label>
+        <input type="text" id="last_name" v-model="user.last_name" required />
+      </div>
+      <!--make dietary restrictions input here?-->
+      <div class="form-input-group">
+        <label form="diet-restrictions">click me</label>
+        <input type="checkbox" id="dietary_restrictions" v-model="user.diet" />
+      </div> 
+      <!-------------------------------------------->
       <div class="form-input-group">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
@@ -31,6 +47,9 @@ export default {
     return {
       user: {
         username: '',
+        first_name: '',
+        last_name: '',
+        diet: '',
         password: '',
         confirmPassword: '',
         role: 'user',
