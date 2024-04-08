@@ -25,6 +25,7 @@ CREATE TABLE potlucks (
 	isRecurring boolean NOT NULL,
 	frequency_days int,
 	location varchar(200),
+	isPrivate boolean NOT NULL,
 	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id)
 );
 
