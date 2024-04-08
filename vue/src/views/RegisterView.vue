@@ -16,13 +16,47 @@
       </div>
       
       <div class="form-input-group">
-        <label form="last-name">Last Name</label>
+        <label for="last-name">Last Name</label>
         <input type="text" id="last_name" v-model="user.last_name" required />
       </div>
-      <!--make dietary restrictions input here?-->
+
       <div class="form-input-group">
-        <label form="diet-restrictions">click me</label>
-        <input type="checkbox" id="dietary_restrictions" v-model="user.diet" />
+        <label for="email">Email</label>
+        <input type="text" id="email" v-model="user.email" required />
+      </div>
+      <!--make dietary restrictions input here?-->
+      
+      <div class="form-input-group">Food Restrictions:
+
+        <label for="Vegan">Vegan</label>
+        <input type="checkbox" id="dietary-vegan" v-model="user.diet" />
+
+        <label for="Vegetarian">Vegetarian</label>
+        <input type="checkbox" id="dietary_vegetarian" v-model=user.diet />
+
+        <label for="Gluten-Free">Gluten-Free</label>
+        <input type="checkbox" id="dietary_gluten" v-model="user.diet" />
+
+        <label for="Low-Sodium">Low-Sodium</label>
+        <input type="checkbox" id="dietary_sodium" v-model="user.diet" />
+
+        <label for="Paleo">Paleo</label>
+        <input type="checkbox" id="dietary_paleo" v-model="user.diet" />
+
+        <!-- <label for="Halal">Halal</label>
+        <input type="checkbox" id="dietary_halal" v-model="user.diet" /> -->
+
+        <!-- <label for="Kosher">Kosher</label>
+        <input type="checkbox" id="dietary_kosher" v-model="user.diet" /> -->
+
+        <label for="Dairy-Free">Dairy-Free</label>
+        <input type="checkbox" id="dietary_sodium" v-model="user.diet" />
+
+        <label for="Nuts">Nuts</label>
+        <input type="checkbox" id="dietary_nuts" v-model="user.diet" />
+
+        <label for="Sugar-Free">Sugar-Free</label>
+        <input type="checkbox" id="dietary_sugar" v-model="user.diet" />
       </div> 
       <!-------------------------------------------->
       <div class="form-input-group">
@@ -49,7 +83,8 @@ export default {
         username: '',
         first_name: '',
         last_name: '',
-        diet: '',
+        email: '',
+        diet: [],
         password: '',
         confirmPassword: '',
         role: 'user',
