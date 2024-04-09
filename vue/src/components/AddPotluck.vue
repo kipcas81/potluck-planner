@@ -52,7 +52,19 @@
 
     <label for="Sugar-Free">Sugar-Free</label>
     <input type="checkbox" id="dietary_sugar" v-model="user.diet" />
-</div> 
+</div>
+<div class="form-element"> Food Categories: 
+    <label for="Appetizers">Appetizers</label>
+    <input type="checkbox" id="Appetizers" v-model="newPotluck.categories" />
+    <label for="Entrees">Entrees</label>
+    <input type="checkbox" id="Entrees" v-model="newPotluck.categories" />
+    <label for="Sides">Sides</label>
+    <input type="checkbox" id="Sides" v-model="newPotluck.categories" />
+    <label for="Desserts">Desserts</label>
+    <input type="checkbox" id="Desserts" v-model="newPotluck.categories" />
+    <label for="Drinks">Drinks</label>
+    <input type="checkbox" id="Drinks" v-model="newPotluck.categories" />
+</div>
     <div class="form-element">
         <label for="recurring">Recurring:</label>
         <input id="recurring" type="checkbox"/>
@@ -79,6 +91,7 @@ export default {
                 time: "",
                 creator: "",
                 diet: [],
+                categories: [],
                 isRecurring: "",
                 frequency: "",
                 location: "",
