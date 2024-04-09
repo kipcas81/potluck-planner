@@ -24,7 +24,7 @@
         <label for="email">Email</label>
         <input type="text" id="email" v-model="user.email" required />
       </div>
-      <!--make dietary restrictions input here?-->
+      
       
       <div class="form-input-group">Food Restrictions:
 
@@ -43,14 +43,14 @@
         <label for="Paleo">Paleo</label>
         <input type="checkbox" id="dietary_paleo" v-model="user.diet" />
 
-        <!-- <label for="Halal">Halal</label>
-        <input type="checkbox" id="dietary_halal" v-model="user.diet" /> -->
+        <label for="Halal">Halal</label>
+        <input type="checkbox" id="dietary_halal" v-model="user.diet" />
 
-        <!-- <label for="Kosher">Kosher</label>
-        <input type="checkbox" id="dietary_kosher" v-model="user.diet" /> -->
+        <label for="Kosher">Kosher</label>
+        <input type="checkbox" id="dietary_kosher" v-model="user.diet" />
 
         <label for="Dairy-Free">Dairy-Free</label>
-        <input type="checkbox" id="dietary_sodium" v-model="user.diet" />
+        <input type="checkbox" id="dietary_dairy" v-model="user.diet" />
 
         <label for="Nuts">Nuts</label>
         <input type="checkbox" id="dietary_nuts" v-model="user.diet" />

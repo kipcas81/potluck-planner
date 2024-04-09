@@ -14,6 +14,10 @@
         <input id="diet" type="text"/>
     </div>
     <div class="form-element">
+        <label for="location">Location:</label>
+        <input id="location" type="text"/>
+    </div>
+    <div class="form-element">
         <label for="date">Date:</label>
         <input id="date" type="date"/>
     </div>
