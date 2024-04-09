@@ -1,6 +1,8 @@
 <template>
-    <h1>Create New Potluck</h1>
-    <AddPotluck v-bind:potluck="potluck" />
+    <div class="create">
+        <h1>Create New Potluck</h1>
+        <AddPotluck v-bind:potluck="potluck" />
+    </div>
 </template>
 
 <script>
@@ -15,14 +17,15 @@ export default {
             potluck: {
                 name: '',
                 description: '',
+                categories: [],
                 diet: [],
                 location: '',
                 date: new Date(),
-                
-            },
-        }
+                time: new TimeRanges,
+      },
     }
- };
+  }
+};
 </script>
 
 <style>
