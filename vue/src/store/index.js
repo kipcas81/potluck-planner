@@ -8,12 +8,8 @@ export function createStore(currentToken, currentUser) {
       user: currentUser || {},
       nextDishId: 0,
       nextPotluckId: 0, 
-      dishes: [
-        {}
-      ],
-      potlucks: [
-        {}
-      ]
+      dishes: [],
+      potlucks: []
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -33,14 +29,17 @@ export function createStore(currentToken, currentUser) {
         axios.defaults.headers.common = {};
       },
       ADD_DISH(state, dish){
-        const product = state.dishes.find(p => p.id == dish.id)
+        const potluck = state.dishes.find(p => p.id == potluck.id)
+        if (potluck) {
         dish.id = state.nextDishId++;
-        product.dishes.unshift(dish);
+        potluck.dishes.unshift(dish);
+        } else {
+          console.error('Potluck not found');
+        }
       },
       ADD_POTLUCK(state, potluck){
-        const product = state.potlucks.find(p => p.id == potluck.id)
         potluck.id = state.nextPotluckId++;
-        product.potluck.unshift(potluck);
+        state.potluck.unshift(potluck);
       }
     },
   });
