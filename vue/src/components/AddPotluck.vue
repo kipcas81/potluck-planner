@@ -68,9 +68,17 @@
 
 
 <script>
+import PotluckService from '../services/PotluckService';
 export default {
+    props: {
+        potluck: {
+            type: Object,
+            required: true
+        }
+    },
     data () {
         return {
+            //create potluck
             newPotluck: {
                 id: "",
                 name: "",
