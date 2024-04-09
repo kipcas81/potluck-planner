@@ -7,7 +7,11 @@ export function createStore(currentToken, currentUser) {
       token: currentToken || '',
       user: currentUser || {},
       nextDishId: 0,
+      nextPotluckId: 0, 
       dishes: [
+        {}
+      ],
+      potlucks: [
         {}
       ]
     },
@@ -31,7 +35,12 @@ export function createStore(currentToken, currentUser) {
       ADD_DISH(state, dish){
         const product = state.dishes.find(p => p.id == dish.id)
         dish.id = state.nextDishId++;
-        state.dishes.unshift(dish);
+        product.dishes.unshift(dish);
+      },
+      ADD_POTLUCK(state, potluck){
+        const product = state.potlucks.find(p => p.id == potluck.id)
+        potluck.id = state.nextPotluckId++;
+        product.potluck.unshift(potluck);
       }
     },
   });
