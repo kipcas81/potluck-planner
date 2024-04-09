@@ -2,15 +2,15 @@
   <div class="home">
     <h1>Potluck Planner</h1>
     <p>You must be authenticated to see this</p>
-    <AddPotluck/>
+    <!-- <PotluckForm/> -->
   </div>
 </template>
 
 <script>
-import AddPotluck from '../components/AddPotluck.vue';
-export default {
-  components: {
-        AddPotluck
-    }
-};
+// import PotluckForm from '../components/PotluckForm.vue';
+// export default {
+//   components: {
+//         PotluckForm
+//     }
+// };
 </script>

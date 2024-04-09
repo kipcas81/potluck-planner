@@ -1,16 +1,16 @@
 <template>
     <div class="create">
         <h1>Create New Potluck</h1>
-        <AddPotluck v-bind:potluck="potluck" />
+        <PotluckForm v-bind:potluck="potluck" />
     </div>
 </template>
 
 <script>
-import AddPotluck from '../components/AddPotluck.vue';
+import PotluckForm from '../components/PotluckForm.vue';
 
 export default {
     components: {
-        AddPotluck
+        PotluckForm
     },
     data() {
         return {
