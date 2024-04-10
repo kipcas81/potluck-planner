@@ -73,7 +73,7 @@
         <input id="frequency" type="number" v-model="newPotluck.frequency"/>
     </div>
     <input type="submit" value="Save" />
-    <input type="cancel" value="Cancel"  />
+    <input type="button" value="Cancel" @click="resetForm"/>
 </form>
 </template>
 
