@@ -3,21 +3,29 @@
     <h1>Potluck Planner</h1>
     <p>something something potluck</p>
     <!-- <PotluckForm/> -->
-    <!-- <AddPotluckView/> -->
-    <button class="create-potluck" v-on:click="$router.push({name: 'addpotluck'})">Create New Potluck</button>
-    
+    <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
+  
+  <PotluckList :potlucks="potlucks"/>
   </div>
 </template>
 
 <script>
-import AddPotluckView from './AddPotluckView.vue';
-import PotluckService from '../services/PotluckService.js';
-import PotluckForm from '../components/PotluckForm.vue';
+  import PotluckList from '../components/PotluckList.vue';
 
 export default {
   components: {
-        // PotluckForm,
-        // AddPotluckView
-    }
-};
+    PotluckList
+  },
+  created(){
+    
+  }
+}
+
+  // import PotluckService from '../services/PotluckService';
+// import PotluckForm from '../components/PotluckForm.vue';
+// export default {
+//   components: {
+//         PotluckForm
+//     }
+// };
 </script>

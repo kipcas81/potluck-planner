@@ -15,13 +15,18 @@ export default {
     data() {
         return {
             potluck: {
-                // name: '',
-                // description: '',
-                // categories: [],
-                // diet: [],
-                // location: '',
-                // date: new Date(),
-                // time: new TimeRanges,
+                id: "",
+                name: "",
+                description: "", 
+                date: "",
+                time: "",
+                creator: "",
+                diet: [],
+                categories: [],
+                isRecurring: "",
+                frequency: "",
+                location: "",
+                isPrivate: ""
       },
     }
   }
