@@ -1,57 +1,56 @@
 <template>
 <form @submit.prevent="addNewPotluck">
-    <!-- need v model above on category, name, servings, etc-->
     <div class="form-element">
         <label for="name">Name:</label>
-        <input id="name" type="text"/>
+        <input id="name" type="text" v-model="newPotluck.name"/>
     </div>
     <div class="form-element">
         <label for="description">Description:</label>
-        <input id="description" type="text"/>
+        <input id="description" type="text" v-model="newPotluck.description"/>
     </div>
     <div class="form-element">
         <label for="date">Date:</label>
-        <input id="date" type="date"/>
+        <input id="date" type="date" v-model="newPotluck.date"/>
     </div>
     <div class="form-element">
         <label for="time">Time:</label>
-        <input id="time" type="time"/>
+        <input id="time" type="time" v-model="newPotluck.time"/>
     </div>
-    <div class="form-element">
+    <!-- <div class="form-element">
         <label for="diet">Dietary Restrictions:</label>
-        <input id="diet" type="text"/>
-    </div>
+        <input id="diet" type="text" v-model="newPotluck.diet"/>
+    </div> -->
 <div class="form-input-group">Food Restrictions:
 
     <label for="Vegan">Vegan</label>
-    <input type="checkbox" id="dietary-vegan" v-model="user.diet" />
+    <input type="checkbox" id="dietary-vegan" v-model="newPotluck.diet" />
 
     <label for="Vegetarian">Vegetarian</label>
-    <input type="checkbox" id="dietary_vegetarian" v-model=user.diet />
+    <input type="checkbox" id="dietary_vegetarian" v-model=newPotluck.diet />
 
     <label for="Gluten-Free">Gluten-Free</label>
-    <input type="checkbox" id="dietary_gluten" v-model="user.diet" />
+    <input type="checkbox" id="dietary_gluten" v-model="newPotluck.diet" />
 
     <label for="Low-Sodium">Low-Sodium</label>
-    <input type="checkbox" id="dietary_sodium" v-model="user.diet" />
+    <input type="checkbox" id="dietary_sodium" v-model="newPotluck.diet" />
 
     <label for="Paleo">Paleo</label>
-    <input type="checkbox" id="dietary_paleo" v-model="user.diet" />
+    <input type="checkbox" id="dietary_paleo" v-model="newPotluck.diet" />
 
     <label for="Halal">Halal</label>
-    <input type="checkbox" id="dietary_halal" v-model="user.diet" />
+    <input type="checkbox" id="dietary_halal" v-model="newPotluck.diet" />
 
     <label for="Kosher">Kosher</label>
-    <input type="checkbox" id="dietary_kosher" v-model="user.diet" />
+    <input type="checkbox" id="dietary_kosher" v-model="newPotluck.diet" />
 
     <label for="Dairy-Free">Dairy-Free</label>
-    <input type="checkbox" id="dietary_dairy" v-model="user.diet" />
+    <input type="checkbox" id="dietary_dairy" v-model="newPotluck.diet" />
 
     <label for="Nuts">Nuts</label>
-    <input type="checkbox" id="dietary_nuts" v-model="user.diet" />
+    <input type="checkbox" id="dietary_nuts" v-model="newPotluck.diet" />
 
     <label for="Sugar-Free">Sugar-Free</label>
-    <input type="checkbox" id="dietary_sugar" v-model="user.diet" />
+    <input type="checkbox" id="dietary_sugar" v-model="newPotluck.diet" />
 </div>
 <div class="form-element"> Food Categories: 
     <label for="Appetizers">Appetizers</label>
@@ -67,11 +66,11 @@
 </div>
     <div class="form-element">
         <label for="recurring">Recurring:</label>
-        <input id="recurring" type="checkbox"/>
+        <input id="recurring" type="checkbox" v-model="newPotluck.isRecurring"/>
     </div>
-    <div class="form-element">
+    <div class="form-element" v-show="newPotluck.isRecurring">
         <label for="frequency">Every __ days:</label>
-        <input v-model.number="frequency" type="number"/>
+        <input id="frequency" type="number" v-model="newPotluck.frequency"/>
     </div>
     <input type="submit" value="Save" />
     <input type="cancel" value="Cancel"  />
@@ -80,7 +79,7 @@
 
 
 <script>
-import PotluckService from '../services/PotluckService';
+// import PotluckService from '../services/PotluckService';
 export default {
     props: {
         potluck: {
@@ -100,15 +99,21 @@ export default {
                 creator: "",
                 diet: [],
                 categories: [],
-                isRecurring: "",
-                frequency: "",
+                isRecurring: false,
+                frequency: 0,
                 location: "",
-                isPrivate: ""
-            }
+                isPrivate: true
+            },
+            frequencyError: ""
         };
     },
     methods: {
         addNewPotluck(){
+            if(this.newPotluck.frequency <= 0){
+                this.frequencyError = "Cannot have negative frequency";
+                return;
+            }
+            this.frequencyError = '';
             this.newPotluck.potluckId = this.potluckId
             this.$store.commit('ADD_POTLUCK', this.newPotluck);
             this.resetForm();
