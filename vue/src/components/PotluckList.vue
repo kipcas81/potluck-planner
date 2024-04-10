@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PotluckService from '../services/PotluckService.js';
+import PotluckService from '../services/PotluckService';
 export default {
     
     data() {
