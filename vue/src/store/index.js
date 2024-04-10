@@ -40,11 +40,13 @@ export function createStore(currentToken, currentUser) {
       ADD_POTLUCK(state, potluck){
         potluck.id = state.nextPotluckId++;
         state.potlucks.unshift(potluck);
+      },
+      ADD_FRIEND(state, friend) {
+        friend.id = state.nextFriendId++;
+        state.friends.unshift(friend);
       }
     },
-      ADD_FRIEND(state, friend) {
-        
-      }
+      
   });
   return store;
 }

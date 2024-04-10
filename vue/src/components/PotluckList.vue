@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import PotluckService from '../services/PotluckService';
+import PotluckService from '../services/PotluckService.js';
 export default {
     
     data() {
@@ -19,13 +19,9 @@ export default {
       .then(response => {
         this.potlucks = response.data;
       })
-    //   .catch(error => {
-    //     this.handleErrorResponse();
-    //   })
+    //
     }
-    // handleErrorResponse() {
-    //   this.$store.commit('SET_NOTIFICATION', 'DIEE!');
-    // }
+    //
   },
   created(){
     this.getPotlucks();
