@@ -7,19 +7,18 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
-	email varchar(50) NOT NULL UNIQUE,
-	first_name varchar(50) NOT NULL,
-	last_name varchar(50) NOT NULL,
+	email varchar(50),
+	first_name varchar(50),
+	last_name varchar(50),
 	dietary_restrictions varchar(200),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
 CREATE TABLE potlucks (
 	potluck_id SERIAL,
-	name varchar(50) NOT NULL,
-	description varchar,
-	date DATE NOT NULL,
-	time TIME NOT NULL,
+	event_name varchar(50) NOT NULL,
+	event_date DATE NOT NULL,
+	event_time TIME NOT NULL,
 	creator varchar (50),
 	potluck_dietary_restrictions varchar(200),
 	isRecurring boolean NOT NULL,

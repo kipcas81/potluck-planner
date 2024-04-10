@@ -1,25 +1,35 @@
 package com.techelevator.model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Potluck {
-    private int id;
+    private int potluckId;
+    private int userId;
     private String eventName;
     private String eventDate;
     private String eventTime;
     private String location;
-    private List<String> dietaryRestrictions;
-    private List<String> invitedGuests;
+    private List dietaryRestrictions;
     private boolean isRecurring;
+    private int frequencyDays;
 
 
-    public int getId() {
-        return id;
+    public int getPotluckId() {
+        return potluckId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPotluckId(int id) {
+        this.potluckId = potluckId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getEventName() {
@@ -54,20 +64,12 @@ public class Potluck {
         this.location = location;
     }
 
-    public List<String> getDietaryRestrictions() {
+    public List getDietaryRestrictions() {
         return dietaryRestrictions;
     }
 
-    public void setDietaryRestrictions(List<String> dietaryRestrictions) {
+    public void setDietaryRestrictions(List dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
-    }
-
-    public List<String> getInvitedGuests() {
-        return invitedGuests;
-    }
-
-    public void setInvitedGuests(List<String> invitedGuests) {
-        this.invitedGuests = invitedGuests;
     }
 
     public boolean isRecurring() {
@@ -76,5 +78,13 @@ public class Potluck {
 
     public void setRecurring(boolean recurring) {
         isRecurring = recurring;
+    }
+
+    public int getFrequencyDays() {
+        return frequencyDays;
+    }
+
+    public void setFrequencyDays(int frequencyDays) {
+        this.frequencyDays = frequencyDays;
     }
 }
