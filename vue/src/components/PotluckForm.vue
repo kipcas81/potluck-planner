@@ -21,8 +21,8 @@
         <label for="diet">Dietary Restrictions:</label>
         <input id="diet" type="text"/>
     </div>
-<div class="form-input-group">Food Restrictions:
 
+    <div class="form-input-group">Food Restrictions:
     <label for="Vegan">Vegan</label>
     <input type="checkbox" id="dietary-vegan" v-model="user.diet" />
 
@@ -53,6 +53,7 @@
     <label for="Sugar-Free">Sugar-Free</label>
     <input type="checkbox" id="dietary_sugar" v-model="user.diet" />
 </div> 
+
     <div class="form-element">
         <label for="recurring">Recurring:</label>
         <input id="recurring" type="checkbox"/>
@@ -68,7 +69,7 @@
 
 
 <script>
-import PotluckService from '../services/PotluckService';
+import PotluckService from '../services/PotluckService.js';
 export default {
     props: {
         potluck: {
@@ -80,7 +81,7 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                id: "",
+                
                 name: "",
                 description: "", 
                 date: "",
