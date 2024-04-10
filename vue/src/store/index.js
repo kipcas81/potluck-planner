@@ -42,6 +42,9 @@ export function createStore(currentToken, currentUser) {
         state.potlucks.unshift(potluck);
       }
     },
+      ADD_FRIEND(state, friend) {
+        
+      }
   });
   return store;
 }
