@@ -9,6 +9,56 @@
         <label for="username">Username</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
+      
+      <div class="form-input-group">
+        <label for="first-name">First Name</label>
+        <input type="text" id="first_name" v-model="user.first_name" required />
+      </div>
+      
+      <div class="form-input-group">
+        <label for="last-name">Last Name</label>
+        <input type="text" id="last_name" v-model="user.last_name" required />
+      </div>
+
+      <div class="form-input-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" v-model="user.email" required />
+      </div>
+      
+      
+      <div class="form-input-group">Food Restrictions:
+
+        <label for="Vegan">Vegan</label>
+        <input type="checkbox" id="dietary-vegan" v-model="user.diet" />
+
+        <label for="Vegetarian">Vegetarian</label>
+        <input type="checkbox" id="dietary_vegetarian" v-model=user.diet />
+
+        <label for="Gluten-Free">Gluten-Free</label>
+        <input type="checkbox" id="dietary_gluten" v-model="user.diet" />
+
+        <label for="Low-Sodium">Low-Sodium</label>
+        <input type="checkbox" id="dietary_sodium" v-model="user.diet" />
+
+        <label for="Paleo">Paleo</label>
+        <input type="checkbox" id="dietary_paleo" v-model="user.diet" />
+
+        <label for="Halal">Halal</label>
+        <input type="checkbox" id="dietary_halal" v-model="user.diet" />
+
+        <label for="Kosher">Kosher</label>
+        <input type="checkbox" id="dietary_kosher" v-model="user.diet" />
+
+        <label for="Dairy-Free">Dairy-Free</label>
+        <input type="checkbox" id="dietary_dairy" v-model="user.diet" />
+
+        <label for="Nuts">Nuts</label>
+        <input type="checkbox" id="dietary_nuts" v-model="user.diet" />
+
+        <label for="Sugar-Free">Sugar-Free</label>
+        <input type="checkbox" id="dietary_sugar" v-model="user.diet" />
+      </div> 
+      <!-------------------------------------------->
       <div class="form-input-group">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
@@ -31,6 +81,10 @@ export default {
     return {
       user: {
         username: '',
+        first_name: '',
+        last_name: '',
+        email: '',
+        diet: [],
         password: '',
         confirmPassword: '',
         role: 'user',

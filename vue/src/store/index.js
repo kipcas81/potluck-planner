@@ -5,7 +5,11 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      nextDishId: 0,
+      nextPotluckId: 0, 
+      dishes: [],
+      potlucks: []
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -23,6 +27,19 @@ export function createStore(currentToken, currentUser) {
         state.token = '';
         state.user = {};
         axios.defaults.headers.common = {};
+      },
+      ADD_DISH(state, dish){
+        const potluck = state.dishes.find(p => p.id == potluck.id)
+        if (potluck) {
+        dish.id = state.nextDishId++;
+        potluck.dishes.unshift(dish);
+        } else {
+          console.error('Potluck not found');
+        }
+      },
+      ADD_POTLUCK(state, potluck){
+        potluck.id = state.nextPotluckId++;
+        state.potlucks.unshift(potluck);
       }
     },
   });

@@ -23,6 +23,8 @@ CREATE TABLE potlucks (
 	potluck_dietary_restrictions varchar(200),
 	isRecurring boolean NOT NULL,
 	frequency_days int,
+	location varchar(200),
+	isPrivate boolean NOT NULL,
 	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id)
 );
 
