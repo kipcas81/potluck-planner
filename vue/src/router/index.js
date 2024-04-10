@@ -50,21 +50,12 @@ const routes = [
     }
   },
   {
-<<<<<<< HEAD
-  path: "/",
-  name: "addpotluck",
-  component: AddPotluckView,
-  meta: {
-    requiresAuth: true
-  }
-=======
     path: "/add-potluck",
     name: "add-potluck",
     component: AddPotluckView,
     meta: {
       requiresAuth: true
     }
->>>>>>> e69206b6317e6b60966aea836c314c40b7bdf615
   }
 ];
 
