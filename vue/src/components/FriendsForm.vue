@@ -1,16 +1,16 @@
 <template>
 <form @submit.prevent="addNewFriend">
     <div>
-        <label for="email">email address</label>
-        <input id="email" type="email" v-model="newFriend.email">   
-    </div>
-    <div>
         <label for="firstname">First Name</label>
-        <input id="firstname" type="text" v-model="newFriend.firstname">  
+        <input id="firstname" type="text" v-model="newFriend.friend_first_name">  
     </div>
     <div>
         <label for="lastname">Last Name</label>
-        <input id="lastname" type="text" v-model="newFriend.lastname">  
+        <input id="lastname" type="text" v-model="newFriend.friend_last_name">  
+    </div>
+    <div>
+        <label for="email">email address</label>
+        <input id="email" type="email" v-model="newFriend.friend_email_address">   
     </div>
     <input type="submit" value="Save" />
     <input type="button" value="Cancel" @click="resetForm"/>
@@ -28,9 +28,9 @@ export default {
     data(){
         return {
             newFriend: {
-                email: "",
-                firstname: "",
-                lastname: ""
+                friend_first_name: "",
+                friend_last_name: "",
+                friend_email_address: "",
             }
         }
     },
