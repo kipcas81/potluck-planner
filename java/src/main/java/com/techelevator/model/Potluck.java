@@ -1,19 +1,21 @@
 package com.techelevator.model;
 
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class Potluck {
     private int potluckId;
-    private int userId;
     private String eventName;
-    private String eventDate;
-    private String eventTime;
-    private String location;
-    private List dietaryRestrictions;
+    private LocalDate eventDate;
+    private LocalTime eventTime;
+    private List<String> dietaryRestrictions;
     private boolean isRecurring;
     private int frequencyDays;
+    private String location;
+    private boolean isPrivate;
+    private int userId;
 
 
     public int getPotluckId() {
@@ -40,20 +42,20 @@ public class Potluck {
         this.eventName = eventName;
     }
 
-    public String getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
     public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
+        this.eventDate = LocalDate.parse(eventDate);
     }
 
-    public String getEventTime() {
+    public LocalTime getEventTime() {
         return eventTime;
     }
 
     public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
+        this.eventTime = LocalTime.parse(eventTime);
     }
 
     public String getLocation() {
@@ -86,5 +88,12 @@ public class Potluck {
 
     public void setFrequencyDays(int frequencyDays) {
         this.frequencyDays = frequencyDays;
+    }
+    public boolean isPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 }
