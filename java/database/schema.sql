@@ -19,13 +19,14 @@ CREATE TABLE potlucks (
 	event_name varchar(50) NOT NULL,
 	event_date DATE NOT NULL,
 	event_time TIME NOT NULL,
-	creator varchar (50),
+	user_id varchar (50),
 	potluck_dietary_restrictions varchar(200),
-	isRecurring boolean NOT NULL,
+	is_recurring boolean NOT NULL,
 	frequency_days int,
 	location varchar(200),
-	isPrivate boolean NOT NULL,
-	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id)
+	is_private boolean NOT NULL,
+	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id),
+	CONSTRAINT fk_potlucks_users FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE dishes (

@@ -1,7 +1,7 @@
 <template>
 <div>
     <router-link v-for="potluck in potlucks" v-bind:key="potluck.id">{{ potluck.name }}</router-link>
-</div>
+</div> 
 </template>
 
 <script>

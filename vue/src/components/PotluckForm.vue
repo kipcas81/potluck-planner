@@ -69,7 +69,7 @@
         <input id="frequency" type="number" v-model="newPotluck.frequency"/>
     </div>
     <input type="submit" value="Save" />
-    <input type="cancel" value="Cancel"  />
+    <input type="button" value="Cancel" @click="resetForm"/>
 </form>
 </template>
 
@@ -99,12 +99,6 @@ export default {
                 location: "",
                 isPrivate: true
             },
-            // editPotluck: {
-            //     id: this.potluck.id,
-            //     name: this.potluck.name,
-            //     description: this.potluck.description,
-
-            // }
         };
     },
     methods: {
@@ -114,7 +108,7 @@ export default {
                 return;
             }
             this.frequencyError = '';
-            this.newPotluck.potluckId = this.potluckId
+            this.newPotluck.potluckId = this.potluckId;
             this.$store.commit('ADD_POTLUCK', this.newPotluck);
             this.resetForm();
         },

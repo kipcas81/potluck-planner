@@ -42,9 +42,9 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public Potluck createPotluck(Potluck potluck) {
-        String sql = "INSERT INTO potlucks (event_name, event_date, event_time) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO potlucks (event_name, event_date, event_time, is_private) VALUES (?, ?, ?, ?)";
         try {
-            jdbcTemplate.update(sql, potluck.getEventName(), potluck.getEventDate(), potluck.getEventTime());
+            jdbcTemplate.update(sql, potluck.getEventName(), potluck.getEventDate(), potluck.getEventTime(), potluck.isPrivate());
 
         } catch (Exception e) {
             throw new DaoException("An error occurred while creating the potluck", e);
@@ -59,8 +59,10 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setEventName(rs.getString("event_name"));
         potluck.setEventDate(rs.getString("event_date"));
         potluck.setEventTime(rs.getString("event_time"));
-        //potluck.setLocation(rs.getString("location"));
         //potluck.setRecurring(rs.getBoolean("is_recurring"));
+        //potluck.setLocation(rs.getString("location"));
+        potluck.setPrivate(rs.getBoolean("is_private"));
+
 
       //  List<String> dietaryRestrictions = Arrays.asList(rs.getString("potluck_dietary_restrictions").split(","));
        // potluck.setDietaryRestrictions(dietaryRestrictions);
