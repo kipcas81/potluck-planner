@@ -75,7 +75,7 @@
 
 
 <script>
-// import PotluckService from '../services/PotluckService';
+import PotluckService from '../services/PotluckService';
 export default {
     props: {
         potluck: {
@@ -87,7 +87,6 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                
                 name: "",
                 description: "", 
                 date: "",
@@ -100,7 +99,7 @@ export default {
                 location: "",
                 isPrivate: true
             },
-            frequencyError: ""
+            
         };
     },
     methods: {
@@ -114,6 +113,7 @@ export default {
             this.$store.commit('ADD_POTLUCK', this.newPotluck);
             this.resetForm();
         },
+        
         resetForm(){
             this.newPotluck = {};
         }
