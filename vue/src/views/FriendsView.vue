@@ -6,7 +6,8 @@
         {{ friend.firstName }} {{ friend.lastName }} - {{ friend.email }}
       </li>
     </ul>
-</div>>
+    <button class="add-friend" v-on:click="$router.push({path: '/add-friend'})">Add a Friend</button>
+</div> i'm carrot steve! (like pickle rick)
 </template>
 
 <script>

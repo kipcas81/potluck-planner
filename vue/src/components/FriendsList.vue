@@ -1,6 +1,6 @@
 <template>
 <div>
-    <router-link v-for="friend in friends" v-bind:key="friend.id">{{ friend.name }}</router-link>
+    <!-- <router-link v-for="friend in friends" v-bind:key="friend.id">{{ friend.name }}</router-link> -->
 </div>
 </template>
 
