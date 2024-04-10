@@ -39,7 +39,7 @@ export function createStore(currentToken, currentUser) {
       },
       ADD_POTLUCK(state, potluck){
         potluck.id = state.nextPotluckId++;
-        state.potluck.unshift(potluck);
+        state.potlucks.unshift(potluck);
       }
     },
   });
