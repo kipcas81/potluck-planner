@@ -99,7 +99,12 @@ export default {
                 location: "",
                 isPrivate: true
             },
-            
+            // editPotluck: {
+            //     id: this.potluck.id,
+            //     name: this.potluck.name,
+            //     description: this.potluck.description,
+
+            // }
         };
     },
     methods: {
@@ -122,5 +127,3 @@ export default {
 </script>
 
 
-<style>
-</style>

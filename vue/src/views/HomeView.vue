@@ -2,29 +2,36 @@
   <div class="home">
     <h1>Potluck Planner</h1>
     <p>something something potluck</p>
-    <!-- <PotluckForm/> -->
     <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
   
-  <PotluckList :potlucks="potlucks"/>
+  <PotluckList />
   </div>
 </template>
 
 <script>
+  import PotluckService from '../services/PotluckService.js';
   import PotluckList from '../components/PotluckList.vue';
 
 export default {
   components: {
+    
     PotluckList
   },
-  created(){
+  data() {
+    return {
+      potlucks: [],
+    };
+  },
+  methods: {
+    getPotlucks() {
+      PotluckService.potluckList()
+      .then(response => {
+        this.potlucks = response.data;
+    })
   }
-}
-
-  // import PotluckService from '../services/PotluckService';
-// import PotluckForm from '../components/PotluckForm.vue';
-// export default {
-//   components: {
-//         PotluckForm
-//     }
-// };
+},
+  created(){
+    this.getPotlucks();
+    }
+  }
 </script>
