@@ -38,15 +38,12 @@ public class PotluckController {
 
 
     @RequestMapping(path = "/potlucks", method = RequestMethod.POST)
-    public ResponseEntity<String> createPotluck(@RequestBody Potluck potluck, Principal principal) {
-        String username = principal.getName();
-        int userId = userDao.getUserByUsername(username).getId();
-        potluck.setUserId(userId);
-        potluckDao.createPotluck(potluck);
+    public Potluck createPotluck(@RequestBody Potluck potluck, Principal principal) {
 
-        return new ResponseEntity<>("Potluck created successfully", HttpStatus.CREATED);
+        String username = principal.getName();
+        int userid = userDao.getUserByUsername(username).getId();
+        potluck.setUserId(userid);
+        return potluckDao.createPotluck(potluck);
     }
 
 }
-
-
