@@ -5,17 +5,34 @@
 </template>
 
 <script>
+import PotluckService from '../services/PotluckService';
 export default {
-    props: {
-        potlucks: {
-            type: Array,
-            required: true
-        }
-    },
-//     created () {
-//     this.potlucks = this.$store.state.potlucks;
-// }
-};
+    
+    data() {
+    return {
+      potlucks: [],
+    };
+  },
+  methods: {
+    getPotlucks() {
+      PotluckService.potluckList()
+      .then(response => {
+        this.potlucks = response.data;
+      })
+    //   .catch(error => {
+    //     this.handleErrorResponse();
+    //   })
+    }
+    // handleErrorResponse() {
+    //   this.$store.commit('SET_NOTIFICATION', 'DIEE!');
+    // }
+  },
+  created(){
+    this.getPotlucks();
+  }
+}
+
+
 
 
 </script>

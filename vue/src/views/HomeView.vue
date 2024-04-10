@@ -4,6 +4,7 @@
     <h1>Potluck Planner</h1>
     <p>something something potluck</p>
     <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
+  
   <PotluckList />
   </div>
 </template>
@@ -12,6 +13,7 @@
   import PotluckList from '../components/PotluckList.vue';
 export default {
   components: {
+    
     PotluckList
   },
   data() {

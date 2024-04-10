@@ -16,12 +16,8 @@
         <label for="time">Time:</label>
         <input id="time" type="time" v-model="newPotluck.time"/>
     </div>
-    <!-- <div class="form-element">
-        <label for="diet">Dietary Restrictions:</label>
-        <input id="diet" type="text" v-model="newPotluck.diet"/>
-    </div> -->
-<div class="form-input-group">Food Restrictions:
-
+    
+    <div class="form-input-group">Food Restrictions:
     <label for="Vegan">Vegan</label>
     <input type="checkbox" id="dietary-vegan" v-model="newPotluck.diet" />
 
@@ -79,7 +75,7 @@
 
 
 <script>
-// import PotluckService from '../services/PotluckService';
+import PotluckService from '../services/PotluckService';
 export default {
     props: {
         potluck: {
@@ -91,7 +87,6 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                id: "",
                 name: "",
                 description: "", 
                 date: "",
@@ -104,7 +99,6 @@ export default {
                 location: "",
                 isPrivate: true
             },
-            frequencyError: ""
         };
     },
     methods: {
@@ -114,10 +108,11 @@ export default {
                 return;
             }
             this.frequencyError = '';
-            this.newPotluck.potluckId = this.potluckId
+            this.newPotluck.potluckId = this.potluckId;
             this.$store.commit('ADD_POTLUCK', this.newPotluck);
             this.resetForm();
         },
+        
         resetForm(){
             this.newPotluck = {};
         }
@@ -126,5 +121,3 @@ export default {
 </script>
 
 
-<style>
-</style>
