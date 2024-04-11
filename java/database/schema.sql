@@ -21,7 +21,7 @@ CREATE TABLE potlucks (
 	event_date DATE NOT NULL,
 	event_time TIME NOT NULL,
 	user_id int,
-	potluck_dietary_restrictions varchar(200),
+	potluck_dietary_restrictions set (Vega, Vegetarian, Gluten-Free, Low-Sodium, Paleo, Halal, Kosher, Dairy-Free, No-Nuts, Sugar-Free),
 	is_recurring boolean NOT NULL,
 	frequency_days int,
 	location varchar(200),
