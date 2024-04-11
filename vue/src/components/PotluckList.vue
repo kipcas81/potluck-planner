@@ -2,7 +2,7 @@
 <div>
     <div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.id">
      <h2> {{ potluck.eventName }} </h2>
-     <p>NEED TO ADD DESCRIPTION</p>
+     <p>{{potluck.description}}</p>
       <P> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</P>
       <P> Please bring </P>
     </div>

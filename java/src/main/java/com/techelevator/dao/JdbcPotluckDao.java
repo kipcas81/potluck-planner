@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Friend;
 import com.techelevator.model.Potluck;
 import com.techelevator.exception.DaoException;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -44,11 +45,9 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public Potluck createPotluck(Potluck potluck) {
         Potluck createdPotluck = new Potluck();
-        String sql = "INSERT INTO potlucks (event_name, event_date, event_time, is_recurring, is_private) VALUES (?, ?, ?, ?, ?, ?S)";
-
+        String insertPotluckSql = "INSERT INTO potlucks (event_name, event_date, event_time, is_recurring, is_private) VALUES (?, ?, ?, ?, ?)";
         try {
-            int newPotluckId = jdbcTemplate.queryForObject(sql,int.class,potluck.getEventName(), potluck.getEventDate(), potluck.getEventTime(), potluck.isRecurring(), potluck.isPrivate());
-            createdPotluck = getPotluckById(newPotluckId);
+            int newPotluckId = jdbcTemplate.queryForObject(insertPotluckSql, int.class, potluck.getEventName(), potluck.getEventDate(), potluck.getEventTime(), potluck.isRecurring(), potluck.isPrivate());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -76,6 +75,30 @@ public class JdbcPotluckDao implements PotluckDao {
         return potluck;
     }
 
+    public List<Friend> saveFriends(int userid, Friend[] friends) {
+        List<Friend> savedFriends = new ArrayList<>();
+        Friend createdFriend = null;
+        for (Friend friend : friends) {
+            createdFriend = friend;
+            String sql = "INSERT INTO users_friends(user_id, friend_first_name, friend_last_name, friend_email_address) " +
+                    "VALUES(?,?,?,?) returning friend_id;";
+            try {
+                int friendId = jdbcTemplate.queryForObject(sql, int.class, userid,friend.getFriend_first_name(),
+                        friend.getFriend_last_name(),friend.getFriend_email_address());
+                createdFriend.setUser_id(userid);
+                createdFriend.setFriend_id(friendId);
+                savedFriends.add(createdFriend);
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            } catch (BadSqlGrammarException e) {
+                throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+            }
+        }
+        return savedFriends;
+    }
+
 
 
     private Potluck mapRowToPotluck(SqlRowSet rs) {
@@ -83,6 +106,7 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setPotluckId(rs.getInt("potluck_id"));
         potluck.setUserId(rs.getInt("user_id"));
         potluck.setEventName(rs.getString("event_name"));
+       // potluck.getDescription(rs.getString("description"));
         potluck.setEventDate(rs.getString("event_date"));
         potluck.setEventTime(rs.getString("event_time"));
         potluck.setRecurring(rs.getBoolean("is_recurring"));
