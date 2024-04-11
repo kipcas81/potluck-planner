@@ -42,7 +42,7 @@
     <label for="Dairy-Free">Dairy-Free</label>
     <input type="checkbox" id="dietary_dairy" v-model="newPotluck.diet" />
 
-    <label for="Nuts">Nuts</label>
+    <label for="No-Nuts">Nuts</label>
     <input type="checkbox" id="dietary_nuts" v-model="newPotluck.diet" />
 
     <label for="Sugar-Free">Sugar-Free</label>

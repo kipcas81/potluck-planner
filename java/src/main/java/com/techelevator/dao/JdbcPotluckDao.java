@@ -27,7 +27,7 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> allPotlucks = new ArrayList<>();
-        String sql = "select potluck_id, event_name, description, event_date, event_time, user_id, potluck_dietary_restrictions, is_private, is_recurring from potlucks;";
+        String sql = "select potluck_id, event_name, description, event_date, event_time, user_id, potluck_dietary_restrictions, is_private, is_recurring, location from potlucks;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
             while (result.next()) {

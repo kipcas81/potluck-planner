@@ -3,8 +3,8 @@
     <div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.id">
      <h2> {{ potluck.eventName }} </h2>
      <p>{{potluck.description}}</p>
-      <P> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</P>
-      <P> Please bring </P>
+      <p> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</p>
+      <p> Please bring </p>
     </div>
     
 </div> 
@@ -25,9 +25,7 @@ export default {
       .then(response => {
         this.potlucks = response.data;
       })
-    //
     }
-    //
   },
   created(){
     this.getPotlucks();
