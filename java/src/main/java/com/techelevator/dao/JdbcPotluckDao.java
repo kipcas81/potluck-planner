@@ -27,7 +27,7 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> allPotlucks = new ArrayList<>();
-        String sql = "select potluck_id, event_name, event_date, event_time, user_id, is_private, is_recurring from potlucks;";
+        String sql = "select potluck_id, event_name, description, event_date, event_time, user_id, is_private, is_recurring from potlucks;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
             while (result.next()) {
@@ -106,7 +106,7 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setPotluckId(rs.getInt("potluck_id"));
         potluck.setUserId(rs.getInt("user_id"));
         potluck.setEventName(rs.getString("event_name"));
-       // potluck.getDescription(rs.getString("description"));
+        potluck.getDescription(rs.getString("description"));
         potluck.setEventDate(rs.getString("event_date"));
         potluck.setEventTime(rs.getString("event_time"));
         potluck.setRecurring(rs.getBoolean("is_recurring"));
