@@ -10,6 +10,8 @@ public class Friend {
 
     private String friend_email_address;
 
+    public Friend() {}
+
 
     public Friend(int userId, int friendId, String friendFirstName, String friendLastName, String friendEmailAddress) {
 
