@@ -9,6 +9,10 @@
         <input id="description" type="text" v-model="newPotluck.description"/>
     </div>
     <div class="form-element">
+        <label for="location">Location</label>
+        <input id="location" type="text" v-model="newPotluck.location"/>
+    </div>
+    <div class="form-element">
         <label for="date">Date:</label>
         <input id="date" type="date" v-model="newPotluck.date"/>
     </div>
@@ -108,8 +112,18 @@ export default {
             this.resetForm();
         },
         
-        resetForm(){
-            this.newPotluck = {};
+        resetForm() {
+        this.newPotluck.name = "";
+        this.newPotluck.description = "";
+        this.newPotluck.date = "";
+        this.newPotluck.time = "";
+        this.newPotluck.creator = "";
+        this.newPotluck.diet.forEach(restriction => restriction.checked = false);
+        this.newPotluck.categories.forEach(category => category.checked = false);
+        this.newPotluck.isRecurring = false;
+        this.newPotluck.frequency = 0;
+        this.newPotluck.location = "";
+        this.newPotluck.isPrivate = true;
         }
     }
 }
