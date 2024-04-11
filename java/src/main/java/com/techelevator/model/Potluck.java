@@ -8,6 +8,7 @@ import java.util.List;
 public class Potluck {
     private int potluckId;
     private String eventName;
+    private String description;
     private LocalDate eventDate;
     private LocalTime eventTime;
     private List<String> dietaryRestrictions;
@@ -40,6 +41,14 @@ public class Potluck {
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
+    }
+
+    public String getDescription(String description) {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getEventDate() {

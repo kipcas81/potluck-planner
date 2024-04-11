@@ -17,6 +17,7 @@ CREATE TABLE users (
 CREATE TABLE potlucks (
 	potluck_id SERIAL,
 	event_name varchar(50) NOT NULL,
+	description varchar(500),
 	event_date DATE NOT NULL,
 	event_time TIME NOT NULL,
 	user_id int,
