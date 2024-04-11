@@ -7,7 +7,7 @@
       </li>
     </ul>
     <button class="add-friend" v-on:click="$router.push({path: '/add-friend'})">Add a Friend</button>
-</div> i'm carrot steve! (like pickle rick)
+</div>
 </template>
 
 <script>
