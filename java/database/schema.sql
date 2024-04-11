@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, potlucks, dishes CASCADE;
+DROP TABLE IF EXISTS users, potlucks, dishes, users_friends CASCADE;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -19,14 +19,14 @@ CREATE TABLE potlucks (
 	event_name varchar(50) NOT NULL,
 	event_date DATE NOT NULL,
 	event_time TIME NOT NULL,
-	user_id varchar (50),
+	user_id int,
 	potluck_dietary_restrictions varchar(200),
 	is_recurring boolean NOT NULL,
 	frequency_days int,
 	location varchar(200),
 	is_private boolean NOT NULL,
 	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id),
-	CONSTRAINT fk_potlucks_users FOREIGN KEY (user_id) REFERENCES users (user_id)
+	CONSTRAINT fk_potlucks_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
 
 CREATE TABLE dishes (
@@ -58,6 +58,15 @@ CREATE TABLE potluck_dish(
 	CONSTRAINT pk_potluck_dish PRIMARY KEY (potluck_id, dish_id),
 	CONSTRAINT fk_potluck_dish_potluck FOREIGN KEY (potluck_id) REFERENCES potlucks (potluck_id),
 	CONSTRAINT fk_potluck_dish_dish FOREIGN KEY (dish_id) REFERENCES dishes (dish_id)
+);
+CREATE TABLE users_friends (
+	user_id int,
+	friend_id SERIAL,
+	friend_first_name varchar (50),
+	friend_last_name varchar (50),
+	friend_email_address varchar(50) NOT NULL UNIQUE,
+	CONSTRAINT PK_users_friends PRIMARY KEY (user_id,friend_id),
+	CONSTRAINT FK_users_users_friends FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 
