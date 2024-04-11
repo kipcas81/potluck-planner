@@ -4,6 +4,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.PotluckDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.model.Friend;
 import com.techelevator.model.Potluck;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,13 @@ public class PotluckController {
         int userid = userDao.getUserByUsername(username).getId();
         potluck.setUserId(userid);
         return potluckDao.createPotluck(potluck);
+    }
+
+    @RequestMapping(path = "/friends", method = RequestMethod.POST)
+    public List<Friend> saveFriends(@RequestBody Friend[] friends, Principal principal) {
+        String username = principal.getName();
+        int userid = userDao.getUserByUsername(username).getId();
+        return potluckDao.saveFriends(userid, friends);
     }
 
 
