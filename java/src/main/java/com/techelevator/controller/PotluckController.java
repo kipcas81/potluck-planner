@@ -5,6 +5,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.PotluckDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.Friend;
+import com.techelevator.model.Guest;
 import com.techelevator.model.Potluck;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +53,28 @@ public class PotluckController {
         String username = principal.getName();
         int userid = userDao.getUserByUsername(username).getId();
         return potluckDao.saveFriends(userid, friends);
+    }
+
+    @RequestMapping(path = "/friends", method = RequestMethod.GET)
+    public List<Friend> saveFriends(Principal principal) {
+        String username = principal.getName();
+        int userid = userDao.getUserByUsername(username).getId();
+        return potluckDao.getFriends(userid);
+    }
+
+    @RequestMapping(path = "/guests", method = RequestMethod.POST)
+    public List<Guest> inviteGuests(@RequestBody Guest[] guests) {
+        return potluckDao.inviteGuests(guests);
+    }
+
+    @RequestMapping(path = "/guests", method = RequestMethod.DELETE)
+    public List<Guest> removeGuests(@RequestBody Guest[] guests) {
+        return potluckDao.removeGuests(guests);
+    }
+
+    @RequestMapping(path = "/guests", method = RequestMethod.GET)
+    public List<Guest> getGuests(@RequestParam int potluckId) {
+        return potluckDao.getGuests(potluckId);
     }
 
 
