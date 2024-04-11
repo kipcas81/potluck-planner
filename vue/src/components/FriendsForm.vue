@@ -40,6 +40,10 @@ export default {
             this.$store.commit('ADD_FRIEND', this.newFriend);
             this.resetForm();
         },
+        cancelForm(){
+            this.$emit('cancel');
+            this.resetForm();
+        },
         resetForm(){
             this.newFriend = {};
         }

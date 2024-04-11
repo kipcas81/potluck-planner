@@ -6,17 +6,28 @@
         {{ friend.firstName }} {{ friend.lastName }} - {{ friend.email }}
       </li>
     </ul>
-    <button class="add-friend" v-on:click="$router.push({path: '/add-friend'})">Add a Friend</button>
+    <button class="add-friend" v-on:click="toggleFriendsForm">Add a Friend</button>
+    <FriendsForm v-bind:friend="friend" v-if="showForm"/>
 </div>
 </template>
 
 <script>
 import FriendService from '../services/FriendService';
+import FriendsForm from '../components/FriendsForm.vue';
 
 export default {
+    components: {
+        FriendsForm
+    },
     data() {
         return {
-            friends: []
+            friends: [],
+            friend: {
+                friend_first_name: "",
+                friend_last_name: "",
+                friend_email_address: "",
+            },
+            showForm: false
         };
     },
     methods: {
@@ -25,6 +36,9 @@ export default {
             .then(response => {
                 this.friends = response.data;
             })
+        },
+        toggleFriendsForm(){
+            this.showForm = !this.showForm;
         }
     }
 }

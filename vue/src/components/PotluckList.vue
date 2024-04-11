@@ -1,6 +1,12 @@
 <template>
 <div>
-    <router-link v-for="potluck in potlucks" v-bind:key="potluck.id">{{ potluck.name }}</router-link>
+    <div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.id">
+     <h2> {{ potluck.eventName }} </h2>
+     <p>NEED TO ADD DESCRIPTION</p>
+      <P> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</P>
+      <P> Please bring </P>
+    </div>
+    
 </div> 
 </template>
 
