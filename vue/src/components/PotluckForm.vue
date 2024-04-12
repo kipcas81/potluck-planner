@@ -2,7 +2,7 @@
 <form @submit.prevent="addNewPotluck">
     <div class="form-element">
         <label for="name">Name:</label>
-        <input id="name" type="text" v-model="newPotluck.name"/>
+        <input id="name" type="text" v-model="newPotluck.eventName"/>
     </div>
     <div class="form-element">
         <label for="description">Description:</label>
@@ -14,21 +14,21 @@
     </div>
     <div class="form-element">
         <label for="date">Date:</label>
-        <input id="date" type="date" v-model="newPotluck.date"/>
+        <input id="date" type="date" v-model="newPotluck.eventDate"/>
     </div>
     <div class="form-element">
         <label for="time">Time:</label>
-        <input id="time" type="time" v-model="newPotluck.time"/>
+        <input id="time" type="time" v-model="newPotluck.eventTime"/>
     </div>
  
 <!--------------------------------------------------------------------------->    
-    <div class="form-input-group">Food Restrictions:
+    <!-- <div class="form-input-group">Food Restrictions:
 
         <label v-for="(restriction, index) in newPotluck.diet" :key="index" :for="restriction.id">
         {{ restriction.label }}
         <input type="checkbox" :id="restriction.id" v-model="newPotluck.diet[index].checked" />
       </label>
-</div>
+</div> -->
 <!---------------------------------------------------------------------------->
 <!-- <div class="form-element"> Food Categories: 
 
@@ -41,17 +41,17 @@
 <!---------------------------------------------------------------------------->
 <div class="form-element">
         <label for="private">Private:</label>
-        <input id="private" type="checkbox" v-model="newPotluck.isPrivate"/>
+        <input id="private" type="checkbox" v-model="newPotluck.private"/>
     </div>
 
     <div class="form-element">
         <label for="recurring">Recurring:</label>
-        <input id="recurring" type="checkbox" v-model="newPotluck.isRecurring"/>
+        <input id="recurring" type="checkbox" v-model="newPotluck.recurring"/>
     </div>
   
-    <div class="form-element" v-show="newPotluck.isRecurring">
+    <div class="form-element" v-show="newPotluck.recurring">
         <label for="frequency">Every __ days:</label>
-        <input id="frequency" type="number" v-model="newPotluck.frequency"/>
+        <input id="frequency" type="number" v-model="newPotluck.frequencyDays"/>
     </div>
 
     <input type="submit" value="Save" />
@@ -74,50 +74,48 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                name: "",
+                eventName: "",
                 description: "", 
-                date: "",
-                time: "",
-                diet: [
-                { id: 'vegan', label: 'Vegan', checked: false },
-                { id: 'vegetarian', label: 'Vegetarian', checked: false},
-                { id: 'gluten', label: 'Gluten-Free', checked: false },
-                { id: 'sodium', label: 'Low-Sodium', checked: false },
-                { id: 'paleo', label: 'Paleo', checked: false },
-                { id: 'halal', label: 'Halal', checked: false },
-                { id: 'kosher', label: 'Kosher', checked: false },
-                { id: 'dairy', label: 'Dairy-Free', checked: false },
-                { id: 'nuts', label: 'No-Nuts', checked: false },
-                { id: 'sugar', label: 'Sugar-Free', checked: false}
-                ],
-                isRecurring: false,
-                frequency: 0,
+                eventDate: "",
+                eventTime: "",
+                // diet: [
+                // { id: 'vegan', label: 'Vegan', checked: false },
+                // { id: 'vegetarian', label: 'Vegetarian', checked: false},
+                // { id: 'gluten', label: 'Gluten-Free', checked: false },
+                // { id: 'sodium', label: 'Low-Sodium', checked: false },
+                // { id: 'paleo', label: 'Paleo', checked: false },
+                // { id: 'halal', label: 'Halal', checked: false },
+                // { id: 'kosher', label: 'Kosher', checked: false },
+                // { id: 'dairy', label: 'Dairy-Free', checked: false },
+                // { id: 'nuts', label: 'No-Nuts', checked: false },
+                // { id: 'sugar', label: 'Sugar-Free', checked: false}
+                // ],
+                recurring: false,
+                frequencyDays: 0,
                 location: "",
-                isPrivate: false
+                private: false
             },
         };
     },
     methods: {
         addNewPotluck(){
             if(this.newPotluck.frequency <= 0){
-                this.frequencyError = "Cannot have negative frequency";
                 return;
             }
-            this.frequencyError = '';
             PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
         },
         
         resetForm() {
-        this.newPotluck.name = "";
+        this.newPotluck.eventName = "";
         this.newPotluck.description = "";
-        this.newPotluck.date = "";
-        this.newPotluck.time = "";
-        this.newPotluck.diet.forEach(restriction => restriction.checked = false);
-        this.newPotluck.isRecurring = false;
-        this.newPotluck.frequency = 0;
+        this.newPotluck.eventDate = "";
+        this.newPotluck.eventTime = "";
+        // this.newPotluck.diet.forEach(restriction => restriction.checked = false);
+        this.newPotluck.recurring = false;
+        this.newPotluck.frequencyDays = 0;
         this.newPotluck.location = "";
-        this.newPotluck.isPrivate = true;
+        this.newPotluck.private = false;
         }
     }
 }
