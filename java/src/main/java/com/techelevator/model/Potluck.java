@@ -17,6 +17,25 @@ public class Potluck {
     private String location;
     private boolean isPrivate;
     private int userId;
+    private boolean isCompleted;
+
+    public Potluck() {}
+    public Potluck(int potluckId, String eventName, String description, LocalDate eventDate, LocalTime eventTime,
+                   List<String> dietaryRestrictions, boolean isRecurring, int frequencyDays, String location,
+                   boolean isPrivate, int userId, boolean isCompleted) {
+        this.potluckId = potluckId;
+        this.eventName = eventName;
+        this.description = description;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.dietaryRestrictions = dietaryRestrictions;
+        this.isRecurring = isRecurring;
+        this.frequencyDays = frequencyDays;
+        this.location = location;
+        this.isPrivate = isPrivate;
+        this.userId = userId;
+        this.isCompleted = isCompleted;
+    }
 
 
     public int getPotluckId() {
@@ -36,16 +55,17 @@ public class Potluck {
     }
 
     public String getEventName() {
-        return eventName;
+        return this.eventName;
     }
 
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
-    public String getDescription(String description) {
+    public String getDescription() {
         return this.description;
     }
+
 
     public void setDescription(String description) {
         this.description = description;
@@ -92,7 +112,7 @@ public class Potluck {
     }
 
     public int getFrequencyDays() {
-        return frequencyDays;
+        return this.frequencyDays;
     }
 
     public void setFrequencyDays(int frequencyDays) {
@@ -102,7 +122,15 @@ public class Potluck {
         return isPrivate;
     }
 
-    public void setPrivate(boolean aPrivate) {
-        isPrivate = aPrivate;
+    public void setPrivate(boolean Private) {
+        isPrivate = Private;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
     }
 }

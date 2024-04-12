@@ -4,7 +4,6 @@ import com.techelevator.model.Friend;
 import com.techelevator.model.Guest;
 import com.techelevator.model.Potluck;
 import com.techelevator.exception.DaoException;
-import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -12,10 +11,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 @Component
@@ -30,7 +27,7 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> allPotlucks = new ArrayList<>();
-        String sql = "select potluck_id, event_name, description, event_date, event_time, user_id, potluck_dietary_restrictions, is_private, is_recurring, location from potlucks;";
+        String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed FROM potlucks;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
             while (result.next()) {
@@ -47,10 +44,9 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public Potluck createPotluck(Potluck potluck) {
-        Potluck createdPotluck = new Potluck();
-        String insertPotluckSql = "INSERT INTO potlucks (event_name, event_date, event_time, is_recurring, is_private) VALUES (?, ?, ?, ?, ?)";
+        String insertPotluckSql = "INSERT INTO potlucks (event_name, description, event_date, event_time, location, potluck_dietary_restrictions, frequency_days, is_recurring, is_private, is_completed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
-            int newPotluckId = jdbcTemplate.queryForObject(insertPotluckSql, int.class, potluck.getEventName(), potluck.getEventDate(), potluck.getEventTime(), potluck.isRecurring(), potluck.isPrivate());
+            jdbcTemplate.update(insertPotluckSql, potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(), potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(), potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -59,7 +55,7 @@ public class JdbcPotluckDao implements PotluckDao {
             throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
         }
 
-        return createdPotluck;
+        return potluck;
     }
 
     public Potluck getPotluckById(int potluckId) {
@@ -202,24 +198,19 @@ public class JdbcPotluckDao implements PotluckDao {
         return guest;
     }
 
-
-
-
-
-
-
-
     private Potluck mapRowToPotluck(SqlRowSet rs) {
         Potluck potluck = new Potluck();
         potluck.setPotluckId(rs.getInt("potluck_id"));
         potluck.setUserId(rs.getInt("user_id"));
+        potluck.setFrequencyDays(rs.getInt("frequency_days"));
+        potluck.setDescription(rs.getString("description"));
         potluck.setEventName(rs.getString("event_name"));
-        potluck.getDescription(rs.getString("description"));
         potluck.setEventDate(rs.getString("event_date"));
         potluck.setEventTime(rs.getString("event_time"));
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
+        potluck.setCompleted(rs.getBoolean("is_completed"));
 
 
         List<String> dietaryRestrictions = Arrays.asList(rs.getString("potluck_dietary_restrictions").split(","));
