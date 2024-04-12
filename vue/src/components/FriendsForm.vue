@@ -41,9 +41,6 @@ export default {
             this.friendsArray.push(this.newFriend)
             FriendService.addFriend(this.friendsArray);
             this.resetForm();
-            // this.newFriend.id = this.id;
-            // this.$store.commit('ADD_FRIEND', this.newFriend);
-            // this.resetForm();
         },
         cancelForm(){
             this.$emit('cancel');
