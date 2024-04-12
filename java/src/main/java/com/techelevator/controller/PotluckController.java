@@ -1,12 +1,9 @@
 package com.techelevator.controller;
 
 
-
 import com.techelevator.dao.PotluckDao;
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.Friend;
-import com.techelevator.model.Guest;
-import com.techelevator.model.Potluck;
+import com.techelevator.model.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -47,29 +44,17 @@ public class PotluckController {
         return potluckDao.createPotluck(potluck);
     }
 
+
     @RequestMapping(path = "/potlucks/{potluckId}", method = RequestMethod.PUT)
-    public ResponseEntity<Potluck> updatePotluck(@PathVariable int potluckId, @RequestBody Potluck updatedPotluck) {
-        Potluck existingPotluck = potluckDao.getPotluckById(potluckId);
+    public Potluck updatePotluck(@PathVariable("potluckId") int potluckId, @RequestBody Potluck updatedPotluck) {
+        return potluckDao.updatePotluck(potluckId, updatedPotluck);
 
-        if (existingPotluck == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        updatedPotluck.setPotluckId(potluckId);
-        Potluck updated = potluckDao.updatePotluck(updatedPotluck);
-
-        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/potlucks/{potluckId}", method = RequestMethod.GET)
-    public ResponseEntity<Potluck> getPotluckById(@PathVariable int potluckId) {
-        Potluck potluck = potluckDao.getPotluckById(potluckId);
+    public Potluck getPotluckById(@PathVariable("potluckId") int potluckId) {
+        return potluckDao.getPotluckById(potluckId);
 
-        if (potluck == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<>(potluck, HttpStatus.OK);
     }
 
     @RequestMapping(path = "/friends", method = RequestMethod.POST)
@@ -99,6 +84,52 @@ public class PotluckController {
     @RequestMapping(path = "/guests", method = RequestMethod.GET)
     public List<Guest> getGuests(@RequestParam int potluckId) {
         return potluckDao.getGuests(potluckId);
+    }
+
+    @RequestMapping(path = "/dishNeeds", method = RequestMethod.POST)
+    public PotluckDishNeeds addDishNeeds(@RequestParam int potluckId, @RequestBody PotluckDishNeeds potluckDishNeeds) {
+        return potluckDao.addDishNeeds(potluckId, potluckDishNeeds);
+    }
+
+    @RequestMapping(path = "/dishNeeds", method = RequestMethod.PUT)
+    public PotluckDishNeeds updateDishNeeds(@RequestParam int potluckId, @RequestBody PotluckDishNeeds potluckDishNeeds) {
+        return potluckDao.updateDishNeeds(potluckId, potluckDishNeeds);
+    }
+
+    @RequestMapping(path = "/dishNeeds", method = RequestMethod.GET)
+    public List<PotluckDishNeeds> viewDishNeeds(@RequestParam int potluckId) {
+        return potluckDao.viewDishNeeds(potluckId);
+    }
+    @RequestMapping(path = "/dishNeeds", method = RequestMethod.DELETE)
+    public boolean deleteDishNeeds(@RequestParam int potluckId) {
+        return potluckDao.deleteDishNeeds(potluckId);
+    }
+
+    @RequestMapping(path = "/dish", method = RequestMethod.POST)
+    public Dish bringDish(Principal principal, @RequestParam int potluckId, @RequestBody Dish dish) {
+        String username = principal.getName();
+        int userid = userDao.getUserByUsername(username).getId();
+        return potluckDao.bringDish(userid, potluckId, dish);
+    }
+
+    @RequestMapping(path = "/dish", method = RequestMethod.PUT)
+    public Dish updateDish(@RequestParam int dishId, @RequestBody Dish dish) {
+        return potluckDao.updateDish(dishId, dish);
+    }
+
+    @RequestMapping(path = "/dish", method = RequestMethod.GET)
+    public Dish getDish(@RequestParam int dishId) {
+        return potluckDao.getDish(dishId);
+    }
+
+    @RequestMapping(path = "/dish", method = RequestMethod.DELETE)
+    public boolean deleteDish(@RequestParam int potluckId, @RequestParam int dishId) {
+        return potluckDao.deleteDish(potluckId, dishId);
+    }
+
+    @RequestMapping(path = "/allDishes", method = RequestMethod.GET)
+    public List<Dish> getAllDishesByPotluckId(@RequestParam int potluckId) {
+        return potluckDao.getAllDishesByPotluckId(potluckId);
     }
 
 }
