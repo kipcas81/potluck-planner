@@ -43,7 +43,7 @@
         <label for="recurring">Recurring:</label>
         <input id="recurring" type="checkbox" v-model="newPotluck.isRecurring"/>
     </div>
-<!---------------------------------------------------------------------------->    
+  
     <div class="form-element" v-show="newPotluck.isRecurring">
         <label for="frequency">Every __ days:</label>
         <input id="frequency" type="number" v-model="newPotluck.frequency"/>

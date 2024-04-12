@@ -19,9 +19,9 @@ export default {
       .then(response => {
         this.potlucks = response.data;
       })
-    //
+    
     }
-    //
+    
   },
   created(){
     this.getPotlucks();
