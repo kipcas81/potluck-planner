@@ -14,7 +14,11 @@ export default {
   deletePotluck(potluckId) {
     return axios.delete(`/potlucks/${potluckId}`);
   },
+<<<<<<< HEAD
+  
+=======
   getPotluck(potluckId){
     return axios.get(`/potlucks/${potluckId}`);
   }
+>>>>>>> f5b17cf3ff1a52c4e7ebebeb4907ed3282a0e758
 }
