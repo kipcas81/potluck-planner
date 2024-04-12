@@ -1,17 +1,30 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Friend;
-import com.techelevator.model.Guest;
-import com.techelevator.model.Potluck;
+import com.techelevator.model.*;
 
 import java.util.List;
 
 public interface PotluckDao {
+
+    PotluckDishNeeds addDishNeeds(int potluckId, PotluckDishNeeds potluckDishNeeds);
+    PotluckDishNeeds updateDishNeeds(int potluckId, PotluckDishNeeds potluckDishNeeds);
+    List<PotluckDishNeeds> viewDishNeeds(int potluckId);
+    boolean deleteDishNeeds(int potluckId);
+
+    Dish bringDish(int userid, int potluckId, Dish dish);
+
+    Dish updateDish(int dishId, Dish dish);
+
+    Dish getDish(int dishId);
+
+    boolean deleteDish(int potluckId, int dishId);
+
+    List<Dish> getAllDishesByPotluckId(int potluckId);
     List<Potluck> getAllPotlucks(int userid);
 
     Potluck createPotluck(Potluck potluck);
 
-    Potluck updatePotluck(Potluck potluck);
+    Potluck updatePotluck(int potluckId, Potluck potluck);
 
     Potluck getPotluckById(int potluckId);
 

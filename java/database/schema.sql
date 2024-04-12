@@ -30,18 +30,16 @@ CREATE TABLE potlucks (
 	CONSTRAINT pk_potlucks PRIMARY KEY (potluck_id),
 	CONSTRAINT fk_potlucks_user FOREIGN KEY (user_id) REFERENCES users (user_id)
 );
-
-CREATE TABLE dishes (
+CREATE TABLE dish (
 	dish_id SERIAL,
 	dish_name varchar(100) NOT NULL,
-	dish_dietary_restrictions varchar(200) NOT NULL,
-	category varchar(50) NOT NULL,
-	servings int NOT NULL,
-	recipe varchar,
-	dish_creator int,
-
-	CONSTRAINT pk_dishes PRIMARY KEY (dish_id)
-);
+	dish_dietary_restrictions varchar(200) NULL,
+	dish_category varchar(50) NOT NULL,
+	dish_servings int NOT NULL,
+	dish_recipe varchar,
+	user_id int,
+	CONSTRAINT pk_dish PRIMARY KEY (dish_id),
+	CONSTRAINT FK_users_dish FOREIGN KEY (user_id) REFERENCES users(user_id));
 
 CREATE TABLE potluck_user (
 	potluck_id int NOT NULL,
@@ -59,7 +57,7 @@ CREATE TABLE potluck_dish(
 
 	CONSTRAINT pk_potluck_dish PRIMARY KEY (potluck_id, dish_id),
 	CONSTRAINT fk_potluck_dish_potluck FOREIGN KEY (potluck_id) REFERENCES potlucks (potluck_id),
-	CONSTRAINT fk_potluck_dish_dish FOREIGN KEY (dish_id) REFERENCES dishes (dish_id)
+	CONSTRAINT fk_potluck_dish_dish FOREIGN KEY (dish_id) REFERENCES dish (dish_id)
 );
 CREATE TABLE users_friends (
 	user_id int,
@@ -79,6 +77,25 @@ CREATE TABLE potluck_guests (
 	guest_already_registered boolean default false,
 	CONSTRAINT PK_potluck_guests PRIMARY KEY (potluck_id, guest_id),
 	CONSTRAINT FK_potlucks_potluck_guests FOREIGN KEY (potluck_id) REFERENCES potlucks(potluck_id));
+
+	CREATE TABLE potluck_user_dish (
+    	potluck_id int,
+    	user_id int,
+    	dish_id int,
+    	CONSTRAINT pk_potluck_user_dish PRIMARY KEY (potluck_id, user_id,dish_id),
+    	CONSTRAINT FK_potluck_potluck_user_dish FOREIGN KEY (potluck_id) REFERENCES potlucks(potluck_id),
+    	CONSTRAINT FK_users_potluck_user_dish FOREIGN KEY (user_id) REFERENCES users(user_id),
+    	CONSTRAINT FK_dish_potluck_user_dish FOREIGN KEY (dish_id) REFERENCES dish(dish_id)
+    );
+    CREATE TABLE potluck_dish_needs (
+    	potluck_id int,
+    	dish_category_id SERIAL,
+    	dish_category varchar(50) NOT NULL,
+    	dish_serving_count_needed int NOT NULL,
+    	dish_serving_count_filled int NOT NULL,
+
+    	CONSTRAINT pk_potluck_dish_needs PRIMARY KEY (potluck_id,dish_category_id),
+    	CONSTRAINT FK_potluck_potluck_dish_needs FOREIGN KEY (potluck_id) REFERENCES potlucks(potluck_id));
 
 
 
