@@ -1,6 +1,10 @@
 <template>
 <div>
-    <!-- <router-link v-for="friend in friends" v-bind:key="friend.id">{{ friend.name }}</router-link> -->
+    <div class="friendsListBox" v-for="friend in friends" v-bind:key="friend.user_id">
+      <ul>
+        <li>{{ friend.friend_first_name }} {{ friend.friend_last_name }} -- {{ friend.friend_email_address }}</li>
+      </ul>
+    </div>
 </div>
 </template>
 
@@ -17,7 +21,7 @@ export default {
     getFriends() {
       FriendService.friendsList()
       .then(response => {
-        this.potlucks = response.data;
+        this.friends = response.data;
       })
     }
   },
