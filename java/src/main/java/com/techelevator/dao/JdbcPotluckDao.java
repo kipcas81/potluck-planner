@@ -44,9 +44,32 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public Potluck createPotluck(Potluck potluck) {
-        String insertPotluckSql = "INSERT INTO potlucks (event_name, description, event_date, event_time, location, potluck_dietary_restrictions, frequency_days, is_recurring, is_private, is_completed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        Potluck createdPotluck = potluck;
+        String insertPotluckSql = "INSERT INTO potlucks (user_id, event_name, description, event_date, event_time, location, potluck_dietary_restrictions, frequency_days, is_recurring, is_private, is_completed) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING potluck_id";
+
         try {
-            jdbcTemplate.update(insertPotluckSql, potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(), potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(), potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted());
+            int potluckId = jdbcTemplate.queryForObject(insertPotluckSql, Integer.class, potluck.getUserId(), potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(), potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(), potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted());
+            createdPotluck.setPotluckId(potluckId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        return createdPotluck;
+    }
+
+    public Potluck updatePotluck(Potluck potluck) {
+        String updatePotluckSql = "UPDATE potlucks SET event_name = ?, description = ?, event_date = ?, event_time = ?, " +
+                "location = ?, potluck_dietary_restrictions = ?, frequency_days = ?, is_recurring = ?, is_private = ?, is_completed = ? " +
+                "WHERE potluck_id = ?";
+        try {
+            jdbcTemplate.update(updatePotluckSql, potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(),
+                    potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(),
+                    potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted(), potluck.getPotluckId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -57,6 +80,7 @@ public class JdbcPotluckDao implements PotluckDao {
 
         return potluck;
     }
+
 
     public Potluck getPotluckById(int potluckId) {
         Potluck potluck = new Potluck();
@@ -82,8 +106,8 @@ public class JdbcPotluckDao implements PotluckDao {
             String sql = "INSERT INTO users_friends(user_id, friend_first_name, friend_last_name, friend_email_address) " +
                     "VALUES(?,?,?,?) returning friend_id;";
             try {
-                int friendId = jdbcTemplate.queryForObject(sql, int.class, userid,friend.getFriend_first_name(),
-                        friend.getFriend_last_name(),friend.getFriend_email_address());
+                int friendId = jdbcTemplate.queryForObject(sql, int.class, userid, friend.getFriend_first_name(),
+                        friend.getFriend_last_name(), friend.getFriend_email_address());
                 createdFriend.setUser_id(userid);
                 createdFriend.setFriend_id(friendId);
                 savedFriends.add(createdFriend);
@@ -116,6 +140,7 @@ public class JdbcPotluckDao implements PotluckDao {
         }
         return getFriendsByUserid;
     }
+
     public List<Guest> inviteGuests(Guest[] guests) {
         List<Guest> invitedGuests = new ArrayList<>();
         Guest createdGuest = null;
@@ -125,8 +150,8 @@ public class JdbcPotluckDao implements PotluckDao {
                     " guest_already_registered) " +
                     "VALUES(?,?,?,?,?) returning guest_id;";
             try {
-                int guestId = jdbcTemplate.queryForObject(sql, int.class, guest.getPotluck_id(),guest.getGuest_first_name(),
-                        guest.getGuest_last_name(),guest.getGuest_email_address(),guest.getGuest_already_registered());
+                int guestId = jdbcTemplate.queryForObject(sql, int.class, guest.getPotluck_id(), guest.getGuest_first_name(),
+                        guest.getGuest_last_name(), guest.getGuest_email_address(), guest.getGuest_already_registered());
                 createdGuest.setGuest_id(guestId);
                 invitedGuests.add(createdGuest);
             } catch (CannotGetJdbcConnectionException e) {
@@ -139,6 +164,7 @@ public class JdbcPotluckDao implements PotluckDao {
         }
         return invitedGuests;
     }
+
     public List<Guest> removeGuests(Guest[] guests) {
         List<Guest> removedGuests = new ArrayList<>();
         int numberOfRowsRemoved, totalrowsDeleted = 0;
@@ -160,6 +186,7 @@ public class JdbcPotluckDao implements PotluckDao {
         System.out.println(totalrowsDeleted);
         return removedGuests;
     }
+
     public List<Guest> getGuests(int potluckId) {
         List<Guest> allGuestsByPotluckId = new ArrayList<>();
         Guest guest = null;
@@ -178,6 +205,7 @@ public class JdbcPotluckDao implements PotluckDao {
         }
         return allGuestsByPotluckId;
     }
+
     private Friend mapRowToFriend(SqlRowSet rs) {
         Friend friend = new Friend();
         friend.setUser_id(rs.getInt("user_id"));
@@ -187,6 +215,7 @@ public class JdbcPotluckDao implements PotluckDao {
         friend.setFriend_email_address(rs.getString("friend_email_address"));
         return friend;
     }
+
     private Guest mapRowToGuest(SqlRowSet rs) {
         Guest guest = new Guest();
         guest.setPotluck_id(rs.getInt("potluck_id"));
@@ -213,7 +242,8 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setCompleted(rs.getBoolean("is_completed"));
 
 
-        List<String> dietaryRestrictions = Arrays.asList(rs.getString("potluck_dietary_restrictions").split(","));
+        String dietaryRestrictionsString = rs.getString("potluck_dietary_restrictions");
+        List<String> dietaryRestrictions = dietaryRestrictionsString != null ? Arrays.asList(dietaryRestrictionsString.split(",")) : new ArrayList<>();
         potluck.setDietaryRestrictions(dietaryRestrictions);
 
         return potluck;

@@ -47,6 +47,31 @@ public class PotluckController {
         return potluckDao.createPotluck(potluck);
     }
 
+    @RequestMapping(path = "/potlucks/{potluckId}", method = RequestMethod.PUT)
+    public ResponseEntity<Potluck> updatePotluck(@PathVariable int potluckId, @RequestBody Potluck updatedPotluck) {
+        Potluck existingPotluck = potluckDao.getPotluckById(potluckId);
+
+        if (existingPotluck == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        updatedPotluck.setPotluckId(potluckId);
+        Potluck updated = potluckDao.updatePotluck(updatedPotluck);
+
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
+    @RequestMapping(path = "/potlucks/{potluckId}", method = RequestMethod.GET)
+    public ResponseEntity<Potluck> getPotluckById(@PathVariable int potluckId) {
+        Potluck potluck = potluckDao.getPotluckById(potluckId);
+
+        if (potluck == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(potluck, HttpStatus.OK);
+    }
+
     @RequestMapping(path = "/friends", method = RequestMethod.POST)
     public List<Friend> saveFriends(@RequestBody Friend[] friends, Principal principal) {
         String username = principal.getName();
@@ -75,7 +100,5 @@ public class PotluckController {
     public List<Guest> getGuests(@RequestParam int potluckId) {
         return potluckDao.getGuests(potluckId);
     }
-
-
 
 }

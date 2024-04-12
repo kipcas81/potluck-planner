@@ -42,7 +42,7 @@ public class Potluck {
         return potluckId;
     }
 
-    public void setPotluckId(int id) {
+    public void setPotluckId(int potluckId) {
         this.potluckId = potluckId;
     }
 
