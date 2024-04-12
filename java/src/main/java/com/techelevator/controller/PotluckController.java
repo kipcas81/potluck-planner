@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-//@RequestMapping("/potlucks")
 @PreAuthorize("isAuthenticated()")
 public class PotluckController {
 
