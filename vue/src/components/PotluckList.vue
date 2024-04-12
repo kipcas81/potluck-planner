@@ -31,10 +31,6 @@ export default {
     this.getPotlucks();
   }
 }
-
-
-
-
 </script>
 
 

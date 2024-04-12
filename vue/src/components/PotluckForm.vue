@@ -20,39 +20,10 @@
 <!--------------------------------------------------------------------------->    
     <div class="form-input-group">Food Restrictions:
 
-<<<<<<< HEAD
-    <label for="Vegetarian">Vegetarian</label>
-    <input type="checkbox" id="dietary_vegetarian" v-model=newPotluck.diet />
-
-    <label for="Gluten-Free">Gluten-Free</label>
-    <input type="checkbox" id="dietary_gluten" v-model="newPotluck.diet" />
-
-    <label for="Low-Sodium">Low-Sodium</label>
-    <input type="checkbox" id="dietary_sodium" v-model="newPotluck.diet" />
-
-    <label for="Paleo">Paleo</label>
-    <input type="checkbox" id="dietary_paleo" v-model="newPotluck.diet" />
-
-    <label for="Halal">Halal</label>
-    <input type="checkbox" id="dietary_halal" v-model="newPotluck.diet" />
-
-    <label for="Kosher">Kosher</label>
-    <input type="checkbox" id="dietary_kosher" v-model="newPotluck.diet" />
-
-    <label for="Dairy-Free">Dairy-Free</label>
-    <input type="checkbox" id="dietary_dairy" v-model="newPotluck.diet" />
-
-    <label for="No-Nuts">Nuts</label>
-    <input type="checkbox" id="dietary_nuts" v-model="newPotluck.diet" />
-
-    <label for="Sugar-Free">Sugar-Free</label>
-    <input type="checkbox" id="dietary_sugar" v-model="newPotluck.diet" />
-=======
         <label v-for="(restriction, index) in newPotluck.diet" :key="index" :for="restriction.id">
         {{ restriction.label }}
         <input type="checkbox" :id="restriction.id" v-model="newPotluck.diet[index].checked" />
       </label>
->>>>>>> a0ebb31ed30ab202cfeec786357b052823b6b4bc
 </div>
 <!---------------------------------------------------------------------------->
 <div class="form-element"> Food Categories: 
@@ -132,8 +103,9 @@ export default {
                 return;
             }
             this.frequencyError = '';
-            this.newPotluck.potluckId = this.potluckId;
-            this.$store.commit('ADD_POTLUCK', this.newPotluck);
+            // this.newPotluck.potluckId = this.potluckId;
+            // this.$store.commit('ADD_POTLUCK', this.newPotluck);
+            this.PotluckService.addNewPotluck(this.newPotluck);
             this.resetForm();
         },
         
