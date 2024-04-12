@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import FriendService from '../services/FriendService';
 export default {
     props: {
         friends: {
