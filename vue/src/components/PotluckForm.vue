@@ -78,7 +78,6 @@ export default {
                 description: "", 
                 date: "",
                 time: "",
-                creator: "",
                 diet: [
                 { id: 'vegan', label: 'Vegan', checked: false },
                 { id: 'vegetarian', label: 'Vegetarian', checked: false},
@@ -114,7 +113,7 @@ export default {
             this.frequencyError = '';
             // this.newPotluck.potluckId = this.potluckId;
             // this.$store.commit('ADD_POTLUCK', this.newPotluck);
-            this.PotluckService.addNewPotluck(this.newPotluck);
+            PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
         },
         
@@ -123,7 +122,6 @@ export default {
         this.newPotluck.description = "";
         this.newPotluck.date = "";
         this.newPotluck.time = "";
-        this.newPotluck.creator = "";
         this.newPotluck.diet.forEach(restriction => restriction.checked = false);
         // this.newPotluck.categories.forEach(category => category.checked = false);
         this.newPotluck.isRecurring = false;
