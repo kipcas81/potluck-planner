@@ -9,7 +9,7 @@
         <input id="description" type="text" v-model="newPotluck.description"/>
     </div>
     <div class="form-element">
-        <label for="location">Location</label>
+        <label for="location">Location:</label>
         <input id="location" type="text" v-model="newPotluck.location"/>
     </div>
     <div class="form-element">
