@@ -1,8 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Friend;
-import com.techelevator.model.Guest;
-import com.techelevator.model.Potluck;
+import com.techelevator.model.*;
 import com.techelevator.exception.DaoException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -62,7 +60,7 @@ public class JdbcPotluckDao implements PotluckDao {
         return createdPotluck;
     }
 
-    public Potluck updatePotluck(Potluck potluck) {
+    public Potluck updatePotluck(int potluckId, Potluck potluck) {
         String updatePotluckSql = "UPDATE potlucks SET event_name = ?, description = ?, event_date = ?, event_time = ?, " +
                 "location = ?, potluck_dietary_restrictions = ?, frequency_days = ?, is_recurring = ?, is_private = ?, is_completed = ? " +
                 "WHERE potluck_id = ?";
@@ -84,8 +82,8 @@ public class JdbcPotluckDao implements PotluckDao {
 
     public Potluck getPotluckById(int potluckId) {
         Potluck potluck = new Potluck();
-        String sql = "select potluck_id, potluck_name, user_id " +
-                "from potluck " +
+        String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed " +
+                "FROM potlucks " +
                 "where potluck_id = ?;";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, potluckId);
@@ -204,6 +202,265 @@ public class JdbcPotluckDao implements PotluckDao {
             throw new DaoException("Data integrity violation", e);
         }
         return allGuestsByPotluckId;
+    }
+
+    public PotluckDishNeeds addDishNeeds(int potluckId, PotluckDishNeeds potluckDishNeeds) {
+        PotluckDishNeeds createPotluckDishNeeds = potluckDishNeeds;
+        String sql = "INSERT INTO potluck_dish_needs(potluck_id, dish_category, dish_serving_count_needed, dish_serving_count_filled) " +
+                "VALUES(?,?,?,?) returning dish_category_id;";
+        try {
+            int dishCategoryId = jdbcTemplate.queryForObject(sql, int.class, potluckId,potluckDishNeeds.getDish_category(),potluckDishNeeds.getDish_serving_count_needed(),
+                    potluckDishNeeds.getDish_serving_count_filled());
+            createPotluckDishNeeds.setPotluck_id(potluckId);
+            createPotluckDishNeeds.setDish_category_id(dishCategoryId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+        return createPotluckDishNeeds;
+    }
+
+    public PotluckDishNeeds updateDishNeeds(int potluckId, PotluckDishNeeds potluckDishNeeds) {
+        PotluckDishNeeds updatedPotluckDishNeeds = potluckDishNeeds;
+        String sql = "update potluck_dish_needs " +
+                "set dish_category = ?, dish_serving_count_needed = ? " +
+                "where potluck_id = ? and dish_category = ?;";
+        try {
+            int rowsUpdated = jdbcTemplate.update(sql, potluckDishNeeds.getDish_category(),potluckDishNeeds.getDish_serving_count_needed(),
+                    potluckId,potluckDishNeeds.getDish_category());
+            updatedPotluckDishNeeds.setPotluck_id(potluckId);
+            if (rowsUpdated != 1) {
+                throw new DaoException("potluck_dish_needs update didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+        return updatedPotluckDishNeeds;
+    }
+
+    public List<PotluckDishNeeds> viewDishNeeds(int potluckId) {
+        List<PotluckDishNeeds> potluckDishNeedsByPotluckId = new ArrayList<>();
+        PotluckDishNeeds potluckDishNeeds = null;
+        String sql = "SELECT potluck_id, dish_category_id, dish_category, dish_serving_count_needed, dish_serving_count_filled " +
+                "FROM potluck_dish_needs where potluck_id = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, potluckId);
+            while (result.next()) {
+                potluckDishNeeds = mapRowToPotluckDishNeeds(result);
+                potluckDishNeedsByPotluckId.add(potluckDishNeeds);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return potluckDishNeedsByPotluckId;
+    }
+
+    public boolean deleteDishNeeds(int potluckId) {
+        String sql = "delete from potluck_dish_needs " +
+                "where potluck_id = ?;";
+        try {
+            int rowsDeleted = jdbcTemplate.update(sql, potluckId);
+            if (rowsDeleted == 0) {
+                throw new DaoException("potluck_dish_needs DELETION didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return true;
+    }
+
+    public Dish bringDish(int userid, int potluckId, Dish dish) {
+        Dish createdDish = dish;
+        int dishId = 0;
+        String sql = "update potluck_dish_needs set  dish_serving_count_filled = dish_serving_count_filled + ? " +
+                "where potluck_id = ? " +
+                "and dish_category = ?;";
+        try {
+            int rowsUpdated = jdbcTemplate.update(sql, dish.getDish_servings(), potluckId, dish.getDish_category());
+            if (rowsUpdated != 1) {
+                throw new DaoException("potluck_dish_needs:dish_serving_count_filled update didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        sql = "INSERT INTO dish(dish_name, dish_dietary_restrictions, dish_category, dish_servings," +
+                " dish_recipe, user_id) " +
+                "VALUES(?,?,?,?,?,?) returning dish_id;";
+        try {
+            dishId = jdbcTemplate.queryForObject(sql, int.class, dish.getDish_name(), dish.getDish_dietary_restrictions(),
+                    dish.getDish_category(), dish.getDish_servings(), dish.getDish_recipe(), userid);
+            createdDish.setDish_id(dishId);
+            createdDish.setUser_id(userid);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        sql = "INSERT INTO potluck_user_dish(potluck_id, user_id, dish_id) " +
+                "VALUES(?,?,?);";
+        try {
+            jdbcTemplate.update(sql, potluckId, userid, dishId);
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        return createdDish;
+    }
+
+    public Dish updateDish(int dishId, Dish dish) {
+        Dish updatedDish = dish;
+        String sql = "update dish set  dish_name = ?, dish_dietary_restrictions = ?, dish_recipe = ? " +
+                "where dish_id = ?;";
+        try {
+            int rowsUpdated = jdbcTemplate.update(sql,dish.getDish_name(),dish.getDish_dietary_restrictions(),dish.getDish_recipe(),dishId);
+            if (rowsUpdated != 1) {
+                throw new DaoException("Dish table update didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+        return updatedDish;
+    }
+
+    public Dish getDish(int dishId) {
+        Dish dish = new Dish();
+        String sql = "select dish_id, dish_name, dish_dietary_restrictions, dish_category, dish_servings, dish_recipe, user_id  " +
+                "from dish " +
+                "where dish_id = ?;";
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, dishId);
+            if (results.next()) {
+                dish = mapRowToDish(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+        return dish;
+    }
+
+
+    public boolean deleteDish(int potluckId, int dishId) {
+        Dish dish = getDish(dishId);
+
+        String sql = "update potluck_dish_needs set  dish_serving_count_filled = dish_serving_count_filled - ? " +
+                "where potluck_id = ? " +
+                "and dish_category = ?;";
+        try {
+            int rowsUpdated = jdbcTemplate.update(sql, dish.getDish_servings(), potluckId, dish.getDish_category());
+            if (rowsUpdated != 1) {
+                throw new DaoException("While deleting dish, potluck_dish_needs:dish_serving_count_filled update didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        sql = "delete from potluck_user_dish " +
+                "where dish_id = ?;";
+        try {
+            int rowsDeleted = jdbcTemplate.update(sql, dishId);
+            if (rowsDeleted != 1) {
+                throw new DaoException("potluck_user_dish table row DELETION didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        sql = "delete from dish " +
+                "where dish_id = ?;";
+        try {
+            int rowsDeleted = jdbcTemplate.update(sql, dishId);
+            if (rowsDeleted != 1) {
+                throw new DaoException("Dish table row DELETION didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return true;
+    }
+
+    public List<Dish> getAllDishesByPotluckId(int potluckId) {
+        List<Dish> dishesByPotluckId = new ArrayList<>();
+        PotluckUserDish potluckUserDish = null;
+        String sql = "SELECT potluck_id, user_id, dish_id " +
+                "FROM potluck_user_dish where potluck_id = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, potluckId);
+            while (result.next()) {
+                potluckUserDish = mapRowToPotluckUserDish(result);
+                dishesByPotluckId.add(getDish(potluckUserDish.getDish_id()));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return dishesByPotluckId;
+    }
+
+
+
+    private PotluckUserDish mapRowToPotluckUserDish(SqlRowSet rs) {
+        PotluckUserDish potluckUserDish = new PotluckUserDish();
+        potluckUserDish.setPotluck_id(rs.getInt("potluck_id"));
+        potluckUserDish.setUser_id(rs.getInt("user_id"));
+        potluckUserDish.setDish_id(rs.getInt("dish_id"));
+        return potluckUserDish;
+    }
+
+    private Dish mapRowToDish(SqlRowSet rs) {
+        Dish dish = new Dish();
+        dish.setDish_id(rs.getInt("dish_id"));
+        dish.setDish_name(rs.getString("dish_name"));
+        dish.setDish_dietary_restrictions(rs.getString("dish_dietary_restrictions"));
+        dish.setDish_category(rs.getString("dish_category"));
+        dish.setDish_servings(rs.getInt("dish_servings"));
+        dish.setDish_recipe(rs.getString("dish_recipe"));
+        dish.setUser_id(rs.getInt("user_id"));
+        return dish;
+    }
+    private PotluckDishNeeds mapRowToPotluckDishNeeds(SqlRowSet rs) {
+        PotluckDishNeeds potluckDishNeeds = new PotluckDishNeeds();
+        potluckDishNeeds.setPotluck_id(rs.getInt("potluck_id"));
+        potluckDishNeeds.setDish_category_id(rs.getInt("dish_category_id"));
+        potluckDishNeeds.setDish_category(rs.getString("dish_category"));
+        potluckDishNeeds.setDish_serving_count_needed(rs.getInt("dish_serving_count_needed"));
+        potluckDishNeeds.setDish_serving_count_filled(rs.getInt("dish_serving_count_filled"));
+        return potluckDishNeeds;
     }
 
     private Friend mapRowToFriend(SqlRowSet rs) {
