@@ -11,6 +11,10 @@ public interface PotluckDao {
 
     Potluck createPotluck(Potluck potluck);
 
+    Potluck updatePotluck(Potluck potluck);
+
+    Potluck getPotluckById(int potluckId);
+
     List<Friend> saveFriends(int userid, Friend[] friends);
 
     List<Friend> getFriends(int userid);
@@ -20,6 +24,7 @@ public interface PotluckDao {
     List<Guest> removeGuests(Guest[] guests);
 
     List<Guest> getGuests(int potluckId);
+
 
 
 }
