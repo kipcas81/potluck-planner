@@ -30,15 +30,20 @@
       </label>
 </div>
 <!---------------------------------------------------------------------------->
-<div class="form-element"> Food Categories: 
+<!-- <div class="form-element"> Food Categories: 
 
     <label v-for="(category, index) in newPotluck.categories" :key="index" :for="category.id">
         {{ category.label }}
         <input type="checkbox" :id="category.id" v-model="newPotluck.categories[index].checked" />
       </label>
 
-</div>
+</div> -->
 <!---------------------------------------------------------------------------->
+<div class="form-element">
+        <label for="private">Private:</label>
+        <input id="private" type="checkbox" v-model="newPotluck.isPrivate"/>
+    </div>
+
     <div class="form-element">
         <label for="recurring">Recurring:</label>
         <input id="recurring" type="checkbox" v-model="newPotluck.isRecurring"/>
@@ -86,17 +91,17 @@ export default {
                 { id: 'nuts', label: 'No-Nuts', checked: false },
                 { id: 'sugar', label: 'Sugar-Free', checked: false}
                 ],
-                categories: [
-                { id: 'appetizers', label: 'Appetizers', checked: false },
-                { id: 'entrees', label: 'Entrees', checked: false },
-                { id: 'sides', label: 'Sides', checked: false },
-                { id: 'desserts', label: 'Desserts', checked: false },
-                { id: 'drinks', label: 'Drinks', checked: false }   
-                ],
+                // categories: [
+                // { id: 'appetizers', label: 'Appetizers', checked: false },
+                // { id: 'entrees', label: 'Entrees', checked: false },
+                // { id: 'sides', label: 'Sides', checked: false },
+                // { id: 'desserts', label: 'Desserts', checked: false },
+                // { id: 'drinks', label: 'Drinks', checked: false }   
+                // ],
                 isRecurring: false,
                 frequency: 0,
                 location: "",
-                isPrivate: true
+                isPrivate: false
             },
         };
     },
@@ -119,7 +124,7 @@ export default {
         this.newPotluck.time = "";
         this.newPotluck.creator = "";
         this.newPotluck.diet.forEach(restriction => restriction.checked = false);
-        this.newPotluck.categories.forEach(category => category.checked = false);
+        // this.newPotluck.categories.forEach(category => category.checked = false);
         this.newPotluck.isRecurring = false;
         this.newPotluck.frequency = 0;
         this.newPotluck.location = "";
