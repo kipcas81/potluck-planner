@@ -1,6 +1,10 @@
 <template>
     <header class="flex">
         <h1>{{ potluck.eventName }}</h1>
+        <h2>{{ potluck.description }}</h2>
+        <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
+        <p>Location: {{ potluck.location }}</p>
+        <p></p>
         <div class="actions">
             <button class="btn-edit" v-on:click="$router.push({name: 'EditPotluck', paras: {potluckId: potluckId}})">Edit</button>
             <button class="btn-delete" v-on:click="deletePotluck">Delete</button>

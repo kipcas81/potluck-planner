@@ -4,7 +4,7 @@
      <h2> {{ potluck.eventName }} </h2>
      <p>{{potluck.description}}</p>
       <p> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</p>
-      <p> Please bring </p>
+      <p> {{potluck.dietaryRestrictions}} </p>
     </div>
     
 </div> 
