@@ -90,13 +90,6 @@ export default {
                 { id: 'nuts', label: 'No-Nuts', checked: false },
                 { id: 'sugar', label: 'Sugar-Free', checked: false}
                 ],
-                // categories: [
-                // { id: 'appetizers', label: 'Appetizers', checked: false },
-                // { id: 'entrees', label: 'Entrees', checked: false },
-                // { id: 'sides', label: 'Sides', checked: false },
-                // { id: 'desserts', label: 'Desserts', checked: false },
-                // { id: 'drinks', label: 'Drinks', checked: false }   
-                // ],
                 isRecurring: false,
                 frequency: 0,
                 location: "",
@@ -111,8 +104,6 @@ export default {
                 return;
             }
             this.frequencyError = '';
-            // this.newPotluck.potluckId = this.potluckId;
-            // this.$store.commit('ADD_POTLUCK', this.newPotluck);
             PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
         },
@@ -123,7 +114,6 @@ export default {
         this.newPotluck.date = "";
         this.newPotluck.time = "";
         this.newPotluck.diet.forEach(restriction => restriction.checked = false);
-        // this.newPotluck.categories.forEach(category => category.checked = false);
         this.newPotluck.isRecurring = false;
         this.newPotluck.frequency = 0;
         this.newPotluck.location = "";
