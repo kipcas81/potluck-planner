@@ -30,7 +30,7 @@ export default {
                 PotluckService.deletePotluck(this.potluck.potluckId)
                 .then(response => {
                     if(response.status === 200){
-                        this.$router.push({path: 'HomeView'});
+                        this.$router.push({path: '/'});
                     }
                 });
                 

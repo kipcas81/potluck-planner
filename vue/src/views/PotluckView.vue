@@ -2,6 +2,7 @@
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
     </div>
+    <h2>Guest List</h2>
     <GuestList :guests="guests"/>
 </template>
 <script>
