@@ -10,6 +10,7 @@ import AddPotluckView from '../views/AddPotluckView.vue';
 import FriendsView from '../views/FriendsView.vue';
 import AddFriendsView from '../views/AddFriendsView.vue';
 import PotluckView from '../views/PotluckView.vue';
+import EditPotluckView from '../views/EditPotluckView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -80,6 +81,14 @@ const routes = [
       path: "/potluck/:potluckId",
       name: 'PotluckView',
       component: PotluckView,
+      meta: {
+        requiresAuth: true
+      }
+    },
+    {
+      path: "/potluck/:potluckId/edit",
+      name: 'EditPotluckView',
+      component: EditPotluckView,
       meta: {
         requiresAuth: true
       }
