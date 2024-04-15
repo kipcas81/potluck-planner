@@ -25,11 +25,12 @@ export default {
             required: true
         }
     },
-    computed: {
-
-    },
     methods: {
-
+        deletePotluck() {
+            if (
+                confirm 
+            )
+        }
     }
 }
 </script>
