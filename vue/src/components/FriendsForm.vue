@@ -9,7 +9,7 @@
         <input id="lastname" type="text" v-model="newFriend.friend_last_name">  
     </div>
     <div>
-        <label for="email">email address</label>
+        <label for="email">Email address</label>
         <input id="email" type="email" v-model="newFriend.friend_email_address">   
     </div>
     <input class="submitbtn" type="submit" value="Save" />

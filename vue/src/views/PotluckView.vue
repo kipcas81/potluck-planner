@@ -2,14 +2,17 @@
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
     </div>
+    <GuestList :guests="guests"/>
 </template>
 <script>
 import PotluckDetail from '../components/PotluckDetail.vue';
 import PotluckService from '../services/PotluckService';
+import GuestList from '../components/GuestList.vue';
 
 export default {
     components: {
-        PotluckDetail
+        PotluckDetail,
+        GuestList
     },
     data(){
       return {
@@ -24,6 +27,12 @@ export default {
                 location: "",
                 private: false
             },
+            guests: [],
+            guest: {
+              guest_first_name: "",
+              guest_last_name: "",
+              guest_email_address: ""
+            }
       };
     },
     created(){
