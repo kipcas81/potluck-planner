@@ -11,13 +11,19 @@
 </template>
 
 <style>
-body{
-  font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(255, 176, 176);
+#capstone-app {
+  background-image: url("./assets/seefood.jpg"); 
+  background-size: contain;  
+  height: 100%;
+  background-position: center; 
+  background-repeat: repeat; 
+  font-family: cursive;
+  
 }
 
-h1{
-  color: rgb(68, 5, 5);
+#nav {
+  background-color: rgba(255, 255, 255, 0.7); 
+  padding: 10px;
 }
 
 </style>

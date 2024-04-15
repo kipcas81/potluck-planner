@@ -1,25 +1,29 @@
 <template>
   <div id="login">
-    <form v-on:submit.prevent="login">
-      <h1 >Thanks for choosing The Two Prawn Approach Potluck Planner!</h1>
-      <h2>Please sign In</h2>
+    <div class="banner">
+    <h1 class="title">The Two Prawn Approach Potluck Planner</h1>
+    <h2 class="welcome-message">Welcome Back!</h2>
+  </div>
+    <form class="login-box" v-on:submit.prevent="login">
+      
+      <h1 class="please">Please sign In</h1>
       <div role="alert" v-if="invalidCredentials">
         Invalid username and password!
       </div>
       <div role="alert" v-if="this.$route.query.registration">
         Thank you for registering, please sign in.
       </div>
-      <div class="form-input-group">
+      <div class="form-input-group" id="username">
         <label for="username">Username</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
-      <div class="form-input-group">
+      <div class="form-input-group" id="password">
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <button type="submit">Sign in</button>
+      <button class="signin" type="submit">Sign in</button>
       <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <router-link class="reg-button" v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
   </div>
 </template>
@@ -63,9 +67,57 @@ export default {
 
 <style scoped>
 .form-input-group {
-  margin-bottom: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 label {
   margin-right: 0.5rem;
 }
+
+#login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  text-align: center;
+}
+
+.login-box {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: flex-start; 
+  width: 300px;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  padding: 5px;
+  height: 40%;
+}
+
+.banner {
+  font-family: cursive;
+  width: 96vw;
+  background-color: rgb(252,191,188);
+  border: 4px solid rgb(255,127,80);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  position: absolute; /* Position the banner absolutely */
+  top: 40px; /* Position it at the top */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust to center horizontally */
+}
+
+.please {
+  margin-bottom: 20px;
+  font-family: cursive;
+}
+
 </style>

@@ -3,8 +3,6 @@
       <PotluckDetail v-bind:potluck="Potluck"/>
     </div>
 </template>
-
-
 <script>
 import PotluckDetail from '../components/PotluckDetail.vue';
 import PotluckService from '../services/PotluckService';
@@ -36,7 +34,5 @@ export default {
     }
 }
 </script>
-
-
 <style>
 </style>

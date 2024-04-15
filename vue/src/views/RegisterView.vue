@@ -1,6 +1,10 @@
 <template>
   <div id="register" class="text-center">
-    <form v-on:submit.prevent="register">
+    <div class="banner">
+    <h1 class="title">The Two Prawn Approach Potluck Planner</h1>
+    <h2 class="welcome-message">make your silly little account</h2>
+    </div>
+    <form class="reg-box" v-on:submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
         {{ registrationErrorMsg }}
@@ -10,7 +14,7 @@
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
       
-      <div class="form-input-group">
+      <!-- <div class="form-input-group">
         <label for="first-name">First Name</label>
         <input type="text" id="first_name" v-model="user.first_name" required />
       </div>
@@ -18,20 +22,12 @@
       <div class="form-input-group">
         <label for="last-name">Last Name</label>
         <input type="text" id="last_name" v-model="user.last_name" required />
-      </div>
+      </div> -->
 
       <div class="form-input-group">
         <label for="email">Email</label>
         <input type="text" id="email" v-model="user.email" required />
       </div>
-      
-      <div class="form-input-group">
-        Food Restrictions:
-        <label v-for="(diet, index) in diets" :key="index">
-          {{ diet }}
-          <input type="checkbox" :id="'dietary_' + diet.toLowerCase()" v-model="user.diet" :value="diet" />
-        </label>
-      </div> 
       
       <div class="form-input-group">
         <label for="password">Password</label>
@@ -60,14 +56,14 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
-        diet: [],
+        diet: '',
         password: '',
         confirmPassword: '',
         role: 'user',
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
-      diets: ['Vegan', 'Vegetarian', 'Gluten-Free', 'Low-Sodium', 'Paleo', 'Halal', 'Kosher', 'Dairy-Free', 'No Nuts', 'Sugar-Free']
+     
     };
   },
   methods: {
@@ -105,9 +101,42 @@ export default {
 
 <style scoped>
 .form-input-group {
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 label {
   margin-right: 0.5rem;
 }
+#register{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; 
+  text-align: center;
+}
+.reg-box {
+  font-family: cursive;
+  width: 300px;
+  background-color: rgb(252,191,188);
+  border: 4px solid rgb(255,127,80);
+  padding: 5px;
+  width: 25%;
+  height: 45%;
+  align-content: center;
+}
+.banner {
+  font-family: cursive;
+  width: 96vw;
+  background-color: rgb(252,191,188);
+  border: 4px solid rgb(255,127,80);
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 50px;
+  position: absolute; /* Position the banner absolutely */
+  top: 40px; /* Position it at the top */
+  left: 50%; /* Center it horizontally */
+  transform: translateX(-50%); /* Adjust to center horizontally */
+}
+
+
 </style>

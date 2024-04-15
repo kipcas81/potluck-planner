@@ -25,24 +25,6 @@
         <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
     </div>
  
-<!--------------------------------------------------------------------------->    
-    <!-- <div class="form-input-group">Food Restrictions:
-
-        <label v-for="(restriction, index) in newPotluck.diet" :key="index" :for="restriction.id">
-        {{ restriction.label }}
-        <input type="checkbox" :id="restriction.id" v-model="newPotluck.diet[index].checked" />
-      </label>
-</div> -->
-<!---------------------------------------------------------------------------->
-<!-- <div class="form-element"> Food Categories: 
-
-    <label v-for="(category, index) in newPotluck.categories" :key="index" :for="category.id">
-        {{ category.label }}
-        <input type="checkbox" :id="category.id" v-model="newPotluck.categories[index].checked" />
-      </label>
-
-</div> -->
-<!---------------------------------------------------------------------------->
 <div class="form-element">
         <label for="private">Is this a private event? (Private events can only be viewed by invited guests):</label>
         <input id="private" type="checkbox" v-model="newPotluck.private"/>
