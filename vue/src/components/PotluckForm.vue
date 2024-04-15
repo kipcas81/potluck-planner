@@ -23,6 +23,7 @@
     <div class="form-element">
         <label for="diet">Dietary Restrictions</label>
         <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
+        <span v-if="!newPotluck.diet" >There are no Dietary Restrictions for this event</span>
     </div>
  
 <div class="form-element">
@@ -60,22 +61,21 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                eventName: this.potluck.eventName,
-                description: this.potluck.description, 
-                eventDate: this.potluck.eventDate,
-                eventTime: this.potluck.eventTime,
-                diet: this.potluck.diet,
-                recurring: this.potluck.recurring,
-                frequencyDays: this.potluck.frequencyDays,
-                location: this.potluck.location,
-                private: this.potluck.private,
-                potluckId: this.potluck.potluckId
+                eventName: "",
+                description: "", 
+                eventDate: "",
+                eventTime: "",
+                diet: "",
+                recurring: false,
+                frequencyDays: 0,
+                location: "",
+                private: false,
             },
         };
     },
     methods: {
         addNewPotluck(){
-            if (this.newPotluck.potluckId === 0){
+            if (this.newPotluck.potluckId === undefined){
               if(this.newPotluck.frequency <= 0){
                 return;
             }
@@ -104,7 +104,7 @@ export default {
         }
     },
     created() {
-        if(this.$route.params.potluckId != 0){
+        if(this.$route.params.potluckId != undefined){
             let potluckId = parseInt(this.$route.params.potluckId);
         if (potluckId != 0){
             PotluckService.getPotluck(potluckId)
