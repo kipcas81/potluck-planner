@@ -15,12 +15,12 @@
       </div>
       
       <div class="form-input-group">
-        <label for="first-name">First Name</label>
+        <label for="first_name">First Name</label>
         <input type="text" id="first_name" v-model="user.first_name" required />
       </div>
       
       <div class="form-input-group">
-        <label for="last-name">Last Name</label>
+        <label for="last_name">Last Name</label>
         <input type="text" id="last_name" v-model="user.last_name" required />
       </div>
 

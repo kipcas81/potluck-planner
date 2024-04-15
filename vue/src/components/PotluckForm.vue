@@ -61,22 +61,21 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                eventName: this.potluck.eventName,
-                description: this.potluck.description, 
-                eventDate: this.potluck.eventDate,
-                eventTime: this.potluck.eventTime,
-                diet: this.potluck.diet,
-                recurring: this.potluck.recurring,
-                frequencyDays: this.potluck.frequencyDays,
-                location: this.potluck.location,
-                private: this.potluck.private,
-                potluckId: this.potluck.potluckId
+                eventName: "",
+                description: "", 
+                eventDate: "",
+                eventTime: "",
+                diet: "",
+                recurring: false,
+                frequencyDays: 0,
+                location: "",
+                private: false,
             },
         };
     },
     methods: {
         addNewPotluck(){
-            if (this.newPotluck.potluckId === 0){
+            if (this.newPotluck.potluckId === undefined){
               if(this.newPotluck.frequency <= 0){
                 return;
             }
@@ -105,7 +104,7 @@ export default {
         }
     },
     created() {
-        if(this.$route.params.potluckId != 0){
+        if(this.$route.params.potluckId != undefined){
             let potluckId = parseInt(this.$route.params.potluckId);
         if (potluckId != 0){
             PotluckService.getPotluck(potluckId)
