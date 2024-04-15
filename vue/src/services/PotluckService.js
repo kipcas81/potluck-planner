@@ -9,7 +9,7 @@ export default {
     return axios.post('/potlucks', potluck);
   },
   updatePotluck(potluck) {
-    return axios.put(`/potlucks/${potluck.id}`, potluck);
+    return axios.put(`/potlucks/${potluck.potluckId}`, potluck);
   },
   deletePotluck(potluckId) {
     return axios.delete(`/potlucks/${potluckId}`);
