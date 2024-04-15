@@ -58,6 +58,10 @@ public class AuthenticationController {
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public void register(@Valid @RequestBody RegisterUserDto newUser) {
+        System.out.println("in controller");
+        System.out.println(newUser.getEmail());
+        System.out.println(newUser.getLastName());
+        System.out.println(newUser.getFirstName());
         try {
             if (userDao.getUserByUsername(newUser.getUsername()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
