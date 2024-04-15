@@ -1,6 +1,11 @@
 <template>
 <div>
-    <router-link v-for="potluck in potlucks" v-bind:key="potluck.id">{{ potluck.name }}</router-link>
+    <div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.id">
+     <h2> {{ potluck.eventName }} </h2>
+     <p>{{potluck.description}}</p>
+      <p> {{ potluck.eventDate }}  starting at {{ potluck.eventTime }}</p>
+    </div>
+    
 </div> 
 </template>
 
@@ -19,18 +24,14 @@ export default {
       .then(response => {
         this.potlucks = response.data;
       })
-    //
+    
     }
-    //
+    
   },
   created(){
     this.getPotlucks();
   }
 }
-
-
-
-
 </script>
 
 

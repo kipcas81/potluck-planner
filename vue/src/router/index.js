@@ -8,6 +8,8 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import AddPotluckView from '../views/AddPotluckView.vue';
 import FriendsView from '../views/FriendsView.vue';
+import AddFriendsView from '../views/AddFriendsView.vue';
+import PotluckView from '../views/PotluckView.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -65,7 +67,23 @@ const routes = [
   meta: {
     requiresAuth: true
   }
-  }
+  },
+  {
+    path: "/add-friend",
+    name: "add-friend",
+    component: AddFriendsView,
+    meta: {
+      requiresAuth: true
+    }
+    },
+    {
+      path: "/potluck/:potluckId",
+      name: 'PotluckView',
+      component: PotluckView,
+      meta: {
+        requiresAuth: true
+      }
+    }
 ];
 
 // Create the router

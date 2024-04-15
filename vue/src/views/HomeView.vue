@@ -5,7 +5,7 @@
     <p>something something potluck</p>
     <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
   
-  <PotluckList />
+  <PotluckList :potlucks="potlucks"/>
   </div>
 </template>
 <script>

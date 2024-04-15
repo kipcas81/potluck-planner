@@ -1,75 +1,66 @@
 <template>
-<form @submit.prevent="addNewPotluck">
+<form @submit.prevent="addNewPotluck" class="potluckForm">
     <div class="form-element">
         <label for="name">Name:</label>
-        <input id="name" type="text" v-model="newPotluck.name"/>
+        <input class="inputText" type="text" v-model="newPotluck.eventName"/>
     </div>
     <div class="form-element">
         <label for="description">Description:</label>
-        <input id="description" type="text" v-model="newPotluck.description"/>
+        <input class="inputText" id="description" type="text" v-model="newPotluck.description" placeholder="Please enter a description of your potluck."/>
+    </div>
+    <div class="form-element">
+        <label for="location">Location</label>
+        <input class="inputText"  type="text" v-model="newPotluck.location"/>
     </div>
     <div class="form-element">
         <label for="date">Date:</label>
-        <input id="date" type="date" v-model="newPotluck.date"/>
+        <input id="date" type="date" v-model="newPotluck.eventDate"/>
     </div>
     <div class="form-element">
         <label for="time">Time:</label>
-        <input id="time" type="time" v-model="newPotluck.time"/>
+        <input id="time" type="time" v-model="newPotluck.eventTime"/>
     </div>
-    
-    <div class="form-input-group">Food Restrictions:
-    <label for="Vegan">Vegan</label>
-    <input type="checkbox" id="dietary-vegan" v-model="newPotluck.diet" />
+    <div class="form-element">
+        <label for="diet">Dietary Restrictions</label>
+        <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
+    </div>
+ 
+<!--------------------------------------------------------------------------->    
+    <!-- <div class="form-input-group">Food Restrictions:
 
-    <label for="Vegetarian">Vegetarian</label>
-    <input type="checkbox" id="dietary_vegetarian" v-model=newPotluck.diet />
+        <label v-for="(restriction, index) in newPotluck.diet" :key="index" :for="restriction.id">
+        {{ restriction.label }}
+        <input type="checkbox" :id="restriction.id" v-model="newPotluck.diet[index].checked" />
+      </label>
+</div> -->
+<!---------------------------------------------------------------------------->
+<!-- <div class="form-element"> Food Categories: 
 
-    <label for="Gluten-Free">Gluten-Free</label>
-    <input type="checkbox" id="dietary_gluten" v-model="newPotluck.diet" />
+    <label v-for="(category, index) in newPotluck.categories" :key="index" :for="category.id">
+        {{ category.label }}
+        <input type="checkbox" :id="category.id" v-model="newPotluck.categories[index].checked" />
+      </label>
 
-    <label for="Low-Sodium">Low-Sodium</label>
-    <input type="checkbox" id="dietary_sodium" v-model="newPotluck.diet" />
+</div> -->
+<!---------------------------------------------------------------------------->
+<div class="form-element">
+        <label for="private">Is this a private event? (Private events can only be viewed by invited guests):</label>
+        <input id="private" type="checkbox" v-model="newPotluck.private"/>
+    </div>
 
-    <label for="Paleo">Paleo</label>
-    <input type="checkbox" id="dietary_paleo" v-model="newPotluck.diet" />
-
-    <label for="Halal">Halal</label>
-    <input type="checkbox" id="dietary_halal" v-model="newPotluck.diet" />
-
-    <label for="Kosher">Kosher</label>
-    <input type="checkbox" id="dietary_kosher" v-model="newPotluck.diet" />
-
-    <label for="Dairy-Free">Dairy-Free</label>
-    <input type="checkbox" id="dietary_dairy" v-model="newPotluck.diet" />
-
-    <label for="Nuts">Nuts</label>
-    <input type="checkbox" id="dietary_nuts" v-model="newPotluck.diet" />
-
-    <label for="Sugar-Free">Sugar-Free</label>
-    <input type="checkbox" id="dietary_sugar" v-model="newPotluck.diet" />
-</div>
-<div class="form-element"> Food Categories: 
-    <label for="Appetizers">Appetizers</label>
-    <input type="checkbox" id="Appetizers" v-model="newPotluck.categories" />
-    <label for="Entrees">Entrees</label>
-    <input type="checkbox" id="Entrees" v-model="newPotluck.categories" />
-    <label for="Sides">Sides</label>
-    <input type="checkbox" id="Sides" v-model="newPotluck.categories" />
-    <label for="Desserts">Desserts</label>
-    <input type="checkbox" id="Desserts" v-model="newPotluck.categories" />
-    <label for="Drinks">Drinks</label>
-    <input type="checkbox" id="Drinks" v-model="newPotluck.categories" />
-</div>
     <div class="form-element">
         <label for="recurring">Recurring:</label>
-        <input id="recurring" type="checkbox" v-model="newPotluck.isRecurring"/>
+        <input id="recurring" type="checkbox" v-model="newPotluck.recurring"/>
     </div>
-    <div class="form-element" v-show="newPotluck.isRecurring">
-        <label for="frequency">Every __ days:</label>
-        <input id="frequency" type="number" v-model="newPotluck.frequency"/>
+  
+    <div class="form-element" v-show="newPotluck.recurring">
+        <label for="frequency">How often should this potluck occur? (This field cannot be less than 1):</label>
+        <input id="frequency" type="number" v-model="newPotluck.frequencyDays"/>
     </div>
-    <input type="submit" value="Save" />
-    <input type="button" value="Cancel" @click="resetForm"/>
+
+    <input class="submitbtn" type="submit" value="Save" />
+    <input class="cancelbtn" type="button" value="Clear" @click="resetForm"/>
+
 </form>
 </template>
 
@@ -87,37 +78,76 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                name: "",
+                eventName: "",
                 description: "", 
-                date: "",
-                time: "",
-                creator: "",
-                diet: [],
-                categories: [],
-                isRecurring: false,
-                frequency: 0,
+                eventDate: "",
+                eventTime: "",
+                diet: "",
+                recurring: false,
+                frequencyDays: 0,
                 location: "",
-                isPrivate: true
+                private: false
             },
         };
     },
     methods: {
         addNewPotluck(){
             if(this.newPotluck.frequency <= 0){
-                this.frequencyError = "Cannot have negative frequency";
                 return;
             }
-            this.frequencyError = '';
-            this.newPotluck.potluckId = this.potluckId;
-            this.$store.commit('ADD_POTLUCK', this.newPotluck);
+            PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
         },
         
-        resetForm(){
-            this.newPotluck = {};
+        resetForm() {
+        this.newPotluck.eventName = "";
+        this.newPotluck.description = "";
+        this.newPotluck.eventDate = "";
+        this.newPotluck.eventTime = "";
+        this.newPotluck.diet = "",
+        this.newPotluck.recurring = false;
+        this.newPotluck.frequencyDays = 0;
+        this.newPotluck.location = "";
+        this.newPotluck.private = false;
         }
     }
 }
 </script>
 
 
+<style scoped>
+.form-element {
+display: block;
+margin-bottom: 1%;
+}
+
+label {
+    display: block;
+    font-size: larger;
+}
+
+.inputText {
+    
+    width: 95%;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding-top: 0;
+}
+
+#description {
+    height: 80px;
+}
+
+#diet{
+    height: 80px;
+}
+
+.potluckForm {
+    border: 4px solid red;
+    padding: 5px;
+    width: 80%;
+    background-color: coral;
+}
+
+
+</style>

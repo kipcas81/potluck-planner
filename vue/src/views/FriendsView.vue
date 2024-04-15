@@ -1,22 +1,31 @@
 <template>
 <div>
     <h1>Friends List</h1>
-    <ul>
-      <li v-for="friend in friends" :key="friend.email">
-        {{ friend.firstName }} {{ friend.lastName }} - {{ friend.email }}
-      </li>
-    </ul>
-    <button class="add-friend" v-on:click="$router.push({path: '/add-friend'})">Add a Friend</button>
-</div> i'm carrot steve! (like pickle rick)
+    <button class="add-friend" v-on:click="toggleFriendsForm">Add a New Friend</button>
+    <FriendsForm v-bind:friend="friend" v-if="showForm"/>
+    <FriendsList :friends="friends"/>
+</div>
 </template>
 
 <script>
 import FriendService from '../services/FriendService';
+import FriendsForm from '../components/FriendsForm.vue';
+import FriendsList from '../components/FriendsList.vue';
 
 export default {
+    components: {
+        FriendsForm,
+        FriendsList
+    },
     data() {
         return {
-            friends: []
+            friends: [],
+            friend: {
+                friend_first_name: "",
+                friend_last_name: "",
+                friend_email_address: "",
+            },
+            showForm: false
         };
     },
     methods: {
@@ -25,6 +34,9 @@ export default {
             .then(response => {
                 this.friends = response.data;
             })
+        },
+        toggleFriendsForm(){
+            this.showForm = !this.showForm;
         }
     }
 }
