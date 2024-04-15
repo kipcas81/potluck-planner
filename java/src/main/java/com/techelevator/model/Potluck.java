@@ -11,7 +11,7 @@ public class Potluck {
     private String description;
     private LocalDate eventDate;
     private LocalTime eventTime;
-    private List<String> dietaryRestrictions;
+    private String dietaryRestrictions;
     private boolean isRecurring;
     private int frequencyDays;
     private String location;
@@ -21,7 +21,7 @@ public class Potluck {
 
     public Potluck() {}
     public Potluck(int potluckId, String eventName, String description, LocalDate eventDate, LocalTime eventTime,
-                   List<String> dietaryRestrictions, boolean isRecurring, int frequencyDays, String location,
+                   String dietaryRestrictions, boolean isRecurring, int frequencyDays, String location,
                    boolean isPrivate, int userId, boolean isCompleted) {
         this.potluckId = potluckId;
         this.eventName = eventName;
@@ -95,11 +95,11 @@ public class Potluck {
         this.location = location;
     }
 
-    public List getDietaryRestrictions() {
+    public String getDietaryRestrictions() {
         return dietaryRestrictions;
     }
 
-    public void setDietaryRestrictions(List dietaryRestrictions) {
+    public void setDietaryRestrictions(String dietaryRestrictions) {
         this.dietaryRestrictions = dietaryRestrictions;
     }
 
