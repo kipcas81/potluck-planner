@@ -15,11 +15,11 @@
       </div>
       <div class="form-input-group" id="username">
         <label for="username">Username</label>
-        <input type="text" id="username" v-model="user.username" required autofocus />
+        <input type="text" id="username" v-model="user.username" placeholder="Username" required autofocus />
       </div>
       <div class="form-input-group" id="password">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <input type="password" id="password" v-model="user.password" placeholder="Password" required />
       </div>
       <button class="signin" type="submit">Sign in</button>
       <p>
@@ -91,6 +91,7 @@ label {
   font-family: cursive;
   display: flex;
   flex-direction: column; 
+  border-radius: 15px;
   align-items: center; 
   justify-content: flex-start; 
   width: 300px;
@@ -101,18 +102,21 @@ label {
 }
 
 .banner {
+  
   font-family: cursive;
   width: 96vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 50px;
-  position: absolute; /* Position the banner absolutely */
-  top: 40px; /* Position it at the top */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust to center horizontally */
+  position: absolute; 
+  top: 40px;
+  left: 50%; 
+  transform: translateX(-50%);
+  /* background-image: url("./src/assets/shrimp.gif") left center no-repeat, url("./src/assets/shrimp.gif") right center no-repeat;
+  background-size: auto; */
 }
 
 .please {

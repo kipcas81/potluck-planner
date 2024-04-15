@@ -23,6 +23,7 @@
     <div class="form-element">
         <label for="diet">Dietary Restrictions</label>
         <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
+        <span v-if="!newPotluck.diet" >There are no Dietary Restrictions for this event</span>
     </div>
  
 <div class="form-element">

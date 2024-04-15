@@ -14,7 +14,7 @@
 #capstone-app {
   background-image: url("./assets/seefood.jpg"); 
   background-size: contain;  
-  height: 100%;
+  height: 105vh;
   background-position: center; 
   background-repeat: repeat; 
   font-family: cursive;

@@ -14,7 +14,7 @@
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
       
-      <!-- <div class="form-input-group">
+      <div class="form-input-group">
         <label for="first-name">First Name</label>
         <input type="text" id="first_name" v-model="user.first_name" required />
       </div>
@@ -22,11 +22,16 @@
       <div class="form-input-group">
         <label for="last-name">Last Name</label>
         <input type="text" id="last_name" v-model="user.last_name" required />
-      </div> -->
+      </div>
 
       <div class="form-input-group">
         <label for="email">Email</label>
         <input type="text" id="email" v-model="user.email" required />
+      </div>
+
+      <div class="form-input-group">
+        <label for="user-diet">Diet Restrictions</label>
+        <input type="text" id="user_diet" v-model="user.user_diet"  />
       </div>
       
       <div class="form-input-group">
@@ -115,12 +120,14 @@ label {
 }
 .reg-box {
   font-family: cursive;
+  border-radius: 15px;
   width: 300px;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
+  margin-top: 5%;
   padding: 5px;
   width: 25%;
-  height: 45%;
+  height: 60%;
   align-content: center;
 }
 .banner {
@@ -129,7 +136,7 @@ label {
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 50px;
   position: absolute; /* Position the banner absolutely */
