@@ -1,16 +1,16 @@
 <template>
-<form @submit.prevent="addNewPotluck">
+<form @submit.prevent="addNewPotluck" class="potluckForm">
     <div class="form-element">
         <label for="name">Name:</label>
-        <input id="name" type="text" v-model="newPotluck.eventName"/>
+        <input class="inputText" type="text" v-model="newPotluck.eventName"/>
     </div>
     <div class="form-element">
         <label for="description">Description:</label>
-        <input id="description" type="text" v-model="newPotluck.description"/>
+        <input class="inputText" id="description" type="text" v-model="newPotluck.description" placeholder="Please enter a description of your potluck."/>
     </div>
     <div class="form-element">
         <label for="location">Location</label>
-        <input id="location" type="text" v-model="newPotluck.location"/>
+        <input class="inputText"  type="text" v-model="newPotluck.location"/>
     </div>
     <div class="form-element">
         <label for="date">Date:</label>
@@ -19,6 +19,10 @@
     <div class="form-element">
         <label for="time">Time:</label>
         <input id="time" type="time" v-model="newPotluck.eventTime"/>
+    </div>
+    <div class="form-element">
+        <label for="diet">Dietary Restrictions</label>
+        <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
     </div>
  
 <!--------------------------------------------------------------------------->    
@@ -40,7 +44,7 @@
 </div> -->
 <!---------------------------------------------------------------------------->
 <div class="form-element">
-        <label for="private">Private:</label>
+        <label for="private">Is this a private event? (Private events can only be viewed by invited guests):</label>
         <input id="private" type="checkbox" v-model="newPotluck.private"/>
     </div>
 
@@ -50,12 +54,12 @@
     </div>
   
     <div class="form-element" v-show="newPotluck.recurring">
-        <label for="frequency">Every __ days:</label>
+        <label for="frequency">How often should this potluck occur? (This field cannot be less than 1):</label>
         <input id="frequency" type="number" v-model="newPotluck.frequencyDays"/>
     </div>
 
-    <input type="submit" value="Save" />
-    <input type="button" value="Clear" @click="resetForm"/>
+    <input class="submitbtn" type="submit" value="Save" />
+    <input class="cancelbtn" type="button" value="Clear" @click="resetForm"/>
 
 </form>
 </template>
@@ -78,18 +82,7 @@ export default {
                 description: "", 
                 eventDate: "",
                 eventTime: "",
-                // diet: [
-                // { id: 'vegan', label: 'Vegan', checked: false },
-                // { id: 'vegetarian', label: 'Vegetarian', checked: false},
-                // { id: 'gluten', label: 'Gluten-Free', checked: false },
-                // { id: 'sodium', label: 'Low-Sodium', checked: false },
-                // { id: 'paleo', label: 'Paleo', checked: false },
-                // { id: 'halal', label: 'Halal', checked: false },
-                // { id: 'kosher', label: 'Kosher', checked: false },
-                // { id: 'dairy', label: 'Dairy-Free', checked: false },
-                // { id: 'nuts', label: 'No-Nuts', checked: false },
-                // { id: 'sugar', label: 'Sugar-Free', checked: false}
-                // ],
+                diet: "",
                 recurring: false,
                 frequencyDays: 0,
                 location: "",
@@ -111,7 +104,7 @@ export default {
         this.newPotluck.description = "";
         this.newPotluck.eventDate = "";
         this.newPotluck.eventTime = "";
-        // this.newPotluck.diet.forEach(restriction => restriction.checked = false);
+        this.newPotluck.diet = "",
         this.newPotluck.recurring = false;
         this.newPotluck.frequencyDays = 0;
         this.newPotluck.location = "";
@@ -122,3 +115,39 @@ export default {
 </script>
 
 
+<style scoped>
+.form-element {
+display: block;
+margin-bottom: 1%;
+}
+
+label {
+    display: block;
+    font-size: larger;
+}
+
+.inputText {
+    
+    width: 95%;
+    box-sizing: border-box;
+    vertical-align: top;
+    padding-top: 0;
+}
+
+#description {
+    height: 80px;
+}
+
+#diet{
+    height: 80px;
+}
+
+.potluckForm {
+    border: 4px solid red;
+    padding: 5px;
+    width: 80%;
+    background-color: coral;
+}
+
+
+</style>

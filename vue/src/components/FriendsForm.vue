@@ -12,8 +12,8 @@
         <label for="email">email address</label>
         <input id="email" type="email" v-model="newFriend.friend_email_address">   
     </div>
-    <input type="submit" value="Save" />
-    <input type="button" value="Cancel" @click="cancelForm"/>
+    <input class="submitbtn" type="submit" value="Save" />
+    <input class="cancelbtn" type="button" value="Cancel" @click="cancelForm"/>
 </form>
 </template>
 
