@@ -64,11 +64,34 @@ export default {
   justify-content: space-evenly;
   position: absolute;
   bottom: 10px;
-  width: 30%;
+  
+  width: 85%;
+  height: 5%
+
 }
 .btn-edit {
-  justify-content: flex-start;
   margin-right: 10px;
+  width: 150px;
+  
+  border-radius: 10px;
+}
+.btn-delete {
+  margin-right: 10px;
+  margin-left: 5px;
+  width: 150px;
+  border-radius: 10px;
+}
+.inv-guest {
+  margin-right: 10px;
+  margin-left: 5px;
+  width: 150px;
+  border-radius: 10px;
+}
+.update-dish-needs {
+  margin-right: 10px;
+  margin-left: 5px;
+  width: 150px;
+  border-radius: 10px;
 }
 
 
