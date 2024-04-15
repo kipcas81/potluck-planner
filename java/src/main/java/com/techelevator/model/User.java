@@ -10,6 +10,10 @@ public class User {
 
    private int id;
    private String username;
+   private String email;
+   private String first_name;
+   private String last_name;
+   private String dietaryRestrictions;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -40,6 +44,38 @@ public class User {
 
    public void setUsername(String username) {
       this.username = username;
+   }
+
+   public String getEmail() {
+      return email;
+   }
+
+   public void setEmail(String email) {
+      this.email = email;
+   }
+
+   public String getFirstName() {
+      return this.first_name;
+   }
+
+   public void setFirstName(String firstName) {
+      this.first_name = firstName;
+   }
+
+   public String getLastName() {
+      return this.last_name;
+   }
+
+   public void setLastName(String lastName) {
+      this.last_name = lastName;
+   }
+
+   public String getDietaryRestrictions() {
+      return dietaryRestrictions;
+   }
+
+   public void setDietaryRestrictions(String dietaryRestrictions) {
+      this.dietaryRestrictions = dietaryRestrictions;
    }
 
    public String getPassword() {

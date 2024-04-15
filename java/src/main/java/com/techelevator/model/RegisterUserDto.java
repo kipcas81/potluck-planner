@@ -9,6 +9,12 @@ import javax.validation.constraints.NotEmpty;
  */
 public class RegisterUserDto {
 
+    private String email;
+
+    private String first_name;
+
+    private String last_name;
+    private String dietaryRestrictions;
     @NotEmpty
     private String username;
     @NotEmpty
@@ -17,6 +23,38 @@ public class RegisterUserDto {
     private String confirmPassword;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return this.first_name;
+    }
+
+    public void setFirstName(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLastName() {
+        return this.last_name;
+    }
+
+    public void setLastName(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public String getDietaryRestrictions() {
+        return dietaryRestrictions;
+    }
+
+    public void setDietaryRestrictions(String dietaryRestrictions) {
+        this.dietaryRestrictions = dietaryRestrictions;
+    }
 
     public String getUsername() {
         return username;
