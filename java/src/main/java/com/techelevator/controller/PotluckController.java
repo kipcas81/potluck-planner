@@ -34,6 +34,12 @@ public class PotluckController {
         return potluckDao.getAllPotlucks(userid);
     }
 
+    @RequestMapping("/potlucks")
+    public List<Potluck> getPastAndFuturePotlucks(@RequestParam boolean isCompleted, Principal principal) {
+        String username = principal.getName();
+        int userId = userDao.getUserByUsername(username).getId();
+        return potluckDao.getPastAndFuturePotlucks(isCompleted, userId);
+    }
 
     @RequestMapping(path = "/potlucks", method = RequestMethod.POST)
     public Potluck createPotluck(@RequestBody Potluck potluck, Principal principal) {
@@ -55,6 +61,19 @@ public class PotluckController {
     public Potluck getPotluckById(@PathVariable("potluckId") int potluckId) {
         return potluckDao.getPotluckById(potluckId);
 
+    }
+
+    @RequestMapping(path = "/potlucks/{potluckId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deletePotluck(@PathVariable int potluckId, Principal principal) {
+        String username = principal.getName();
+        int userId = userDao.getUserByUsername(username).getId();
+
+        boolean deleted = potluckDao.deletePotluck(potluckId, userId);
+        if (deleted) {
+            return ResponseEntity.ok("Potluck deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Unable to delete potluck");
+        }
     }
 
     @RequestMapping(path = "/friends", method = RequestMethod.POST)
