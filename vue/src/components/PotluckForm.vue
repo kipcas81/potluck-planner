@@ -60,25 +60,35 @@ export default {
         return {
             //create potluck
             newPotluck: {
-                eventName: "",
-                description: "", 
-                eventDate: "",
-                eventTime: "",
-                diet: "",
-                recurring: false,
-                frequencyDays: 0,
-                location: "",
-                private: false
+                eventName: this.potluck.eventName,
+                description: this.potluck.description, 
+                eventDate: this.potluck.eventDate,
+                eventTime: this.potluck.eventTime,
+                diet: this.potluck.diet,
+                recurring: this.potluck.recurring,
+                frequencyDays: this.potluck.frequencyDays,
+                location: this.potluck.location,
+                private: this.potluck.private,
+                potluckId: this.potluck.potluckId
             },
         };
     },
     methods: {
         addNewPotluck(){
-            if(this.newPotluck.frequency <= 0){
+            if (this.newPotluck.potluckId === 0){
+              if(this.newPotluck.frequency <= 0){
                 return;
             }
             PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
+            this.$router.push('/');  
+            } else {
+                PotluckService.updatePotluck(this.newPotluck);
+                this.$router.push('/'); 
+            }
+
+
+            
         },
         
         resetForm() {
@@ -92,7 +102,18 @@ export default {
         this.newPotluck.location = "";
         this.newPotluck.private = false;
         }
+    },
+    created() {
+        if(this.$route.params.potluckId != 0){
+            let potluckId = parseInt(this.$route.params.potluckId);
+        if (potluckId != 0){
+            PotluckService.getPotluck(potluckId)
+            .then(response => {
+                this.newPotluck = response.data;
+            });
+        }
     }
+}
 }
 </script>
 

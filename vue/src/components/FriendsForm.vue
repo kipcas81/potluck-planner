@@ -1,5 +1,5 @@
 <template>
-<form v-on:submit.prevent="addNewFriend">
+<form v-on:submit="addNewFriend">
     <div>
         <label for="firstname">First Name</label>
         <input id="firstname" type="text" v-model="newFriend.friend_first_name">  
