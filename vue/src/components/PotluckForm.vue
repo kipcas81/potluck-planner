@@ -1,5 +1,5 @@
 <template>
-<form @submit.prevent="addNewPotluck" class="potluckForm">
+<form @submit="addNewPotluck" class="potluckForm">
     <div class="form-element">
         <label for="name">Name:</label>
         <input class="inputText" type="text" v-model="newPotluck.eventName"/>
@@ -97,6 +97,7 @@ export default {
             }
             PotluckService.addPotluck(this.newPotluck);
             this.resetForm();
+            this.$router.push({name: 'HomeView'});
         },
         
         resetForm() {
