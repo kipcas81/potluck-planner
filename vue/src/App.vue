@@ -13,11 +13,11 @@
 <style>
 body{
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(255, 238, 170);
+  background-color: rgb(255, 176, 176);
 }
 
 h1{
-  color: rgb(52, 38, 7);
+  color: rgb(68, 5, 5);
 }
 
 </style>

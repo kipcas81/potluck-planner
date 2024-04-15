@@ -21,8 +21,7 @@ export default {
                 date: "",
                 time: "",
                 creator: "",
-                diet: [],
-                categories: [],
+                diet: "",
                 isRecurring: "",
                 frequency: "",
                 location: "",
@@ -34,5 +33,8 @@ export default {
 </script>
 
 <style>
+
+
+
 
 </style>

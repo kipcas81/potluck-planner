@@ -60,14 +60,14 @@ export default {
         first_name: '',
         last_name: '',
         email: '',
-        diet: [],
+        diet: '',
         password: '',
         confirmPassword: '',
         role: 'user',
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
-      diets: ['Vegan', 'Vegetarian', 'Gluten-Free', 'Low-Sodium', 'Paleo', 'Halal', 'Kosher', 'Dairy-Free', 'No Nuts', 'Sugar-Free']
+     
     };
   },
   methods: {

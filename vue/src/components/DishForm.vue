@@ -21,8 +21,8 @@
         <label for="recipe">Recipe:</label>
         <input id="recipe" type="text"/>
     </div>
-    <input type="submit" value="Save" />
-    <input type="cancel" value="Cancel" v-on:click="resetForm" />
+    <input class="submitbtn" type="submit" value="Save" />
+    <input class="cancelbtn" type="cancel" value="Cancel" v-on:click="resetForm" />
 </form>
 </template>
 
@@ -51,4 +51,6 @@ export default {
 
 
 <style>
+
+
 </style>
