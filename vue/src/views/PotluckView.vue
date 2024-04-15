@@ -65,8 +65,7 @@ export default {
   justify-content: space-evenly;
   position: absolute;
   bottom: 10px;
-  
-  width: 85%;
+  width: 90%;
   height: 5%
 
 }
