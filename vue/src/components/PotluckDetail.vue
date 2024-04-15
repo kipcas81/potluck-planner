@@ -26,11 +26,11 @@ export default {
         }
     },
     methods: {
-        deletePotluck() {
-            if (
-                confirm 
-            )
-        }
+        // deletePotluck() {
+        //     if (
+        //         confirm 
+        //     )
+        // }
     }
 }
 </script>

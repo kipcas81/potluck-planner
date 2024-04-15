@@ -1,5 +1,5 @@
 <template>
-  <img id="banner" src="../assets/bannerphoto.jpg" />
+  
   <div class="home">
     <h1>Potluck Planner</h1>
     <p>something something potluck</p>
@@ -37,10 +37,6 @@ export default {
 
 
 <style scoped>
-#banner {
-  height: 15dvb;
-  width: 100%;
-}
 
 
 
