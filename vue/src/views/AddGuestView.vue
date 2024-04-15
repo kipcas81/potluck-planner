@@ -17,7 +17,8 @@ export default {
             guest: {
                 guest_first_name: "",
                 guest_last_name: "",
-                guest_email_address: ""
+                guest_email_address: "",
+                potluck_id: this.$route.params.potluckId
             },
         }
     }

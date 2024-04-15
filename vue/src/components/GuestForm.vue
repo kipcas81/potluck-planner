@@ -32,7 +32,7 @@
                     guest_first_name: "",
                     guest_last_name: "",
                     guest_email_address: "",
-                    potluckId: this.$route.params.potluckId
+                    potluck_id: this.$route.params.potluckId
             },
                 guestsArray: [],
             };
