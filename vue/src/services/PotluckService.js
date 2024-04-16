@@ -16,5 +16,11 @@ export default {
   },
   getPotluck(potluckId){
     return axios.get(`/potlucks/${potluckId}`);
+  },
+  addDishNeeds(potluckDishNeeds, potluckId){
+    return axios.post(`/dishNeeds?potluckId=${potluckId}`, potluckDishNeeds);
+  },
+  dishNeedsList(potluckId){
+    return axios.get(`/dishNeeds?potluckId=${potluckId}`);
   }
 }

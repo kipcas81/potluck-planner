@@ -15,6 +15,9 @@
         <input class="submitbtn" type="submit" value="Save" />
         <input class="cancelbtn" type="button" value="Cancel" @click="cancelForm"/>
     </form>
+    <div>
+        <p>Done adding guests? <router-link :to="{name: 'PotluckView', params: {potluckId: $route.params.potluckId}}">Click Me!</router-link></p>
+    </div>
     </template>
     
     <script>
