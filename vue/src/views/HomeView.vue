@@ -1,16 +1,20 @@
 <template>
-  
-  <div class="home">
-      <div class="banner">
-    <h1 id="title">Two Prawn Potluck Planner</h1>
-    <p id="tagline">"You're telling me a shrimp fried this rice?"</p>
-      </div>
+    <div class="banner">
+      <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
+      <div class="headers">
+        <h1 id="title">Two Prawn Potluck Planner</h1>
+        <p id="tagline">"You're telling me a shrimp fried this rice?"</p>
+        </div>
+    <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
+   
+    </div>
+      
 
   <div class="potlucks">
     <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
   <PotluckList :potlucks="potlucks"/>
   </div>
-  </div>
+  
 </template>
 <script>
   import PotluckService from '../services/PotluckService.js';
@@ -45,13 +49,20 @@ export default {
   margin-top: 10%;
   margin-left: 20px;
 }
-.banner {
+
+.headers {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 50vw
+}
+.banner {
+  display: flex;
+  flex-direction: row;
   font-family: cursive;
   align-items: center;
-  justify-content: space-between;
-  width: 96vw;
+  justify-content: space-evenly;
+  width: 95vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
@@ -65,6 +76,24 @@ export default {
   transform: translateX(-50%);
   background-size: auto;
 }
+
+.logo-left,
+.logo-right {
+  height: 90px;
+  position: relative; 
+}
+
+.logo-left {
+  transform: rotateY(180deg);
+  position: relative; 
+  
+
+}
+.logo-right {
+  position: relative;
+  
+}
+
 
 
 

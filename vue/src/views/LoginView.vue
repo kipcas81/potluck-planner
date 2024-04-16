@@ -105,7 +105,7 @@ label {
 
 .banner {
   font-family: cursive;
-  width: 96vw;
+  width: 95vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;

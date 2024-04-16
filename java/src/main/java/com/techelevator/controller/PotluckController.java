@@ -31,18 +31,10 @@ public class PotluckController {
     }
 
     @RequestMapping(path = "/potlucks", method = RequestMethod.GET)
-    public List<Potluck> getAllPotlucks(Principal principal) {
-
+    public List<Potluck> getAllUserPotlucks(Principal principal) {
         String username = principal.getName();
-        int userid = userDao.getUserByUsername(username).getId();
-        return potluckDao.getAllPotlucks(userid);
-    }
-
-    @RequestMapping("/potlucks")
-    public List<Potluck> getPastAndFuturePotlucks(@RequestParam boolean isCompleted, Principal principal) {
-        String username = principal.getName();
-        int userId = userDao.getUserByUsername(username).getId();
-        return potluckDao.getPastAndFuturePotlucks(isCompleted, userId);
+        User user = userDao.getUserByUsername(username);
+        return potluckDao.getAllPotlucks(user.getId());
     }
 
     @RequestMapping(path = "/potlucks", method = RequestMethod.POST)

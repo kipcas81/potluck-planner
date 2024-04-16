@@ -1,13 +1,17 @@
 <template>
+  <div class="potluck-view">
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
+     </div>
+     <div class="guest-head">
+      <h2>Guest List</h2>
+      <GuestList :guests="guests"/>
+     </div>
+      <div class="dish-needs">
+     <h2>Dish Needs</h2>
+      <DishNeedsList :dishNeeds="dishNeeds"/>
+      </div>
     </div>
-    <h2 class="guest-head">Guest List place holder</h2>
-    <GuestList :guests="guests"/>
-    <h2>Dish Needs</h2>
-    <DishNeedsList :dishNeeds="dishNeeds"/>
-    <h2>Dish List</h2>
-    <DishList :dish="dish"/>
 </template>
 <script>
 import PotluckDetail from '../components/PotluckDetail.vue';
@@ -68,33 +72,32 @@ export default {
 </script>
 <style>
 .container {
-  margin-top: 15px;
   font-family: cursive;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   border-radius: 15px;
-  align-items: center; 
-  margin-left: 40px;
-  width: 40%;
-  height: 60vh;
+  align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  padding: 5px;
+  margin-left: 10px;
+  padding-bottom: 5px;
   position: relative;
 }
-#actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: 10px;
-  width: 90%;
-  height: 5%
+.actions {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 50px;
+  row-gap: 20px;
+  grid-template-areas: 
+  "btn-edit btn-delete"
+  "inv-guest update-dish-needs";
 }
 .btn-edit {
   margin-right: 10px;
   width: 15vw;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
   border-radius: 10px;
 }
 .btn-delete {
@@ -102,37 +105,51 @@ export default {
   
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
 .inv-guest {
   margin-right: 10px;
-
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
 .update-dish-needs {
   margin-right: 10px;
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
-.guest-head {
-  margin-top: 15px;
+.dish-needs {
   font-family: cursive;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   border-radius: 15px;
-  align-items: center; 
-  margin-left: 40px;
-  width: 40%;
-  height: 30vh;
+  align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  padding: 5px;
+  margin-left: 10px;
+  padding-bottom: 5px;
   position: relative;
 }
-
+.guest-head {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  align-items: center;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  margin-right: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
+.potluck-view {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 30px;
+  row-gap: 30px;
+}
 
 
 
