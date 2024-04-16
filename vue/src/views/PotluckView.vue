@@ -11,6 +11,11 @@
      <h2>Dish Needs</h2>
       <DishNeedsList :dishNeeds="dishNeeds"/>
       </div>
+      <div class="dishes-head">
+     <h2>Dishes</h2>
+     <button class="dishList" v-on:click="$router.push({name: 'AddDishView', params: {potluckId: potluckId}})">Add Dish</button>
+      <DishList dishes="dishes"/>
+      </div>
     </div>
 </template>
 <script>
@@ -150,7 +155,18 @@ export default {
   column-gap: 30px;
   row-gap: 30px;
 }
-
+.dishes-head {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  align-items: center;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  margin-right: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
 
 
 </style>
