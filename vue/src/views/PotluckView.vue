@@ -1,14 +1,16 @@
 <template>
+  <div class="potluck-view">
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
-    </div>
-    <div class="guest-head">
-    <h2>Guest List</h2>
-    <GuestList :guests="guests"/>
-    </div>
-    <div class="dish-head">
-    <h2>Dish Needs</h2>
-    <DishNeedsList :dishNeeds="dishNeeds"/>
+     </div>
+     <div class="guest-head">
+      <h2>Guest List</h2>
+      <GuestList :guests="guests"/>
+     </div>
+      <div class="dish-needs">
+     <h2>Dish Needs</h2>
+      <DishNeedsList :dishNeeds="dishNeeds"/>
+      </div>
     </div>
 </template>
 <script>
@@ -60,19 +62,15 @@ export default {
 </script>
 <style>
 .container {
+  font-family: cursive;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin-top: 10px;
-  align-items: center;
-  font-family: cursive;
   border-radius: 15px;
-  margin-left: 40px;
-  width: 40%;
-  height: 80vh;
+  align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  padding: 5px;
+  margin-left: 10px;
+  padding-bottom: 5px;
   position: relative;
 }
 .actions {
@@ -111,22 +109,37 @@ export default {
   border-radius: 10px;
   background-color: whitesmoke;
 }
-.guest-head {
-  margin-top: 15px;
+.dish-needs {
   font-family: cursive;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   border-radius: 15px;
-  align-items: center; 
-  margin-left: 40px;
-  width: 40%;
-  height: 30vh;
+  align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  padding: 5px;
+  margin-left: 10px;
+  padding-bottom: 5px;
   position: relative;
 }
-
+.guest-head {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  align-items: center;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  margin-right: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
+.potluck-view {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-template-rows: repeat(2, 1fr);
+  column-gap: 30px;
+  row-gap: 30px;
+}
 
 
 
