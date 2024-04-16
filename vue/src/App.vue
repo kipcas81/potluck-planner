@@ -13,9 +13,9 @@
 <style >
 #capstone-app {
   background-image: url("./assets/2-prawn-pattern.png"); 
-  background-size: cover;  
-  height: 100vh;
-  background-position:center; 
+  background-size: contain;  
+  height: 100%;
+  background-position: center; 
   background-repeat: repeat; 
   font-family: cursive;
   
