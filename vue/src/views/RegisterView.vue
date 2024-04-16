@@ -133,7 +133,7 @@ label {
 }
 .banner {
   font-family: cursive;
-  width: 96vw;
+  width: 95vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
@@ -141,11 +141,11 @@ label {
   border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 50px;
-  position: absolute; /* Position the banner absolutely */
-  top: 40px; /* Position it at the top */
-  left: 50%; /* Center it horizontally */
-  transform: translateX(-50%); /* Adjust to center horizontally */
-}
+  position: absolute; 
+  top: 40px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+} 
 
 
 </style>
