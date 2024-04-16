@@ -15,13 +15,13 @@
       </div>
       
       <div class="form-input-group">
-        <label for="first_name">First Name</label>
-        <input type="text" id="first_name" v-model="user.first_name" required />
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" v-model="user.firstName" required />
       </div>
       
       <div class="form-input-group">
-        <label for="last_name">Last Name</label>
-        <input type="text" id="last_name" v-model="user.last_name" required />
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" v-model="user.lastName" required />
       </div>
 
       <div class="form-input-group">
@@ -53,8 +53,8 @@ export default {
     return {
       user: {
         username: '',
-        first_name: '',
-        last_name: '',
+        firstName: '',
+        lastName: '',
         email: '',
         diet: '',
         password: '',
