@@ -197,9 +197,30 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     public List<Guest> removeGuests(Guest[] guests) {
+
+        for(Guest guest: guests) {
+            String sql = "SELECT dish_id " +
+                    "from potluck_guests pg " +
+                    "join users u on u.email = pg.guest_email_address " +
+                    "join potluck_user_dish pud on pud.user_id = u.user_id " +
+                    "where pg.guest_email_address = ?;";
+            try {
+                SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
+                while (result.next()) {
+                    int dishId = result.getInt("dish_id");
+                    deleteDish(guest.getPotluck_id(),dishId);
+                }
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            }
+        }
+
         List<Guest> removedGuests = new ArrayList<>();
         int numberOfRowsRemoved, totalrowsDeleted = 0;
         for (Guest guest : guests) {
+
             String sql = "delete from potluck_guests " +
                     "where potluck_id = ? " +
                     "and guest_email_address = ?;";
@@ -214,7 +235,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
             }
         }
-        System.out.println(totalrowsDeleted);
+
         return removedGuests;
     }
 

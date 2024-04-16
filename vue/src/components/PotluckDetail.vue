@@ -1,5 +1,7 @@
 <template>
     <header class="flex">
+
+    <div class="container">
         <h1>{{ potluck.eventName }}</h1>
         <h2>{{ potluck.description }}</h2>
         <p>Dietary Restrictions: {{ potluck.diet }}</p>
@@ -12,6 +14,7 @@
             <button class="btn-delete" v-on:click="deletePotluck">Delete</button>
             <button class="inv-guest" v-on:click="$router.push({name: 'AddGuestView', params: {potluckId: potluckId}})" >Invite Guests</button>
             <button class="update-dish-needs" v-on:click="$router.push({name: 'AddDishNeedsView', params: {potluckId: potluckId}})">Update Dish Needs</button>
+        </div>
         </div>
     </header>
 
@@ -39,7 +42,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

@@ -2,7 +2,7 @@
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
     </div>
-    <h2>Guest List</h2>
+    <h2 class="guest-head">Guest List place holder</h2>
     <GuestList :guests="guests"/>
     <h2>Dish Needs</h2>
     <DishNeedsList :dishNeeds="dishNeeds"/>
@@ -55,4 +55,73 @@ export default {
 }
 </script>
 <style>
+.container {
+  margin-top: 15px;
+  font-family: cursive;
+  display: flex;
+  flex-direction: column; 
+  border-radius: 15px;
+  align-items: center; 
+  margin-left: 40px;
+  width: 40%;
+  height: 60vh;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  padding: 5px;
+  position: relative;
+}
+#actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  position: absolute;
+  bottom: 10px;
+  width: 90%;
+  height: 5%
+}
+.btn-edit {
+  margin-right: 10px;
+  width: 15vw;
+  background-color: #BCF9FC;
+  border-radius: 10px;
+}
+.btn-delete {
+  margin-right: 10px;
+  
+  width: 15vw;
+  border-radius: 10px;
+  background-color: #BCF9FC;
+}
+.inv-guest {
+  margin-right: 10px;
+
+  width: 15vw;
+  border-radius: 10px;
+  background-color: #BCF9FC;
+}
+.update-dish-needs {
+  margin-right: 10px;
+  width: 15vw;
+  border-radius: 10px;
+  background-color: #BCF9FC;
+}
+.guest-head {
+  margin-top: 15px;
+  font-family: cursive;
+  display: flex;
+  flex-direction: column; 
+  border-radius: 15px;
+  align-items: center; 
+  margin-left: 40px;
+  width: 40%;
+  height: 30vh;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  padding: 5px;
+  position: relative;
+}
+
+
+
+
 </style>
