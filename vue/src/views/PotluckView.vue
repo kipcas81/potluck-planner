@@ -4,16 +4,20 @@
     </div>
     <h2>Guest List</h2>
     <GuestList :guests="guests"/>
+    <h2>Dish Needs</h2>
+    <DishNeedsList :dishNeeds="dishNeeds"/>
 </template>
 <script>
 import PotluckDetail from '../components/PotluckDetail.vue';
 import PotluckService from '../services/PotluckService';
 import GuestList from '../components/GuestList.vue';
+import DishNeedsList from '../components/DishNeedsList.vue';
 
 export default {
     components: {
         PotluckDetail,
-        GuestList
+        GuestList,
+        DishNeedsList
     },
     data(){
       return {
@@ -33,6 +37,12 @@ export default {
               guest_first_name: "",
               guest_last_name: "",
               guest_email_address: ""
+            },
+            allDishNeeds: [],
+            dishNeeds: {
+                dish_category: "",
+                dish_serving_count_needed: 0,
+                dish_serving_count_filled: 0
             }
       };
     },

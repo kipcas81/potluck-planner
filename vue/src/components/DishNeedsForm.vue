@@ -6,11 +6,12 @@
     </div>
     <div>
         <label for="servings">How many servings is this dish?</label>
-        <input id="servings" type="number" v-model="newDishNeeds.dish_serving_count">
+        <input id="servings" type="number" v-model="newDishNeeds.dish_serving_count_needed">
     </div>
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Cancel" @click="cancelForm"/>
 </form>
+<p>Done adding dish needs? <router-link :to="{name: 'PotluckView', params: {potluckId: $route.params.potluckId}}">Click Me!</router-link></p>
 </template>
 
 <script>
@@ -27,7 +28,7 @@ export default {
             newDishNeeds: {
                 potluck_id: this.$route.params.potluckId,
                 dish_category: "",
-                dish_serving_count: 0,
+                dish_serving_count_needed: 0,
                 dish_serving_count_filled: 0
             },
 
@@ -36,7 +37,7 @@ export default {
     methods: {
         addNewDishNeed(){
             if(this.newDishNeeds.dish_serving_count > 0){
-              PotluckService.addDishNeeds(this.newDishNeeds);
+              PotluckService.addDishNeeds(this.newDishNeeds, this.$route.params.potluckId);
             this.resetForm();  
             }
         },
@@ -50,7 +51,3 @@ export default {
     }
 }
 </script>
-
-
-<style>
-</style>
