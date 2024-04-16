@@ -2,10 +2,14 @@
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
     </div>
-    <h2 class="guest-head">Guest List place holder</h2>
+    <div class="guest-head">
+    <h2>Guest List</h2>
     <GuestList :guests="guests"/>
+    </div>
+    <div class="dish-head">
     <h2>Dish Needs</h2>
     <DishNeedsList :dishNeeds="dishNeeds"/>
+    </div>
 </template>
 <script>
 import PotluckDetail from '../components/PotluckDetail.vue';
@@ -56,33 +60,36 @@ export default {
 </script>
 <style>
 .container {
-  margin-top: 15px;
-  font-family: cursive;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+  font-family: cursive;
   border-radius: 15px;
-  align-items: center; 
   margin-left: 40px;
   width: 40%;
-  height: 60vh;
+  height: 80vh;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
   padding: 5px;
   position: relative;
 }
-#actions {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  position: absolute;
-  bottom: 10px;
-  width: 90%;
-  height: 5%
+.actions {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  column-gap: 50px;
+  row-gap: 20px;
+  grid-template-areas: 
+  "btn-edit btn-delete"
+  "inv-guest update-dish-needs";
 }
 .btn-edit {
   margin-right: 10px;
   width: 15vw;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
   border-radius: 10px;
 }
 .btn-delete {
@@ -90,20 +97,19 @@ export default {
   
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
 .inv-guest {
   margin-right: 10px;
-
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
 .update-dish-needs {
   margin-right: 10px;
   width: 15vw;
   border-radius: 10px;
-  background-color: #BCF9FC;
+  background-color: whitesmoke;
 }
 .guest-head {
   margin-top: 15px;

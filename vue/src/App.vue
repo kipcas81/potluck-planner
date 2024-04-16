@@ -10,7 +10,7 @@
   </div>
 </template>
 
-<style>
+<style >
 #capstone-app {
   background-image: url("./assets/2-prawn-pattern.png"); 
   background-size: contain;  
