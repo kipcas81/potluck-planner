@@ -49,10 +49,8 @@ export default {
     );
     if (index !== -1) {
     this.guestsToRemove.splice(index, 1);
-    console.log("take out");
   } else {
     this.guestsToRemove.push(removableGuest);
-    console.log("PUT IN");
   }
     }
   },
