@@ -2,8 +2,7 @@
 <div>
     <div class="guestsListBox" v-for="guest in guests" v-bind:key="guest.guest_email_address">
       <div>
-        <p> <input type="checkbox" v-on:click="putGuestsInArray(guest)"/> {{ guest.guest_first_name }} {{ guest.guest_last_name }} -- {{ guest.guest_email_address }} </p> 
-        
+        <p> <input type="checkbox" v-on:click="putGuestsInArray(guest)"/> {{ guest.guest_first_name }} {{ guest.guest_last_name }} | {{ guest.guest_email_address }} </p> 
       </div>
     </div>
     <button class="btn-delete" v-on:click="(deleteGuest())">Remove Selected Guests</button>
@@ -33,7 +32,7 @@ export default {
       ) {
         FriendService.deleteGuest(this.guestsToRemove).then(()=>{
           this.getGuests();
-        })
+        });
       }
     },
     putGuestsInArray(guest){
@@ -50,10 +49,8 @@ export default {
     );
     if (index !== -1) {
     this.guestsToRemove.splice(index, 1);
-    console.log("take out");
   } else {
     this.guestsToRemove.push(removableGuest);
-    console.log("PUT IN");
   }
     }
   },

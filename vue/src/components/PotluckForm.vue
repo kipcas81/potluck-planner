@@ -68,6 +68,7 @@ export default {
                 recurring: false,
                 frequencyDays: 0,
                 location: "",
+                dietaryRestrictions: "",
                 private: false,
             },
         };

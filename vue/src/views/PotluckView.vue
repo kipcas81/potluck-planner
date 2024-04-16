@@ -11,6 +11,11 @@
      <h2>Dish Needs</h2>
       <DishNeedsList :dishNeeds="dishNeeds"/>
       </div>
+      <div class="dishes-head">
+     <h2>Dishes</h2>
+     <button class="dishList" v-on:click="$router.push({name: 'AddDishView', params: {potluckId: potluckId}})">Add Dish</button>
+      <DishList dishes="dishes"/>
+      </div>
     </div>
 </template>
 <script>
@@ -18,12 +23,14 @@ import PotluckDetail from '../components/PotluckDetail.vue';
 import PotluckService from '../services/PotluckService';
 import GuestList from '../components/GuestList.vue';
 import DishNeedsList from '../components/DishNeedsList.vue';
+import DishList from '../components/DishList.vue';
 
 export default {
     components: {
         PotluckDetail,
         GuestList,
-        DishNeedsList
+        DishNeedsList,
+        DishList
     },
     data(){
       return {
@@ -49,6 +56,14 @@ export default {
                 dish_category: "",
                 dish_serving_count_needed: 0,
                 dish_serving_count_filled: 0
+            },
+            dishes: [],
+            dish: {
+              dish_name: "",
+                dish_dietary_restrictions: "",
+                dish_category: "",
+                dish_servings: 0,
+                dish_recipe: ""
             }
       };
     },
@@ -140,7 +155,18 @@ export default {
   column-gap: 30px;
   row-gap: 30px;
 }
-
+.dishes-head {
+  font-family: cursive;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  align-items: center;
+  background-color: rgb(252, 191, 188);
+  border: 4px solid rgb(255, 127, 80);
+  margin-right: 10px;
+  padding-bottom: 5px;
+  position: relative;
+}
 
 
 </style>
