@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <div class="banner">
-    <h1 class="title">The Two Prawn Approach Potluck Planner</h1>
+    <h1 class="title">Two Prawn Potluck Planner</h1>
     <h2 class="welcome-message">make your silly little account</h2>
     </div>
     <form class="reg-box" v-on:submit.prevent="register">
@@ -27,6 +27,11 @@
       <div class="form-input-group">
         <label for="email">Email</label>
         <input type="text" id="email" v-model="user.email" required />
+      </div>
+
+      <div class="form-input-group">
+        <label for="user_diet">Diet Restrictions</label>
+        <input type="text" id="user_diet" v-model="user.dietaryRestrictions"  />
       </div>
       
       <div class="form-input-group">
@@ -115,12 +120,15 @@ label {
 }
 .reg-box {
   font-family: cursive;
+  border-radius: 15px;
   width: 300px;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
+  margin-top: 15%;
+  margin-bottom: 20px;
   padding: 5px;
   width: 25%;
-  height: 45%;
+  height: 75%;
   align-content: center;
 }
 .banner {
@@ -129,7 +137,8 @@ label {
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
-  border-radius: 5px;
+  height: 125px;
+  border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 50px;
   position: absolute; /* Position the banner absolutely */

@@ -22,8 +22,7 @@
     </div>
     <div class="form-element">
         <label for="diet">Dietary Restrictions</label>
-        <input class="inputText" id="diet" type="text" v-model="newPotluck.diet" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
-        <span v-if="!newPotluck.diet" >There are no Dietary Restrictions for this event</span>
+        <input class="inputText" id="diet" type="text" v-model="newPotluck.dietaryRestrictions" placeholder="Please indicate the dietary restrictions of this event to the guests."/>
     </div>
  
 <div class="form-element">
@@ -146,10 +145,10 @@ label {
 }
 
 .potluckForm {
-    border: 4px solid red;
+    border: 4px solid rgb(255,127,80);
     padding: 5px;
     width: 80%;
-    background-color: coral;
+    background-color: rgb(252,191,188)
 }
 
 
