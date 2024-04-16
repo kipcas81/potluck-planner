@@ -26,8 +26,6 @@ public interface PotluckDao {
 
     List<Potluck> getAllPotlucks(int userid);
 
-    List<Potluck> getPastAndFuturePotlucks(boolean isCompleted, int userId);
-
     Potluck createPotluck(Potluck potluck);
 
     boolean deletePotluck(int potluckId, int userId);

@@ -44,6 +44,7 @@ CREATE TABLE dish (
 CREATE TABLE potluck_user (
 	potluck_id int NOT NULL,
 	user_id int NOT NULL,
+	user_type varchar(6),
 
 	CONSTRAINT pk_potluck_user PRIMARY KEY (potluck_id, user_id),
 	CONSTRAINT fk_potluck_user_potluck FOREIGN KEY (potluck_id) REFERENCES potlucks (potluck_id),
