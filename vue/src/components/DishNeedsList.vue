@@ -2,10 +2,10 @@
 <div>
 <div class="dishNeedsBox" v-for="dishNeeds in dishNeedsList" v-bind:key="dishNeeds.dish_category_id">
     <div>
-        <p>{{ dishNeeds.dish_category }}</p>
-        <p> {{ dishNeeds.dish_serving_count_filled }} of {{ dishNeeds.dish_serving_count_needed }} servings filled</p>
+        <p>{{ dishNeeds.dish_category }} | {{ dishNeeds.dish_serving_count_filled }} of {{ dishNeeds.dish_serving_count_needed }} servings filled</p>
+    </div>
 </div>
-</div>
+    <button class="btn-delete" v-on:click="(deleteDishNeeds())">Remove All Dish Needs</button>
 </div>
 </template>
 
@@ -25,7 +25,17 @@ export default {
                 this.dishNeedsList = response.data;
             });
         },
-    },
+        deleteDishNeeds(){
+            if (
+        confirm('Are you sure you want to delete all of the dish needs? This cannot be undone.')
+      ) {
+            PotluckService.deleteDishNeeds(this.$route.params.potluckId).then(()=>{
+                this.getAllDishNeeds();
+            });
+            
+        }
+    }
+},
     created(){
         this.getAllDishNeeds(this.$route.params.potluckId);
     }

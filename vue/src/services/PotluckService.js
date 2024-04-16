@@ -22,5 +22,8 @@ export default {
   },
   dishNeedsList(potluckId){
     return axios.get(`/dishNeeds?potluckId=${potluckId}`);
+  },
+  deleteDishNeeds(potluckId){
+    return axios.delete(`dishNeeds?potluckId=${potluckId}`)
   }
 }
