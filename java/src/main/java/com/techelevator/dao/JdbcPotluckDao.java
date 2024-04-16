@@ -101,11 +101,23 @@ public class JdbcPotluckDao implements PotluckDao {
     }
 
     public boolean deletePotluck(int potluckId, int userId) {
-        String sql = "DELETE FROM potlucks WHERE potluck_id = ? AND user_id = ?";
-
         try {
-            int rowsAffected = jdbcTemplate.update(sql, potluckId, userId);
-            return rowsAffected > 0;
+            String deleteDishNeedsSql = "DELETE FROM potluck_dish_needs WHERE potluck_id = ?";
+            jdbcTemplate.update(deleteDishNeedsSql, potluckId);
+
+            String deletePotluckGuestsSql = "DELETE FROM potluck_guests WHERE potluck_id = ?";
+            jdbcTemplate.update(deletePotluckGuestsSql, potluckId);
+
+            String deletePotluckUserDishSql = "DELETE FROM potluck_user_dish WHERE potluck_id = ?";
+            jdbcTemplate.update(deletePotluckUserDishSql, potluckId);
+
+            String deletePotluckUseSql = "DELETE FROM potluck_user WHERE potluck_id = ?";
+            jdbcTemplate.update(deletePotluckUseSql, potluckId);
+
+            String deletePotluckSql = "DELETE FROM potlucks WHERE potluck_id = ? AND user_id = ?";
+            jdbcTemplate.update(deletePotluckSql, potluckId, userId);
+
+            return true;
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
