@@ -10,12 +10,12 @@
   </div>
 </template>
 
-<style>
+<style >
 #capstone-app {
   background-image: url("./assets/2-prawn-pattern.png"); 
-  background-size: contain;  
-  height: 105vh;
-  background-position: center; 
+  background-size: cover;  
+  height: 100vh;
+  background-position:center; 
   background-repeat: repeat; 
   font-family: cursive;
   
