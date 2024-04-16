@@ -33,7 +33,14 @@ export default {
     props: ['dishId'],
     data(){
         return {
-            newDish: {}
+            newDish: {
+                dish_name: "",
+                dish_dietary_restrictions: "",
+                dish_category: "",
+                dish_servings: 0,
+                dish_recipe: ""
+
+            }
         };
     },
     methods: {
