@@ -11,8 +11,8 @@ public class User {
    private int id;
    private String username;
    private String email;
-   private String first_name;
-   private String last_name;
+   private String firstName;
+   private String lastName;
    private String dietaryRestrictions;
    @JsonIgnore
    private String password;
@@ -55,19 +55,19 @@ public class User {
    }
 
    public String getFirstName() {
-      return this.first_name;
+      return this.firstName;
    }
 
    public void setFirstName(String firstName) {
-      this.first_name = firstName;
+      this.firstName = firstName;
    }
 
    public String getLastName() {
-      return this.last_name;
+      return this.lastName;
    }
 
    public void setLastName(String lastName) {
-      this.last_name = lastName;
+      this.lastName = lastName;
    }
 
    public String getDietaryRestrictions() {

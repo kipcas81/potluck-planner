@@ -11,9 +11,9 @@ public class RegisterUserDto {
 
     private String email;
 
-    private String first_name;
+    private String firstName;
 
-    private String last_name;
+    private String lastName;
     private String dietaryRestrictions;
     @NotEmpty
     private String username;
@@ -25,27 +25,36 @@ public class RegisterUserDto {
     private String role;
 
     public String getEmail() {
+        System.out.println("in email method");
+        System.out.println(this.email);
+        System.out.println(email);
+
         return email;
     }
 
     public void setEmail(String email) {
+
         this.email = email;
     }
 
     public String getFirstName() {
-        return this.first_name;
+        System.out.println("in first name method");
+        System.out.println(this.firstName);
+        return this.firstName;
     }
 
-    public void setFirstName(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
-        return this.last_name;
+        System.out.println("in last name method");
+        System.out.println(this.lastName);
+        return this.lastName;
     }
 
-    public void setLastName(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getDietaryRestrictions() {
