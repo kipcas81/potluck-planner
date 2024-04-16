@@ -24,33 +24,16 @@ public class JdbcPotluckDao implements PotluckDao {
 
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
-        List<Potluck> allPotlucks = new ArrayList<>();
-        String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed FROM potlucks;";
-        try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql);
-            while (result.next()) {
-                Potluck potluck = mapRowToPotluck(result);
-                allPotlucks.add(potluck);
-            }
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-        return allPotlucks;
-    }
-    @Override
-    public List<Potluck> getPastAndFuturePotlucks(boolean isCompleted, int userId) {
-        List<Potluck> potlucks = new ArrayList<>();
+        List<Potluck> userPotlucks = new ArrayList<>();
         String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed " +
                 "FROM potlucks " +
-                "WHERE is_completed = ? AND (event_date < CURRENT_DATE OR event_date > CURRENT_DATE) ORDER BY event_date DESC;";
+                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
 
         try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, isCompleted);
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, userId, false);
             while (result.next()) {
                 Potluck potluck = mapRowToPotluck(result);
-                potlucks.add(potluck);
+                userPotlucks.add(potluck);
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -58,7 +41,7 @@ public class JdbcPotluckDao implements PotluckDao {
             throw new DaoException("Data integrity violation", e);
         }
 
-        return potlucks;
+        return userPotlucks;
     }
 
     @Override
@@ -70,6 +53,10 @@ public class JdbcPotluckDao implements PotluckDao {
         try {
             int potluckId = jdbcTemplate.queryForObject(insertPotluckSql, Integer.class, potluck.getUserId(), potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(), potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(), potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted());
             createdPotluck.setPotluckId(potluckId);
+
+            String insertPotluckUserSql = "INSERT INTO potluck_user (potluck_id, user_id, user_type) VALUES (?, ?, ?)";
+            jdbcTemplate.update(insertPotluckUserSql, potluckId, potluck.getUserId(), "host");
+
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -204,13 +191,48 @@ public class JdbcPotluckDao implements PotluckDao {
             } catch (BadSqlGrammarException e) {
                 throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
             }
+
+            int userId = 0;
+            sql = "SELECT user_id " +
+                    "from users " +
+                    "where email = ?;";
+            try {
+                SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
+                if (result.next()) {
+                    userId = result.getInt("user_id");
+                    System.out.println(userId);
+                }
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            } catch (BadSqlGrammarException e) {
+                throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+            }
+
+            if (userId != 0) {
+                sql = "INSERT INTO potluck_user(potluck_id, user_id, user_type) " +
+                        "VALUES(?,?,?)";
+                try {
+                    int numberOfRowsInserted = jdbcTemplate.update(sql, guest.getPotluck_id(), userId, "Guest");
+                    if (numberOfRowsInserted != 1) {
+                        throw new DaoException("while adding a guest, potluck_user table insert didn't go as expected. Please verify.");
+                    }
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                } catch (BadSqlGrammarException e) {
+                    throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+                }
+            }
         }
         return invitedGuests;
     }
 
     public List<Guest> removeGuests(Guest[] guests) {
 
-        for(Guest guest: guests) {
+        for (Guest guest : guests) {
             String sql = "SELECT dish_id " +
                     "from potluck_guests pg " +
                     "join users u on u.email = pg.guest_email_address " +
@@ -220,7 +242,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
                 while (result.next()) {
                     int dishId = result.getInt("dish_id");
-                    deleteDish(guest.getPotluck_id(),dishId);
+                    deleteDish(guest.getPotluck_id(), dishId);
                 }
             } catch (CannotGetJdbcConnectionException e) {
                 throw new DaoException("Unable to connect to server or database", e);
@@ -233,7 +255,41 @@ public class JdbcPotluckDao implements PotluckDao {
         int numberOfRowsRemoved, totalrowsDeleted = 0;
         for (Guest guest : guests) {
 
-            String sql = "delete from potluck_guests " +
+            int userId = 0;
+            String sql = "SELECT user_id " +
+                    "from users " +
+                    "where email = ?;";
+            try {
+                SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
+                if (result.next()) {
+                    userId = result.getInt("user_id");
+                    System.out.println(userId);
+                }
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            } catch (BadSqlGrammarException e) {
+                throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+            }
+
+            if (userId != 0) {
+                sql = "delete from potluck_user where potluck_id = ? and user_id = ?;";
+                try {
+                    int numberOfRowsDeleted = jdbcTemplate.update(sql, guest.getPotluck_id(), userId);
+                    if (numberOfRowsDeleted != 1) {
+                        throw new DaoException("while removing a guest, potluck_user table delete didn't go as expected. Please verify.");
+                    }
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                } catch (BadSqlGrammarException e) {
+                    throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+                }
+            }
+
+            sql = "delete from potluck_guests " +
                     "where potluck_id = ? " +
                     "and guest_email_address = ?;";
             try {
@@ -246,6 +302,7 @@ public class JdbcPotluckDao implements PotluckDao {
             } catch (BadSqlGrammarException e) {
                 throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
             }
+
         }
 
         return removedGuests;
