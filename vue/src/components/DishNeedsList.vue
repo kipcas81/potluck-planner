@@ -1,9 +1,10 @@
 <template>
 <div>
 <div class="dishNeedsBox" v-for="dishNeeds in dishNeedsList" v-bind:key="dishNeeds.dish_category_id">
-    <ul>
-        <li>{{ dishNeeds.dish_category }}</li>
-    </ul>
+    <div>
+        <p>{{ dishNeeds.dish_category }}</p>
+        <p> {{ dishNeeds.dish_serving_count_filled }} of {{ dishNeeds.dish_serving_count_needed }} servings filled</p>
+</div>
 </div>
 </div>
 </template>

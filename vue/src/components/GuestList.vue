@@ -1,12 +1,12 @@
 <template>
 <div>
     <div class="guestsListBox" v-for="guest in guests" v-bind:key="guest.guest_email_address">
-      <ul>
-        <li>{{ guest.guest_first_name }} {{ guest.guest_last_name }} -- {{ guest.guest_email_address }}</li>
-        <input type="checkbox" v-on:click="putGuestsInArray(guest)"/>
-        <button class="btn-delete" v-on:click="(deleteGuest())">Remove Guest</button>
-      </ul>
+      <div>
+        <p> <input type="checkbox" v-on:click="putGuestsInArray(guest)"/> {{ guest.guest_first_name }} {{ guest.guest_last_name }} -- {{ guest.guest_email_address }} </p> 
+        
+      </div>
     </div>
+    <button class="btn-delete" v-on:click="(deleteGuest())">Remove Selected Guests</button>
 </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
     },
     deleteGuest(){
       if (
-        confirm('Are you sure you want to delete this guest? This cannot be undone.')
+        confirm('Are you sure you want to delete these guests? This cannot be undone.')
       ) {
         FriendService.deleteGuest(this.guestsToRemove).then(()=>{
           this.getGuests();

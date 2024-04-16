@@ -1,5 +1,5 @@
 <template>
-<form v-on:submit="addNewDishNeed">
+<form v-on:submit.prevent="addNewDishNeed">
     <div>
         <label for="dish_category">Required Dish</label>
         <input id="dish_category" type="text" v-model="newDishNeeds.dish_category">
@@ -36,8 +36,10 @@ export default {
     },
     methods: {
         addNewDishNeed(){
-            if(this.newDishNeeds.dish_serving_count > 0){
-              PotluckService.addDishNeeds(this.newDishNeeds, this.$route.params.potluckId);
+            if(this.newDishNeeds.dish_serving_count_needed > 0){
+                console.log("hiiiiiiiii");
+              PotluckService.addDishNeeds(this.$route.params.potluckId, this.newDishNeeds);
+              console.log("hello");
             this.resetForm();  
             }
         },
