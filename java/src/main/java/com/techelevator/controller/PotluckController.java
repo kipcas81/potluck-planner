@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 
+import com.techelevator.dao.EmailService;
 import com.techelevator.dao.PotluckDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
@@ -21,9 +22,12 @@ public class PotluckController {
     private PotluckDao potluckDao;
     private UserDao userDao;
 
-    public PotluckController(PotluckDao potluckDao, UserDao userDao) {
+    private EmailService emailService;
+
+    public PotluckController(PotluckDao potluckDao, UserDao userDao, EmailService emailService) {
         this.potluckDao = potluckDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @RequestMapping(path = "/potlucks", method = RequestMethod.GET)
@@ -92,6 +96,23 @@ public class PotluckController {
 
     @RequestMapping(path = "/guests", method = RequestMethod.POST)
     public List<Guest> inviteGuests(@RequestBody Guest[] guests) {
+
+        for(Guest guest: guests) {
+            EmailDetails emailDetails = new EmailDetails();
+            emailDetails.setTo(guest.getGuest_email_address());
+            emailDetails.setBody("You are invited to a Potluck. Please use the link below, " +
+                    "and complete your sign up process and feel free to bring your favorite dish.\n\n" +
+                    "All the fun is at http://127.0.0.1:5173/" +
+                    "\n\n" +
+                    "Hope to see you there soon!\n\n" +
+                    "Hurry up and register now.\n" +
+                    "Potluck App team!" +
+                    "");
+            emailDetails.setSubject("Welcome to the Potluck Planner Application, please sign up and have fun!");
+            String result = emailService.sendSimpleMail(emailDetails);
+            System.out.println(result);
+        }
+
         return potluckDao.inviteGuests(guests);
     }
 
