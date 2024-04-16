@@ -1,7 +1,7 @@
 <template>
   <div id="register" class="text-center">
     <div class="banner">
-    <h1 class="title">The Two Prawn Approach Potluck Planner</h1>
+    <h1 class="title">Two Prawn Potluck Planner</h1>
     <h2 class="welcome-message">make your silly little account</h2>
     </div>
     <form class="reg-box" v-on:submit.prevent="register">
@@ -31,7 +31,7 @@
 
       <div class="form-input-group">
         <label for="user_diet">Diet Restrictions</label>
-        <input type="text" id="user_diet" v-model="user.user_diet"  />
+        <input type="text" id="user_diet" v-model="user.dietaryRestrictions"  />
       </div>
       
       <div class="form-input-group">

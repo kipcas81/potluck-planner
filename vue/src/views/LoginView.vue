@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div class="banner">
-    <h1 class="title">The Two Prawn Approach Potluck Planner</h1>
+    <h1 class="title">Two Prawn Potluck Planner</h1>
     <h2 class="welcome-message">Welcome Back!</h2>
     <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
      <img class="logo-right" src="../assets/2-Prawn-logo.png"/>

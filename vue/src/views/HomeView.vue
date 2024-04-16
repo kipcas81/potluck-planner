@@ -2,7 +2,7 @@
   
   <div class="home">
       <div class="banner">
-    <h1 id="title">The Two Prawn Approach Potluck Planner</h1>
+    <h1 id="title">Two Prawn Potluck Planner</h1>
     <p id="tagline">"You're telling me a shrimp fried this rice?"</p>
       </div>
 
