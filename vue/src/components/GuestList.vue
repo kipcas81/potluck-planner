@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="guestsListBox" v-for="guest in guests" v-bind:key="guest.user_id">
-      <ul>
+      <ul id="guestlist">
         <li>{{ guest.guest_first_name }} {{ guest.guest_last_name }} -- {{ guest.guest_email_address }}</li>
       </ul>
     </div>
@@ -32,4 +32,6 @@ export default {
 </script>
 
 <style>
+
+
 </style>

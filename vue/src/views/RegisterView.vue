@@ -30,7 +30,7 @@
       </div>
 
       <div class="form-input-group">
-        <label for="user-diet">Diet Restrictions</label>
+        <label for="user_diet">Diet Restrictions</label>
         <input type="text" id="user_diet" v-model="user.user_diet"  />
       </div>
       
@@ -124,10 +124,11 @@ label {
   width: 300px;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
-  margin-top: 5%;
+  margin-top: 15%;
+  margin-bottom: 20px;
   padding: 5px;
   width: 25%;
-  height: 60%;
+  height: 75%;
   align-content: center;
 }
 .banner {
@@ -136,6 +137,7 @@ label {
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
+  height: 125px;
   border-radius: 15px;
   margin-top: 10px;
   margin-bottom: 50px;

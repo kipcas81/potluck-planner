@@ -12,7 +12,7 @@
 
 <style>
 #capstone-app {
-  background-image: url("./assets/seefood.jpg"); 
+  background-image: url("./assets/2-prawn-pattern.png"); 
   background-size: contain;  
   height: 105vh;
   background-position: center; 
@@ -24,6 +24,7 @@
 #nav {
   background-color: rgba(255, 255, 255, 0.7); 
   padding: 10px;
+ 
 }
 
 </style>

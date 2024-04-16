@@ -14,7 +14,7 @@
         <button class="btn-edit" v-on:click="$router.push({name: 'EditPotluckView', params: {potluckId: potluckId}})">Edit</button>
         <button class="btn-delete" v-on:click="deletePotluck">Delete</button>
         <button class="inv-guest" v-on:click="inviteGuest">Invite Guests</button>
-        <button class="update-dish-needs" v-on:click="updateDish">Update Dish Needs</button>
+        <button class="update-dish-needs" v-on:click="updateDish">Dish Needs</button>
     </div>
 </div>
     </header>
