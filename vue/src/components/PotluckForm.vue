@@ -1,5 +1,6 @@
 <template>
 <form @submit.prevent="addNewPotluck" class="potluckForm">
+    
     <div class="form-element">
         <label for="name">Name:</label>
         <input class="inputText" type="text" v-model="newPotluck.eventName"/>
@@ -43,6 +44,8 @@
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Clear" @click="resetForm"/>
     <input class="cancelbtn" type="button" value="Cancel" @click="this.$router.push('/')">
+
+    <img class="logo" src="../assets/2-Prawn-logo.png"/>
 
 </form>
 </template>
@@ -129,27 +132,53 @@ label {
 }
 
 .inputText {
-    
     width: 95%;
+    border-radius: 10px;
+    text-align: flex-start;
     box-sizing: border-box;
     vertical-align: top;
-    padding-top: 0;
+    line-height: 1;
+    padding-top: 5px;
 }
 
 #description {
-    height: 80px;
+    height: 60px;
 }
 
 #diet{
-    height: 80px;
+    height: 60px;
 }
 
 .potluckForm {
+    margin-top: 1%;
+    margin-left: 18%;
+    border-radius: 15px;
     border: 4px solid rgb(255,127,80);
     padding: 5px;
-    width: 80%;
+    width: 60%;
     background-color: rgb(252,191,188)
 }
+.logo {
+    height: 60px;
+    position: relative;
+    right: -310px;
+    bottom: 10px
+}
+.submitbtn {
+   margin-right: 10px;
+  width: 10vw;
+  border-radius: 10px;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
+}
+.cancelbtn {
+  margin-right: 10px;
+  width: 10vw;
+  border-radius: 10px;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
+}
+
 
 
 </style>

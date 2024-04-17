@@ -81,7 +81,8 @@ export default {
   border: 4px solid rgb(255,127,80);
   width: 15vw;
   position: relative;
-  top: 40px
+  top: 40px;
+  margin-bottom: 25px;
 }
 
 .completed {

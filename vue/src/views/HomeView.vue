@@ -14,6 +14,7 @@
 <div class="potlucks">
   <PotluckList :potlucks="potlucks"/>
 </div>
+<div class="completedPotlucks"></div>
   
 </template>
 <script>
@@ -60,6 +61,7 @@ export default {
   display: flex;
   flex-direction: row;
   font-family: cursive;
+  /* font-size: x-large; */
   align-items: center;
   justify-content: space-evenly;
   width: 95vw;
@@ -109,9 +111,11 @@ p {
 .potlucks {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   margin-top: 12%;
+  flex-wrap: wrap;
 }
+
 
 
 
