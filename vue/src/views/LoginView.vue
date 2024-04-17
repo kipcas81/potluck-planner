@@ -1,9 +1,9 @@
 <template>
   <div id="login">
     <div class="banner">
+      <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
     <h1 class="title">Two Prawn Potluck Planner</h1>
-    <h2 class="welcome-message">Welcome Back!</h2>
-    <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
+    <!-- <h2 class="welcome-message">Welcome Back!</h2> -->
      <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
   </div>
     <form class="login-box" v-on:submit.prevent="login">
@@ -104,15 +104,18 @@ label {
 }
 
 .banner {
+  /* display: flex;
+  flex-direction: row; */
   font-family: cursive;
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
   width: 95vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
   border-radius: 15px;
   margin-top: 10px;
-  margin-bottom: 80px;
-  height: 125px;
+  height: 115px;
   position: absolute; 
   top: 40px;
   left: 50%; 
@@ -120,25 +123,21 @@ label {
   background-size: auto;
 }
 
-.please {
-  margin-bottom: 20px;
-  font-family: cursive;
-}
 .logo-left,
 .logo-right {
   height: 90px;
   position: relative; 
-  top: -120px; 
 }
 
 .logo-left {
-  margin-right: auto;
-  padding-left: 70%;
-  transform: rotateY(180deg)
+  transform: rotateY(180deg);
+  position: relative; 
 }
-
 .logo-right {
-  margin-left: auto;
+  position: relative;
 }
-
+.please {
+  margin-bottom: 20px;
+  font-family: cursive;
+}
 </style>
