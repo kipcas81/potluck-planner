@@ -3,6 +3,8 @@
     <div class="banner">
     <h1 class="title">Two Prawn Potluck Planner</h1>
     <h2 class="welcome-message">make your silly little account</h2>
+    <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
+     <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
     </div>
     <form class="reg-box" v-on:submit.prevent="register">
       <h1>Create Account</h1>
@@ -147,5 +149,21 @@ label {
   transform: translateX(-50%); 
 } 
 
+.logo-left,
+.logo-right {
+  height: 90px;
+  position: relative; 
+  top: -120px; 
+}
+
+.logo-left {
+  margin-right: auto;
+  padding-left: 70%;
+  transform: rotateY(180deg)
+}
+
+.logo-right {
+  margin-left: auto;
+}
 
 </style>

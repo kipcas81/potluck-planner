@@ -2,8 +2,8 @@
     <header class="flex">
 
     <div class="container">
-        <h1>{{ potluck.eventName }}</h1>
-        <h2>{{ potluck.description }}</h2>
+        <!-- <h1>{{ potluck.eventName }}</h1> -->
+        <h3>{{ potluck.description }}</h3>
         <p>Dietary Restrictions: {{ potluck.diet }}</p>
         <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
         <p>Location: {{ potluck.location }}</p>
@@ -42,3 +42,9 @@ export default {
     }
 }
 </script>
+
+<style>
+h3 {
+    word-wrap: break-word;
+}
+</style>

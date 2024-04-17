@@ -93,7 +93,16 @@ export default {
   position: relative;
   top: 40px
 }
-
+p {
+  font-style: italic;
+}
+.create-potluck {
+  /* font-stretch:ultra-expanded; */
+  height:40px;
+  width: 20vw;
+  background-color: #bcf9fc;
+  border-radius: 10px;
+}
 
 
 

@@ -1,5 +1,11 @@
 <template>
   <div class="potluck-view">
+    <div class="banner">
+      <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
+      <h1>{{ Potluck.eventName }}</h1>
+     <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
+      <!-- <h2>Hosted By: {{  }}</h2> -->
+    </div>
     <div>
       <PotluckDetail v-bind:potluck="Potluck"/>
      </div>
@@ -78,21 +84,21 @@ export default {
 </script>
 <style>
 .container {
+  margin-top: 25%;
+  margin-left: 15%;
   font-family: cursive;
   display: flex;
+  overflow-wrap: break-word;
   flex-direction: column;
-  flex-wrap: wrap;
   border-radius: 15px;
   align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  margin-left: 10px;
   padding-bottom: 5px;
   position: relative;
 }
 .actions {
   display: grid;
-  align-items: center;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
   column-gap: 50px;
@@ -109,7 +115,6 @@ export default {
 }
 .btn-delete {
   margin-right: 10px;
-  
   width: 15vw;
   border-radius: 10px;
   background-color: whitesmoke;
@@ -127,6 +132,8 @@ export default {
   background-color: whitesmoke;
 }
 .dish-needs {
+  margin-bottom: 5%;
+  margin-left: 15%;
   font-family: cursive;
   display: flex;
   flex-direction: column;
@@ -134,11 +141,13 @@ export default {
   align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  margin-left: 10px;
+  /* margin-left: 10px; */
   padding-bottom: 5px;
   position: relative;
 }
 .guest-head {
+  margin-top: 25%;
+  margin-right: 15%;
   font-family: cursive;
   display: flex;
   flex-direction: column;
@@ -146,18 +155,19 @@ export default {
   align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  margin-right: 10px;
+  /* margin-right: 10px; */
   padding-bottom: 5px;
   position: relative;
 }
 .potluck-view {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-rows: auto auto;
   column-gap: 30px;
   row-gap: 30px;
 }
 .dishes-head {
+  margin-bottom: 5%;
   font-family: cursive;
   display: flex;
   flex-direction: column;
@@ -165,9 +175,45 @@ export default {
   align-items: center;
   background-color: rgb(252, 191, 188);
   border: 4px solid rgb(255, 127, 80);
-  margin-right: 10px;
+  margin-right: 15%;
   padding-bottom: 5px;
   position: relative;
+}
+.banner {
+  display: flex;
+  flex-direction: row;
+  font-family: cursive;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 95vw;
+  background-color: rgb(252,191,188);
+  border: 4px solid rgb(255,127,80);
+  padding: 10px 20px;
+  border-radius: 15px;
+  margin-top: 10px;
+  height: 115px;
+  position: absolute; 
+  top: 40px;
+  left: 50%; 
+  transform: translateX(-50%);
+  background-size: auto;
+}
+.logo-left,
+.logo-right {
+  height: 90px;
+  position: relative; 
+   
+}
+
+.logo-left {
+  margin-right: auto;
+  margin-left: 5%;
+  transform: rotateY(180deg)
+}
+
+.logo-right {
+  margin-left: auto;
+  margin-right: 5%;
 }
 
 
