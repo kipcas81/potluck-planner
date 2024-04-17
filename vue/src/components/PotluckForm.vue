@@ -64,7 +64,6 @@ export default {
                 description: "", 
                 eventDate: "",
                 eventTime: "",
-                diet: "",
                 recurring: false,
                 frequencyDays: 0,
                 location: "",
@@ -84,7 +83,7 @@ export default {
             this.$router.push('/');  
             } else {
                 PotluckService.updatePotluck(this.newPotluck);
-                this.$router.push('/'); 
+                this.$router.push({name: 'PotluckView', params: {potluckId: this.$route.params.potluckId}}); 
             }
 
 
@@ -96,7 +95,7 @@ export default {
         this.newPotluck.description = "";
         this.newPotluck.eventDate = "";
         this.newPotluck.eventTime = "";
-        this.newPotluck.diet = "",
+        this.newPotluck.dietaryRestrictions = "",
         this.newPotluck.recurring = false;
         this.newPotluck.frequencyDays = 0;
         this.newPotluck.location = "";
