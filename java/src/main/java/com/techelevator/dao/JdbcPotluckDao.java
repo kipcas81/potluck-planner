@@ -24,14 +24,6 @@ public class JdbcPotluckDao implements PotluckDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean isPotluckCompleted(LocalDate eventDate, LocalTime eventTime) {
-        LocalDate currentDate = LocalDate.now();
-        LocalTime currentTime = LocalTime.now();
-        if(currentDate.isAfter(eventDate) || currentDate.equals(eventDate)) {
-            return currentTime.isAfter(eventTime) || currentTime.equals(eventTime);
-        }
-        return false;
-    }
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> userPotlucks = new ArrayList<>();
@@ -45,16 +37,11 @@ public class JdbcPotluckDao implements PotluckDao {
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
                 "ORDER BY event_date DESC;";
-//
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
             while (result.next()) {
                 Potluck potluck = mapRowToPotluckUserView(result);
-                LocalDate eventDate = LocalDate.parse(result.getString("event_date"));
-                LocalTime eventTime = LocalTime.parse(result.getString("event_time"));
-                boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
-                potluck.setCompleted(isPotluckCompleted);
                 userPotlucks.add(potluck);
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -72,8 +59,8 @@ public class JdbcPotluckDao implements PotluckDao {
                 "pu.user_id, pu.user_type as userType " +
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
-                "where pu.user_id = ?;";
-//                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
+                "where pu.user_id = ? " +
+                "ORDER BY event_date DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -715,7 +702,12 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
         return potluck;
@@ -735,7 +727,12 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
 
@@ -758,11 +755,24 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
 
         return potluck;
+    }
+    public boolean isPotluckCompleted(LocalDate eventDate, LocalTime eventTime) {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        if(currentDate.isAfter(eventDate) || currentDate.equals(eventDate)) {
+            return currentTime.isAfter(eventTime) || currentTime.equals(eventTime);
+        }
+        return false;
     }
 }
 
