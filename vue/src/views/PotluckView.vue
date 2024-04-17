@@ -31,6 +31,7 @@ import PotluckService from '../services/PotluckService';
 import GuestList from '../components/GuestList.vue';
 import DishNeedsList from '../components/DishNeedsList.vue';
 import DishList from '../components/DishList.vue';
+import FriendService from '../services/FriendService';
 
 export default {
     components: {
@@ -78,6 +79,18 @@ export default {
       PotluckService.getPotluck(this.$route.params.potluckId)
       .then(response => {
         this.Potluck = response.data;
+      });
+      FriendService.guestList(this.$route.params.potluckId)
+      .then(response => {
+        this.guests = response.data;
+      });
+      PotluckService.dishNeedsList(this.$route.params.potluckId)
+      .then(response => {
+        this.allDishNeeds = response.data;
+      });
+      PotluckService.getAllDishes(this.$route.params.potluckId)
+      .then(response => {
+        this.dishes = response.data;
       });
     }
 }

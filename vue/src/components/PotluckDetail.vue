@@ -4,7 +4,7 @@
     <div class="container">
         <!-- <h1>{{ potluck.eventName }}</h1> -->
         <h3>{{ potluck.description }}</h3>
-        <p>Dietary Restrictions: {{ potluck.diet }}</p>
+        <p>Dietary Restrictions: {{ potluck.dietaryRestrictions }}</p>
         <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
         <p>Location: {{ potluck.location }}</p>
         <p v-if="potluck.private">This is a private event.</p>

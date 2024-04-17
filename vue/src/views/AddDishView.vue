@@ -1,6 +1,7 @@
 <template>
 <div>
 <h1>Add A Dish</h1>
+<p>Dishes can only be added to potlucks that have dish needs of the same category</p>
 <DishForm v-bind:dish="dish"/>
 </div>
 </template>
