@@ -42,6 +42,7 @@
 
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Clear" @click="resetForm"/>
+    <input class="cancelbtn" type="button" value="Cancel" @click="this.$router.push('/')">
 
 </form>
 </template>
@@ -58,7 +59,6 @@ export default {
     },
     data () {
         return {
-            //create potluck
             newPotluck: {
                 eventName: "",
                 description: "", 

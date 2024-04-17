@@ -18,11 +18,19 @@
     <div>
         <p>Done adding guests? <router-link :to="{name: 'PotluckView', params: {potluckId: $route.params.potluckId}}">Click Me!</router-link></p>
     </div>
+    <div>
+        <h1>Friends List</h1>
+        <FriendsList :friends="friends"/>
+    </div>
     </template>
     
     <script>
     import FriendService from '../services/FriendService';
+    import FriendsList from './FriendsList.vue';
     export default {
+        components: {
+            FriendsList
+        },
         props: {
             guest: {
               type: Object,
@@ -38,6 +46,7 @@
                     potluck_id: this.$route.params.potluckId
             },
                 guestsArray: [],
+                friends: []
             };
         },
         methods: {

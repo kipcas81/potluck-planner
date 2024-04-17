@@ -1,8 +1,8 @@
 <template>
 <div>
     <h1>Friends List</h1>
-    <button class="add-friend" v-on:click="toggleFriendsForm">Add a New Friend</button>
-    <FriendsForm v-bind:friend="friend" v-if="showForm"/>
+    <!-- <button class="add-friend" v-on:click="toggleFriendsForm">Add a New Friend</button> -->
+    <FriendsForm v-bind:friend="friend" />
     <FriendsList :friends="friends"/>
 </div>
 </template>
