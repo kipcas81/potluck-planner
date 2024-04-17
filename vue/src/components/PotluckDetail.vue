@@ -9,7 +9,7 @@
         <p>Location: {{ potluck.location }}</p>
         <p v-if="potluck.private">This is a private event.</p>
         
-        <div class="actions">
+        <div class="actions" v-if="isHost()">
             <button class="btn-edit" v-on:click="$router.push({name: 'EditPotluckView', params: {potluckId: potluckId}})">Edit</button>
             <button class="btn-delete" v-on:click="deletePotluck">Delete</button>
             <button class="inv-guest" v-on:click="$router.push({name: 'AddGuestView', params: {potluckId: potluckId}})" >Invite Guests</button>
@@ -38,6 +38,9 @@ export default {
                 });
                 
             }
+        },
+        isHost(){
+            return this.$store.state.user.id === this.potluck.userId; 
         }
     }
 }
