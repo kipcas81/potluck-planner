@@ -25,6 +25,7 @@ public interface PotluckDao {
     List<Dish> getAllDishesByPotluckId(int potluckId);
 
     List<Potluck> getAllPotlucks(int userid);
+    List<PotluckUser> getAllPotlucksAndUserTypes(int userid);
 
     Potluck createPotluck(Potluck potluck);
 
