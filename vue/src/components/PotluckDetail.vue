@@ -13,7 +13,7 @@
             <button class="btn-edit" v-on:click="$router.push({name: 'EditPotluckView', params: {potluckId: potluckId}})">Edit</button>
             <button class="btn-delete" v-on:click="deletePotluck">Delete</button>
             <button class="inv-guest" v-on:click="$router.push({name: 'AddGuestView', params: {potluckId: potluckId}})" >Invite Guests</button>
-            <button class="update-dish-needs" v-on:click="$router.push({name: 'AddDishNeedsView', params: {potluckId: potluckId}})">Dish Needs</button>
+            <button class="update-dish-needs" v-on:click="$router.push({name: 'AddDishNeedsView', params: {potluckId: potluckId}})">Add Dish Needs</button>
         </div>
         </div>
     </header>
