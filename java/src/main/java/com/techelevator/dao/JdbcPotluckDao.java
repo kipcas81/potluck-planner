@@ -468,7 +468,24 @@ public class JdbcPotluckDao implements PotluckDao {
         return potluckDishNeedsByPotluckId;
     }
 
-    public boolean deleteDishNeeds(int potluckId) {
+    public boolean deleteDishNeeds(int potluckId, int dishCategoryId) {
+        String sql = "delete from potluck_dish_needs " +
+                "where potluck_id = ? " +
+                "and dish_category_id = ?;";
+        try {
+            int rowsDeleted = jdbcTemplate.update(sql, potluckId, dishCategoryId);
+            if (rowsDeleted == 0) {
+                throw new DaoException("potluck_dish_needs DELETION by dishCategoryId didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return true;
+    }
+
+    public boolean deleteAllDishNeeds(int potluckId) {
         String sql = "delete from potluck_dish_needs " +
                 "where potluck_id = ?;";
         try {
