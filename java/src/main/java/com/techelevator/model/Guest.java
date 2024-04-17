@@ -4,6 +4,7 @@ public class Guest {
 
     private int potluck_id;
 
+    private int user_id;
     private int guest_id;
 
     private String guest_first_name;
@@ -15,9 +16,10 @@ public class Guest {
 
     public Guest() {}
 
-    public Guest(int potluckId, int guestId, String guestFirstName, String guestLastName, String guestEmailAddress, boolean guestAlreadyRegistered) {
+    public Guest(int potluckId, int userId, int guestId, String guestFirstName, String guestLastName, String guestEmailAddress, boolean guestAlreadyRegistered) {
 
         this.potluck_id = potluckId;
+        this.user_id = userId;
         this.guest_id = guestId;
         this.guest_first_name = guestFirstName;
         this.guest_last_name = guestLastName;
@@ -29,10 +31,12 @@ public class Guest {
         return potluck_id;
     }
 
+    public int getUser_id() {
+        return user_id;
+    }
     public int getGuest_id() {
         return guest_id;
     }
-
     public String getGuest_first_name() {
         return guest_first_name;
     }
@@ -51,6 +55,9 @@ public class Guest {
 
     public void setPotluck_id(int potluckId) {
         this.potluck_id = potluckId;
+    }
+    public void setUser_id(int userId) {
+        this.user_id = userId;
     }
     public void setGuest_id(int guestId) {
         this.guest_id = guestId;

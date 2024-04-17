@@ -36,7 +36,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
-                "ORDER BY event_date DESC;";
+                "ORDER BY event_date DESC, event_time DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -60,7 +60,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
-                "ORDER BY event_date DESC;";
+                "ORDER BY event_date DESC, event_time DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -239,16 +239,16 @@ public class JdbcPotluckDao implements PotluckDao {
 
         return  true;
     }
-    public List<Guest> inviteGuests(Guest[] guests) {
+    public List<Guest> inviteGuests(Guest[] guests, int userid) {
         List<Guest> invitedGuests = new ArrayList<>();
         Guest createdGuest = null;
         for (Guest guest : guests) {
             createdGuest = guest;
-            String sql = "INSERT INTO potluck_guests(potluck_id, guest_first_name, guest_last_name, guest_email_address," +
+            String sql = "INSERT INTO potluck_guests(potluck_id, user_id, guest_first_name, guest_last_name, guest_email_address," +
                     " guest_already_registered) " +
-                    "VALUES(?,?,?,?,?) returning guest_id;";
+                    "VALUES(?,?,?,?,?,?) returning guest_id;";
             try {
-                int guestId = jdbcTemplate.queryForObject(sql, int.class, guest.getPotluck_id(), guest.getGuest_first_name(),
+                int guestId = jdbcTemplate.queryForObject(sql, int.class, guest.getPotluck_id(), userid, guest.getGuest_first_name(),
                         guest.getGuest_last_name(), guest.getGuest_email_address(), guest.getGuest_already_registered());
                 createdGuest.setGuest_id(guestId);
                 invitedGuests.add(createdGuest);
@@ -379,7 +379,7 @@ public class JdbcPotluckDao implements PotluckDao {
     public List<Guest> getGuests(int potluckId) {
         List<Guest> allGuestsByPotluckId = new ArrayList<>();
         Guest guest = null;
-        String sql = "SELECT potluck_id, guest_id, guest_first_name, guest_last_name, guest_email_address, guest_already_registered " +
+        String sql = "SELECT potluck_id, user_id, guest_id, guest_first_name, guest_last_name, guest_email_address, guest_already_registered " +
                 "FROM potluck_guests where potluck_id = ?;";
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, potluckId);
@@ -566,6 +566,23 @@ public class JdbcPotluckDao implements PotluckDao {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, dishId);
             if (results.next()) {
                 dish = mapRowToDish(results);
+                int userId = 0;
+                sql = "SELECT username " +
+                        "from users " +
+                        "where user_id = ?;";
+                try {
+                    SqlRowSet result = jdbcTemplate.queryForRowSet(sql, dish.getUser_id());
+                    if (result.next()) {
+                        String userName = result.getString("username");
+                        dish.setUsername(userName);
+                    }
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                } catch (BadSqlGrammarException e) {
+                    throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+                }
             }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -682,6 +699,7 @@ public class JdbcPotluckDao implements PotluckDao {
     private Guest mapRowToGuest(SqlRowSet rs) {
         Guest guest = new Guest();
         guest.setPotluck_id(rs.getInt("potluck_id"));
+        guest.setUser_id(rs.getInt("user_id"));
         guest.setGuest_id(rs.getInt("guest_id"));
         guest.setGuest_first_name(rs.getString("guest_first_name"));
         guest.setGuest_last_name(rs.getString("guest_last_name"));

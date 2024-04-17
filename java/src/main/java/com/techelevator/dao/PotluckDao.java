@@ -40,7 +40,7 @@ public interface PotluckDao {
 
     List<Friend> getFriends(int userid);
 
-    List<Guest> inviteGuests(Guest[] guests);
+    List<Guest> inviteGuests(Guest[] guests, int userId);
 
     List<Guest> removeGuests(Guest[] guests);
 
