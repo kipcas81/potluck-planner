@@ -4,9 +4,9 @@
     <img class="potluckImage" :src="getRandomImage()"/>
   </div>
      <router-link v-bind:to="{name: 'PotluckView', params: {potluckId: potluck.potluckId}}">{{potluck.eventName}}</router-link>
-     <p> <i class="fa-solid fa-location-dot" style="color: rgb(255,127,80);"></i> Location: {{ potluck.location }}</p>
-    <p> <i class="fa-regular fa-calendar" style="color: rgb(255,127,80);"></i> Date: {{ potluck.eventDate }}</p>
-    <p> <i class="fa-regular fa-clock" style="color: rgb(255,127,80);"></i> Start Time: {{ potluck.eventTime }}</p>
+     <p> <i class="fa-solid fa-location-dot" style="color: rgb(0, 0, 0);"></i>  Location: {{ potluck.location }}</p>
+    <p> <i class="fa-regular fa-calendar" style="color: rgb(0, 0, 0);"></i>  Date: {{ potluck.eventDate }}</p>
+    <p> <i class="fa-regular fa-clock" style="color: rgb(0, 0, 0);"></i> Start Time: {{ potluck.eventTime }}</p>
     </div>
 </template>
 
@@ -61,5 +61,20 @@ export default {
 
 .potluckImage{
   height: 150px;
+  border-radius: 10px;
+  border-color: rgb(0,0,0);
+}
+.potluckBox {
+  display: flex;
+  padding: 10px;
+  flex-direction: column;
+  margin-right: 25px;
+  border-radius: 15px;
+  align-items: center;
+  background-color: rgb(252,191,188);
+  border: 4px solid rgb(255,127,80);
+  width: 15vw;
+  position: relative;
+  top: 40px
 }
 </style>

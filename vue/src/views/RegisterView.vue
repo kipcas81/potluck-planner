@@ -1,8 +1,10 @@
 <template>
   <div id="register" class="text-center">
     <div class="banner">
+      <img class="logo-left" src="../assets/2-Prawn-logo.png"/>
     <h1 class="title">Two Prawn Potluck Planner</h1>
-    <h2 class="welcome-message">make your silly little account</h2>
+    <!-- <h2 class="welcome-message">make your silly little account</h2> -->
+     <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
     </div>
     <form class="reg-box" v-on:submit.prevent="register">
       <h1>Create Account</h1>
@@ -132,20 +134,37 @@ label {
   align-content: center;
 }
 .banner {
+  /* display: flex;
+  flex-direction: row; */
   font-family: cursive;
+  /* align-items: center; */
+  /* justify-content: space-evenly; */
   width: 95vw;
   background-color: rgb(252,191,188);
   border: 4px solid rgb(255,127,80);
   padding: 10px 20px;
-  height: 125px;
   border-radius: 15px;
   margin-top: 10px;
-  margin-bottom: 50px;
+  height: 115px;
   position: absolute; 
-  top: 40px; 
+  top: 40px;
   left: 50%; 
-  transform: translateX(-50%); 
-} 
+  transform: translateX(-50%);
+  background-size: auto;
+}
 
+.logo-left,
+.logo-right {
+  height: 90px;
+  position: relative; 
+}
+
+.logo-left {
+  transform: rotateY(180deg);
+  position: relative; 
+}
+.logo-right {
+  position: relative;
+}
 
 </style>
