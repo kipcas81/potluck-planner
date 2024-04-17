@@ -36,7 +36,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
-                "ORDER BY event_date DESC;";
+                "ORDER BY event_date DESC, event_time DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -60,7 +60,7 @@ public class JdbcPotluckDao implements PotluckDao {
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
-                "ORDER BY event_date DESC;";
+                "ORDER BY event_date DESC, event_time DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
