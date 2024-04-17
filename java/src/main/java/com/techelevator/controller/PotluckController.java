@@ -94,7 +94,7 @@ public class PotluckController {
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.POST)
-    public List<Guest> inviteGuests(@RequestBody Guest[] guests) {
+    public List<Guest> inviteGuests(@RequestBody Guest[] guests, Principal principal) {
 
         for(Guest guest: guests) {
             EmailDetails emailDetails = new EmailDetails();
@@ -111,8 +111,9 @@ public class PotluckController {
             String result = emailService.sendSimpleMail(emailDetails);
             System.out.println(result);
         }
-
-        return potluckDao.inviteGuests(guests);
+        String username = principal.getName();
+        int userid = userDao.getUserByUsername(username).getId();
+        return potluckDao.inviteGuests(guests, userid);
     }
 
     @RequestMapping(path = "/guests", method = RequestMethod.DELETE)

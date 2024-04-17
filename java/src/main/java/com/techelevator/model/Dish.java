@@ -3,6 +3,7 @@ package com.techelevator.model;
 
 public class Dish {
     private int dish_id;
+    private String username;
     private String dish_name;
     private String dish_dietary_restrictions;
     private String dish_category;
@@ -12,7 +13,7 @@ public class Dish {
 
     public Dish() {}
 
-    public Dish(int dishId, String dishName, String dishDietaryRestrictions, String dishCategory, int dishServings, String dishRecipe, int userId) {
+    public Dish(int dishId, String dishName, String dishDietaryRestrictions, String dishCategory, int dishServings, String dishRecipe, int userId, String username) {
 
         this.dish_id = dishId;
         this.dish_name = dishName;
@@ -21,6 +22,7 @@ public class Dish {
         this.dish_servings = dishServings;
         this.dish_recipe = dishRecipe;
         this.user_id = userId;
+        this.username = username;
     }
 
     public int getDish_id() {
@@ -50,6 +52,9 @@ public class Dish {
         return user_id;
     }
 
+    public String getUsername() {
+        return username;
+    }
     public void setDish_id(int dishId) {
         this.dish_id = dishId;
     }
@@ -77,5 +82,8 @@ public class Dish {
         this.user_id = userId;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
 }
