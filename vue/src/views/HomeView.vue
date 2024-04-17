@@ -61,6 +61,7 @@ export default {
   display: flex;
   flex-direction: row;
   font-family: cursive;
+  /* font-size: x-large; */
   align-items: center;
   justify-content: space-evenly;
   width: 95vw;
@@ -114,6 +115,7 @@ p {
   margin-top: 12%;
   flex-wrap: wrap;
 }
+
 
 
 

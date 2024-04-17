@@ -32,10 +32,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #create-head {
     text-align: center;
-    text-decoration: underline;
+    
 }
 
 
