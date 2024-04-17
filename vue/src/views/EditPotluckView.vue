@@ -2,6 +2,7 @@
 <div>
     <h1>Edit Potluck</h1>
     <PotluckForm v-bind:potluck="potluck"/>
+    <input class="clonebtn" type="button" value="Duplicate Potluck" v-on:click="duplicatePotluck()"/>
 </div>
 </template>
 
@@ -38,7 +39,17 @@ export default {
                 this.potluck.potluckId = potluckId;
             })
         }
+    },
+    methods: {
+        duplicatePotluck(){
+            if (
+                confirm('Are you sure you want to duplicate this potluck?')
+            ) {
+                PotluckService.addPotluck(this.potluck);
+                this.$router.push({path: '/'})
+        }
     }
+}
 }
 </script>
 
