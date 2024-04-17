@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +37,6 @@ public class JdbcPotluckDao implements PotluckDao {
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
                 "where pu.user_id = ? " +
                 "ORDER BY event_date DESC;";
-//
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -58,8 +59,8 @@ public class JdbcPotluckDao implements PotluckDao {
                 "pu.user_id, pu.user_type as userType " +
                 "FROM potlucks p " +
                 "join potluck_user pu on pu.potluck_id = p.potluck_id " +
-                "where pu.user_id = ?;";
-//                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
+                "where pu.user_id = ? " +
+                "ORDER BY event_date DESC;";
 
         try {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
@@ -454,7 +455,24 @@ public class JdbcPotluckDao implements PotluckDao {
         return potluckDishNeedsByPotluckId;
     }
 
-    public boolean deleteDishNeeds(int potluckId) {
+    public boolean deleteDishNeeds(int potluckId, int dishCategoryId) {
+        String sql = "delete from potluck_dish_needs " +
+                "where potluck_id = ? " +
+                "and dish_category_id = ?;";
+        try {
+            int rowsDeleted = jdbcTemplate.update(sql, potluckId, dishCategoryId);
+            if (rowsDeleted == 0) {
+                throw new DaoException("potluck_dish_needs DELETION by dishCategoryId didn't go as expected. Please verify.");
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return true;
+    }
+
+    public boolean deleteAllDishNeeds(int potluckId) {
         String sql = "delete from potluck_dish_needs " +
                 "where potluck_id = ?;";
         try {
@@ -684,7 +702,12 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
         return potluck;
@@ -704,7 +727,12 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
 
@@ -727,11 +755,24 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setRecurring(rs.getBoolean("is_recurring"));
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
-        potluck.setCompleted(rs.getBoolean("is_completed"));
+
+        LocalDate eventDate = LocalDate.parse(rs.getString("event_date"));
+        LocalTime eventTime = LocalTime.parse(rs.getString("event_time"));
+        boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+        potluck.setCompleted(isPotluckCompleted);
+
         potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
 
         return potluck;
+    }
+    public boolean isPotluckCompleted(LocalDate eventDate, LocalTime eventTime) {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        if(currentDate.isAfter(eventDate) || currentDate.equals(eventDate)) {
+            return currentTime.isAfter(eventTime) || currentTime.equals(eventTime);
+        }
+        return false;
     }
 }
 

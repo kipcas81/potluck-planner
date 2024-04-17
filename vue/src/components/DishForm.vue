@@ -22,13 +22,19 @@
     </div>
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Clear" @click="cancelForm" />
+    <input class="cancelbtn" type="button" value="Cancel" @click="this.$router.push('/')">
 </form>
+<div>
+    <h1>Dish Needs</h1>
+    <DishNeedsList :dishNeeds="dishNeeds"/>
+</div>
 </template>
 
 
 
 <script>
 import PotluckService from '../services/PotluckService';
+import DishNeedsList from './DishNeedsList.vue';
 
 export default {
     props: {
@@ -36,6 +42,9 @@ export default {
             type: Object,
             required: true
         }
+    },
+    components: {
+        DishNeedsList
     },
     data(){
         return {
@@ -45,8 +54,15 @@ export default {
                 dish_category: "",
                 dish_servings: 0,
                 dish_recipe: ""
-            }
+            },
+            dishes: []
         };
+    },
+    created(){
+        PotluckService.dishNeedsList(this.$route.params.potluckId)
+        .then(response => {
+            this.dishNeeds = response.data
+        })
     },
     methods: {
         addNewDish(){

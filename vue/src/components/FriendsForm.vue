@@ -15,6 +15,7 @@
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Cancel" @click="cancelForm"/>
 </form>
+<p>Done adding friends? <router-link :to="{path: '/'}">Click Me!</router-link></p>
 </template>
 
 <script>
