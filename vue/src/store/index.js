@@ -9,7 +9,8 @@ export function createStore(currentToken, currentUser) {
       nextDishId: 0,
       nextPotluckId: 0, 
       dishes: [],
-      potlucks: []
+      potlucks: [],
+      // selectedPotluck: null
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
@@ -44,7 +45,11 @@ export function createStore(currentToken, currentUser) {
       ADD_FRIEND(state, friend) {
         friend.id = state.nextFriendId++;
         state.friends.unshift(friend);
-      }
+      },
+      // SET_SELECTED_POTLUCK(state, potluck){
+      //   console.log("I GOT HERE", potluck);
+      //   state.selectedPotluck = potluck;
+      // }
     },
       
   });

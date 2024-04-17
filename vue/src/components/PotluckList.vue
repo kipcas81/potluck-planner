@@ -1,9 +1,10 @@
 <template>
-<div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.potluckId">
+<div class="potluckBox" v-for="potluck in potlucks" v-bind:key="potluck.potluckId" :class="{completed: potluck.completed}">
   <div>
     <img class="potluckImage" :src="getRandomImage()"/>
   </div>
-     <router-link v-bind:to="{name: 'PotluckView', params: {potluckId: potluck.potluckId}}">{{potluck.eventName}}</router-link>
+    <!-- add @click="saveSelectedPotluck(potluck)" -->
+     <router-link v-bind:to="{name: 'PotluckView', params: {potluckId: potluck.potluckId}}" >{{potluck.eventName}}</router-link>
      <p> <i class="fa-solid fa-location-dot" style="color: rgb(0, 0, 0);"></i>  Location: {{ potluck.location }}</p>
     <p> <i class="fa-regular fa-calendar" style="color: rgb(0, 0, 0);"></i>  Date: {{ potluck.eventDate }}</p>
     <p> <i class="fa-regular fa-clock" style="color: rgb(0, 0, 0);"></i> Start Time: {{ potluck.eventTime }}</p>
@@ -12,6 +13,7 @@
 
 <script>
 import PotluckService from '../services/PotluckService';
+// import { mapMutations } from 'vuex';
 import potluck1 from "../assets/images/potluck1.jpg";
 import potluck2 from "../assets/images/potluck2.jpg";
 import potluck3 from "../assets/images/potluck3.jpg";
@@ -38,6 +40,10 @@ export default {
     };
   },
   methods: {
+    // ...mapMutations(['SET_SELECTED_POTLUCK']),
+    // saveSelectedPotluck(potluck){
+    //   this.SET_SELECTED_POTLUCK(potluck);
+    // },
     getPotlucks() {
       PotluckService.potluckList()
       .then(response => {
@@ -76,5 +82,9 @@ export default {
   width: 15vw;
   position: relative;
   top: 40px
+}
+
+.completed {
+  filter: grayscale(1);
 }
 </style>

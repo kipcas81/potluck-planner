@@ -5,7 +5,8 @@
         <p> <input type="checkbox" v-on:click="putGuestsInArray(guest)"/> {{ guest.guest_first_name }} {{ guest.guest_last_name }} | {{ guest.guest_email_address }} </p> 
       </div>
     </div>
-    <button class="btn-delete" v-on:click="(deleteGuest())">Remove Selected Guests</button>
+    <!-- ADD v-if="isHost()" -->
+    <button  class="btn-delete" v-on:click="(deleteGuest())">Remove Selected Guests</button>
 </div>
 </template>
 
@@ -52,7 +53,12 @@ export default {
   } else {
     this.guestsToRemove.push(removableGuest);
   }
-    }
+    },
+    // isHost(){
+    //     console.log(this.$store.state.selectedPotluck);
+    //     console.log(this.$store.state.selectedPotluck.userId);
+    //         return this.$store.state.user.id === this.$store.state.selectedPotluck; 
+    //     }
   },
   created(){
     this.getGuests(this.$route.params.potluckId);

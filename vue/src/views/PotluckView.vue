@@ -16,7 +16,7 @@
       <div class="dish-needs">
      <h2>Dish Needs</h2>
       <DishNeedsList :dishNeeds="dishNeeds"/>
-
+      <button class="btn-delete" @click="deleteDishNeeds">Remove All Dish Needs</button>
       </div>
       <div class="dishes-head">
      <h2>Dishes</h2>
@@ -92,6 +92,28 @@ export default {
       .then(response => {
         this.dishes = response.data;
       });
+    },
+    methods: {
+      isHost(){
+            return this.$store.state.user.id === this.Potluck.userId; 
+        },
+    //     deleteDishNeeds(){
+    //   console.log("wasssup");
+    //         if (
+    //     confirm('Are you sure you want to delete all of the dish needs? This cannot be undone.')
+    //   ) {
+    //         PotluckService.deleteDishNeeds(this.$route.params.potluckId).then(()=>{
+    //             this.getAllDishNeeds();
+    //         });
+            
+    //     }
+    // },
+    // getAllDishNeeds(){
+    //         PotluckService.dishNeedsList(this.$route.params.potluckId)
+    //         .then(response => {
+    //             this.allDishNeeds = response.data;
+    //         });
+    //     }
     }
 }
 </script>
