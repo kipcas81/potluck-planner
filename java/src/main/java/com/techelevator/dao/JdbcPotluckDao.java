@@ -25,14 +25,22 @@ public class JdbcPotluckDao implements PotluckDao {
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> userPotlucks = new ArrayList<>();
-        String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed " +
-                "FROM potlucks " +
-                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
+//        String sql = "SELECT potluck_id, event_name, description, event_date, location, event_time, user_id, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed " +
+//                "FROM potlucks " +
+//                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
+//
+          String sql = "SELECT p.potluck_id as potluckId, event_name, description, event_date, location, event_time, p.user_id as userId, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed, " +
+                "pu.user_id, pu.user_type as userType " +
+                "FROM potlucks p " +
+                "join potluck_user pu on pu.potluck_id = p.potluck_id " +
+                "where pu.user_id = ? " +
+                "ORDER BY event_date DESC;";
+//
 
         try {
-            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId, userId, false);
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
             while (result.next()) {
-                Potluck potluck = mapRowToPotluck(result);
+                Potluck potluck = mapRowToPotluckUserView(result);
                 userPotlucks.add(potluck);
             }
         } catch (CannotGetJdbcConnectionException e) {
@@ -79,7 +87,7 @@ public class JdbcPotluckDao implements PotluckDao {
             createdPotluck.setPotluckId(potluckId);
 
             String insertPotluckUserSql = "INSERT INTO potluck_user (potluck_id, user_id, user_type) VALUES (?, ?, ?)";
-            jdbcTemplate.update(insertPotluckUserSql, potluckId, potluck.getUserId(), "host");
+            jdbcTemplate.update(insertPotluckUserSql, potluckId, potluck.getUserId(), "Host");
 
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
@@ -677,7 +685,7 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
         potluck.setCompleted(rs.getBoolean("is_completed"));
-        potluck.setDietaryRestrictions("potluck_dietary_restrictions");
+        potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
 
         return potluck;
     }
@@ -697,12 +705,33 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setLocation(rs.getString("location"));
         potluck.setPrivate(rs.getBoolean("is_private"));
         potluck.setCompleted(rs.getBoolean("is_completed"));
-        potluck.setDietaryRestrictions("potluck_dietary_restrictions");
+        potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
+
 
         potluckUser.setPotluck(potluck);
         potluckUser.setUserType(rs.getString("userType"));
 
         return potluckUser;
+    }
+
+    private Potluck mapRowToPotluckUserView(SqlRowSet rs) {
+        Potluck potluck = new Potluck();
+
+        potluck.setPotluckId(rs.getInt("potluckId"));
+        potluck.setUserId(rs.getInt("userId"));
+        potluck.setFrequencyDays(rs.getInt("frequency_days"));
+        potluck.setDescription(rs.getString("description"));
+        potluck.setEventName(rs.getString("event_name"));
+        potluck.setEventDate(rs.getString("event_date"));
+        potluck.setEventTime(rs.getString("event_time"));
+        potluck.setRecurring(rs.getBoolean("is_recurring"));
+        potluck.setLocation(rs.getString("location"));
+        potluck.setPrivate(rs.getBoolean("is_private"));
+        potluck.setCompleted(rs.getBoolean("is_completed"));
+        potluck.setDietaryRestrictions(rs.getString("potluck_dietary_restrictions"));
+
+
+        return potluck;
     }
 }
 
