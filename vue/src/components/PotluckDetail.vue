@@ -3,7 +3,9 @@
 
     <div class="container">
         <!-- <h1>{{ potluck.eventName }}</h1> -->
-        <h3>{{ potluck.description }}</h3>
+        <div class="description">
+            <h3>Description: {{ potluck.description }}</h3>
+        </div>
         <p>Dietary Restrictions: {{ potluck.dietaryRestrictions }}</p>
         <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
         <p>Location: {{ potluck.location }}</p>
@@ -44,7 +46,8 @@ export default {
 </script>
 
 <style>
-h3 {
+.description {
+    width: 75%;
     word-wrap: break-word;
 }
 </style>

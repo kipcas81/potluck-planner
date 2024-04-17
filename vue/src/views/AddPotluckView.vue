@@ -1,6 +1,6 @@
 <template>
     <div class="create">
-        <h1>Create A New Potluck</h1>
+        <h1 id="create-head">Create A New Potluck</h1>
         <PotluckForm v-bind:potluck="potluck" />
     </div>
 </template>
@@ -33,7 +33,10 @@ export default {
 </script>
 
 <style scoped>
-
+#create-head {
+    text-align: center;
+    text-decoration: underline;
+}
 
 
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1>Edit Potluck</h1>
+    <h1 id="edit-head">Edit Potluck</h1>
     <PotluckForm v-bind:potluck="potluck"/>
     <input class="clonebtn" type="button" value="Duplicate Potluck" v-on:click="duplicatePotluck()"/>
 </div>
@@ -54,6 +54,9 @@ export default {
 </script>
 
 
-<style>
-
+<style scoped>
+#edit-head {
+    text-align: center;
+    text-decoration: underline;
+}
 </style>

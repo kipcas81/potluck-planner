@@ -20,8 +20,9 @@
       </div>
       <div class="dishes-head">
      <h2>Dishes</h2>
+     <DishList dishes="dishes"/>
      <button class="dishList" v-on:click="$router.push({name: 'AddDishView', params: {potluckId: potluckId}})">Add Dish</button>
-      <DishList dishes="dishes"/>
+      
       </div>
     </div>
 </template>
@@ -101,7 +102,6 @@ export default {
   margin-left: 15%;
   font-family: cursive;
   display: flex;
-  overflow-wrap: break-word;
   flex-direction: column;
   border-radius: 15px;
   align-items: center;
@@ -123,26 +123,30 @@ export default {
 .btn-edit {
   margin-right: 10px;
   width: 15vw;
-  background-color: whitesmoke;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
   border-radius: 10px;
 }
 .btn-delete {
   margin-right: 10px;
   width: 15vw;
   border-radius: 10px;
-  background-color: whitesmoke;
+  border-color: #09C7D1;
+  background-color: #bcf9fc;
 }
 .inv-guest {
   margin-right: 10px;
   width: 15vw;
   border-radius: 10px;
-  background-color: whitesmoke;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
 }
 .update-dish-needs {
   margin-right: 10px;
   width: 15vw;
   border-radius: 10px;
-  background-color: whitesmoke;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
 }
 .dish-needs {
   margin-bottom: 5%;
@@ -182,6 +186,7 @@ export default {
 .dishes-head {
   margin-bottom: 5%;
   font-family: cursive;
+  align-content: center;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
@@ -228,6 +233,12 @@ export default {
   margin-left: auto;
   margin-right: 5%;
 }
-
+.dishList {
+  margin-right: 10px;
+  width: 15vw;
+  border-radius: 10px;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
+}
 
 </style>
