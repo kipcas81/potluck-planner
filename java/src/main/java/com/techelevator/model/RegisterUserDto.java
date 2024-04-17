@@ -25,9 +25,6 @@ public class RegisterUserDto {
     private String role;
 
     public String getEmail() {
-        System.out.println("in email method");
-        System.out.println(this.email);
-        System.out.println(email);
 
         return email;
     }
@@ -38,8 +35,6 @@ public class RegisterUserDto {
     }
 
     public String getFirstName() {
-        System.out.println("in first name method");
-        System.out.println(this.firstName);
         return this.firstName;
     }
 
@@ -48,8 +43,6 @@ public class RegisterUserDto {
     }
 
     public String getLastName() {
-        System.out.println("in last name method");
-        System.out.println(this.lastName);
         return this.lastName;
     }
 

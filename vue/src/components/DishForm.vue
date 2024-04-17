@@ -1,36 +1,42 @@
 <template>
-<form>
-    <!-- need v model above on category, name, servings, etc-->
+<form v-on:submit="addNewDish">
     <div class="form-element">
         <label for="name">Name:</label>
-        <input id="name" type="text"/>
+        <input id="name" type="text" v-model="newDish.dish_name"/>
     </div>
     <div class="form-element">
         <label for="category">Category:</label>
-        <input id="category" type="text"/>
+        <input id="category" type="text" v-model="newDish.dish_category"/>
     </div>
     <div class="form-element">
         <label for="servings">Servings:</label>
-        <input id="servings" type="text"/>
+        <input id="servings" type="text" v-model="newDish.dish_servings"/>
     </div>
     <div class="form-element">
         <label for="diet">Dietary Restrictions:</label>
-        <input id="diet" type="text"/>
+        <input id="diet" type="text" v-model="newDish.dish_dietary_restrictions"/>
     </div>
     <div class="form-element">
         <label for="recipe">Recipe:</label>
-        <input id="recipe" type="text"/>
+        <input id="recipe" type="text" v-model="newDish.dish_recipe"/>
     </div>
     <input class="submitbtn" type="submit" value="Save" />
-    <input class="cancelbtn" type="cancel" value="Cancel" v-on:click="resetForm" />
+    <input class="cancelbtn" type="cancel" value="Cancel" v-on:click="cancelForm" />
 </form>
 </template>
 
 
 
 <script>
+import PotluckService from '../services/PotluckService';
+
 export default {
-    props: ['dishId'],
+    props: {
+        dish: {
+            type: Object,
+            required: true
+        }
+    },
     data(){
         return {
             newDish: {
@@ -39,14 +45,17 @@ export default {
                 dish_category: "",
                 dish_servings: 0,
                 dish_recipe: ""
-
             }
         };
     },
     methods: {
         addNewDish(){
-            this.newDish.dishId = this.dishId
-            this.$store.commit('ADD_DISH', this.newDish)
+            PotluckService.bringDish(this.$route.params.potluckId, this.newDish);
+            this.resetForm();
+        },
+        cancelForm(){
+            this.$emit('cancel');
+            this.resetForm();
         },
         resetForm(){
             this.newDish = {};

@@ -22,5 +22,14 @@ export default {
   },
   dishNeedsList(potluckId){
     return axios.get(`/dishNeeds?potluckId=${potluckId}`);
+  },
+  deleteDishNeeds(potluckId){
+    return axios.delete(`dishNeeds?potluckId=${potluckId}`)
+  },
+  bringDish(potluckId, dish){
+    return axios.post(`/dish?potluckId=${potluckId}`, dish);
+  },
+  getAllDishes(potluckId){
+    return axios.get(`allDishes?potluckId=${potluckId}`);
   }
 }
