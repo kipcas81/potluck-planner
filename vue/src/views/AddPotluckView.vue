@@ -1,6 +1,6 @@
 <template>
     <div class="create">
-        <h1>Create New Potluck</h1>
+        <h1>Create A New Potluck</h1>
         <PotluckForm v-bind:potluck="potluck" />
     </div>
 </template>
@@ -21,7 +21,7 @@ export default {
                 date: "",
                 time: "",
                 creator: "",
-                diet: "",
+                dietaryRestrictions: "",
                 isRecurring: "",
                 frequency: "",
                 location: "",

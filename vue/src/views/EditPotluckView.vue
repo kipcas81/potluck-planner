@@ -21,7 +21,7 @@ export default {
                 description: "", 
                 eventDate: "",
                 eventTime: "",
-                diet: "",
+                dietaryRestrictions: "",
                 recurring: false,
                 frequencyDays: 0,
                 location: "",

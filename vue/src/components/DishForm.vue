@@ -10,7 +10,7 @@
     </div>
     <div class="form-element">
         <label for="servings">Servings:</label>
-        <input id="servings" type="text" v-model="newDish.dish_servings"/>
+        <input id="servings" type="number" v-model="newDish.dish_servings"/>
     </div>
     <div class="form-element">
         <label for="diet">Dietary Restrictions:</label>
@@ -21,7 +21,7 @@
         <input id="recipe" type="text" v-model="newDish.dish_recipe"/>
     </div>
     <input class="submitbtn" type="submit" value="Save" />
-    <input class="cancelbtn" type="cancel" value="Cancel" v-on:click="cancelForm" />
+    <input class="cancelbtn" type="button" value="Clear" @click="cancelForm" />
 </form>
 </template>
 
@@ -52,6 +52,7 @@ export default {
         addNewDish(){
             PotluckService.bringDish(this.$route.params.potluckId, this.newDish);
             this.resetForm();
+            this.$router.push({name: 'PotluckView', params: {potluckId: this.$route.params.potluckId}});
         },
         cancelForm(){
             this.$emit('cancel');
