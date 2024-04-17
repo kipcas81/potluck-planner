@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +24,14 @@ public class JdbcPotluckDao implements PotluckDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public boolean isPotluckCompleted(LocalDate eventDate, LocalTime eventTime) {
+        LocalDate currentDate = LocalDate.now();
+        LocalTime currentTime = LocalTime.now();
+        if(currentDate.isAfter(eventDate) || currentDate.equals(eventDate)) {
+            return currentTime.isAfter(eventTime) || currentTime.equals(eventTime);
+        }
+        return false;
+    }
     @Override
     public List<Potluck> getAllPotlucks(int userId) {
         List<Potluck> userPotlucks = new ArrayList<>();
@@ -41,6 +51,10 @@ public class JdbcPotluckDao implements PotluckDao {
             SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
             while (result.next()) {
                 Potluck potluck = mapRowToPotluckUserView(result);
+                LocalDate eventDate = LocalDate.parse(result.getString("event_date"));
+                LocalTime eventTime = LocalTime.parse(result.getString("event_time"));
+                boolean isPotluckCompleted = isPotluckCompleted(eventDate, eventTime);
+                potluck.setCompleted(isPotluckCompleted);
                 userPotlucks.add(potluck);
             }
         } catch (CannotGetJdbcConnectionException e) {
