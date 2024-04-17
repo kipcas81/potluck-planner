@@ -44,6 +44,30 @@ public class JdbcPotluckDao implements PotluckDao {
         return userPotlucks;
     }
 
+    public List<PotluckUser> getAllPotlucksAndUserTypes(int userId) {
+        List<PotluckUser> potluckUsers = new ArrayList<>();
+        String sql = "SELECT p.potluck_id as potluckId, event_name, description, event_date, location, event_time, p.user_id as userId, potluck_dietary_restrictions, frequency_days, is_private, is_recurring, is_completed, " +
+                "pu.user_id, pu.user_type as userType " +
+                "FROM potlucks p " +
+                "join potluck_user pu on pu.potluck_id = p.potluck_id " +
+                "where pu.user_id = ?;";
+//                "WHERE (user_id = ? OR potluck_id IN (SELECT potluck_id FROM potluck_guests WHERE guest_id = ?)) AND (is_completed = ? OR event_date >= CURRENT_DATE) ORDER BY event_date DESC;";
+
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, userId);
+            while (result.next()) {
+                PotluckUser potluckUser = mapRowToPotluckUser(result);
+                potluckUsers.add(potluckUser);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return potluckUsers;
+    }
+
     @Override
     public Potluck createPotluck(Potluck potluck) {
         Potluck createdPotluck = potluck;
@@ -171,6 +195,41 @@ public class JdbcPotluckDao implements PotluckDao {
         return getFriendsByUserid;
     }
 
+
+    public boolean linkRegisteredGuestsToPotluckUserTable(User user) {
+        int potluckId = 0;
+        String sql = "SELECT potluck_id " +
+                "from potluck_guests " +
+                "where guest_email_address = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, user.getEmail());
+            while (result.next()) {
+                potluckId = result.getInt("potluck_id");
+                sql = "INSERT INTO potluck_user(potluck_id, user_id, user_type) " +
+                        "VALUES(?,?,?)";
+                try {
+                    int numberOfRowsInserted = jdbcTemplate.update(sql, potluckId, user.getId(), "Guest");
+                    if (numberOfRowsInserted != 1) {
+                        throw new DaoException("while registering a guest, potluck_user table insert didn't go as expected. Please verify.");
+                    }
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                } catch (BadSqlGrammarException e) {
+                    throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+                }
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        return  true;
+    }
     public List<Guest> inviteGuests(Guest[] guests) {
         List<Guest> invitedGuests = new ArrayList<>();
         Guest createdGuest = null;
@@ -555,8 +614,6 @@ public class JdbcPotluckDao implements PotluckDao {
         return dishesByPotluckId;
     }
 
-
-
     private PotluckUserDish mapRowToPotluckUserDish(SqlRowSet rs) {
         PotluckUserDish potluckUserDish = new PotluckUserDish();
         potluckUserDish.setPotluck_id(rs.getInt("potluck_id"));
@@ -623,6 +680,29 @@ public class JdbcPotluckDao implements PotluckDao {
         potluck.setDietaryRestrictions("potluck_dietary_restrictions");
 
         return potluck;
+    }
+
+    private PotluckUser mapRowToPotluckUser(SqlRowSet rs) {
+        PotluckUser potluckUser = new PotluckUser();
+        Potluck potluck = new Potluck();
+
+        potluck.setPotluckId(rs.getInt("potluckId"));
+        potluck.setUserId(rs.getInt("userId"));
+        potluck.setFrequencyDays(rs.getInt("frequency_days"));
+        potluck.setDescription(rs.getString("description"));
+        potluck.setEventName(rs.getString("event_name"));
+        potluck.setEventDate(rs.getString("event_date"));
+        potluck.setEventTime(rs.getString("event_time"));
+        potluck.setRecurring(rs.getBoolean("is_recurring"));
+        potluck.setLocation(rs.getString("location"));
+        potluck.setPrivate(rs.getBoolean("is_private"));
+        potluck.setCompleted(rs.getBoolean("is_completed"));
+        potluck.setDietaryRestrictions("potluck_dietary_restrictions");
+
+        potluckUser.setPotluck(potluck);
+        potluckUser.setUserType(rs.getString("userType"));
+
+        return potluckUser;
     }
 }
 

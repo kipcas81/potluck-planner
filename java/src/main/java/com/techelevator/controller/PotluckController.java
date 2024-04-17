@@ -37,6 +37,13 @@ public class PotluckController {
         return potluckDao.getAllPotlucks(user.getId());
     }
 
+    @RequestMapping(path = "/potluckUsers", method = RequestMethod.GET)
+    public List<PotluckUser> getAllPotlucksAndUserTypes(Principal principal) {
+        String username = principal.getName();
+        User user = userDao.getUserByUsername(username);
+        return potluckDao.getAllPotlucksAndUserTypes(user.getId());
+    }
+
     @RequestMapping(path = "/potlucks", method = RequestMethod.POST)
     public Potluck createPotluck(@RequestBody Potluck potluck, Principal principal) {
 
