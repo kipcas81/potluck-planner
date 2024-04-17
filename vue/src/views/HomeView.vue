@@ -6,14 +6,14 @@
         <p id="tagline">"You're telling me a shrimp fried this rice?"</p>
         </div>
     <img class="logo-right" src="../assets/2-Prawn-logo.png"/>
-   
-    </div>
-      
-
-  <div class="potlucks">
-    <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
+    
+   </div>
+ 
+    
+   <button class="create-potluck" v-on:click="$router.push({path: '/add-potluck'})">Create New Potluck</button>
+<div class="potlucks">
   <PotluckList :potlucks="potlucks"/>
-  </div>
+</div>
   
 </template>
 <script>
@@ -89,20 +89,30 @@ export default {
 .logo-right {
   position: relative;
 }
-.potlucks {
-  position: relative;
-  top: 40px
-}
+
 p {
   font-style: italic;
 }
 .create-potluck {
-  /* font-stretch:ultra-expanded; */
-  height:40px;
+  font-family: cursive;
+  font-size: large;
+  height: 40px;
   width: 20vw;
   background-color: #bcf9fc;
+  border-color: #09c7d1;
   border-radius: 10px;
+  position: absolute;
+  top: 210px; /* Adjust this value to move the button below the banner */
+  left: 50%;
+  transform: translateX(-50%);
 }
+.potlucks {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 12%;
+}
+
 
 
 
