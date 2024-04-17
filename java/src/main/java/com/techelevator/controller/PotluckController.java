@@ -140,10 +140,14 @@ public class PotluckController {
         return potluckDao.viewDishNeeds(potluckId);
     }
     @RequestMapping(path = "/dishNeeds", method = RequestMethod.DELETE)
-    public boolean deleteDishNeeds(@RequestParam int potluckId) {
-        return potluckDao.deleteDishNeeds(potluckId);
+    public boolean deleteDishNeeds(@RequestParam int potluckId, @RequestParam int dishCategoryId) {
+        return potluckDao.deleteDishNeeds(potluckId, dishCategoryId);
     }
 
+    @RequestMapping(path = "/allDishNeeds", method = RequestMethod.DELETE)
+    public boolean deleteAllDishNeeds(@RequestParam int potluckId) {
+        return potluckDao.deleteAllDishNeeds(potluckId);
+    }
     @RequestMapping(path = "/dish", method = RequestMethod.POST)
     public Dish bringDish(Principal principal, @RequestParam int potluckId, @RequestBody Dish dish) {
         String username = principal.getName();

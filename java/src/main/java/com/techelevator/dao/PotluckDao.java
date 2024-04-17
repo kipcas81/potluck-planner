@@ -12,7 +12,8 @@ public interface PotluckDao {
 
     List<PotluckDishNeeds> viewDishNeeds(int potluckId);
 
-    boolean deleteDishNeeds(int potluckId);
+    boolean deleteDishNeeds(int potluckId, int dishCategoryId);
+    boolean deleteAllDishNeeds(int potluckId);
 
     Dish bringDish(int userid, int potluckId, Dish dish);
 
