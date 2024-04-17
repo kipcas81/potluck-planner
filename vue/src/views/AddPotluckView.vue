@@ -33,10 +33,7 @@ export default {
 </script>
 
 <style>
-#create-head {
-    text-align: center;
-    
-}
+
 
 
 </style>

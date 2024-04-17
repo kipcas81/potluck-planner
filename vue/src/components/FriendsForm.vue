@@ -13,7 +13,7 @@
         <input id="email" type="email" v-model="newFriend.friend_email_address">   
     </div>
     <input class="submitbtn" type="submit" value="Save" />
-    <input class="cancelbtn" type="button" value="Cancel" @click="cancelForm"/>
+    <input class="cancelbtn" type="button" value="Clear" @click="cancelForm"/>
 </form>
 <p>Done adding friends? <router-link :to="{path: '/'}">Click Me!</router-link></p>
 </template>
