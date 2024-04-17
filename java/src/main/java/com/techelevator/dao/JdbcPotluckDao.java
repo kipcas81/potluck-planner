@@ -171,6 +171,41 @@ public class JdbcPotluckDao implements PotluckDao {
         return getFriendsByUserid;
     }
 
+
+    public boolean linkRegisteredGuestsToPotluckUserTable(User user) {
+        int potluckId = 0;
+        String sql = "SELECT potluck_id " +
+                "from potluck_guests " +
+                "where guest_email_address = ?;";
+        try {
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql, user.getEmail());
+            while (result.next()) {
+                potluckId = result.getInt("potluck_id");
+                sql = "INSERT INTO potluck_user(potluck_id, user_id, user_type) " +
+                        "VALUES(?,?,?)";
+                try {
+                    int numberOfRowsInserted = jdbcTemplate.update(sql, potluckId, user.getId(), "Guest");
+                    if (numberOfRowsInserted != 1) {
+                        throw new DaoException("while registering a guest, potluck_user table insert didn't go as expected. Please verify.");
+                    }
+                } catch (CannotGetJdbcConnectionException e) {
+                    throw new DaoException("Unable to connect to server or database", e);
+                } catch (DataIntegrityViolationException e) {
+                    throw new DaoException("Data integrity violation", e);
+                } catch (BadSqlGrammarException e) {
+                    throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+                }
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        return  true;
+    }
     public List<Guest> inviteGuests(Guest[] guests) {
         List<Guest> invitedGuests = new ArrayList<>();
         Guest createdGuest = null;

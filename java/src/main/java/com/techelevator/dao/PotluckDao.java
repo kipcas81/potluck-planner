@@ -44,6 +44,8 @@ public interface PotluckDao {
 
     List<Guest> getGuests(int potluckId);
 
+    boolean linkRegisteredGuestsToPotluckUserTable(User user);
+
 
 
 }

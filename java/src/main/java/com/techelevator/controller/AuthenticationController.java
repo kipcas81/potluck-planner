@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import javax.validation.Valid;
 
+import com.techelevator.dao.PotluckDao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
 import org.springframework.http.HttpHeaders;
@@ -26,11 +27,14 @@ public class AuthenticationController {
     private final TokenProvider tokenProvider;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDao userDao;
+    private PotluckDao potluckDao;
 
-    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao) {
+    public AuthenticationController(TokenProvider tokenProvider, AuthenticationManagerBuilder authenticationManagerBuilder, UserDao userDao,
+                                    PotluckDao potluckDao) {
         this.tokenProvider = tokenProvider;
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDao = userDao;
+        this.potluckDao = potluckDao;
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
@@ -62,7 +66,8 @@ public class AuthenticationController {
             if (userDao.getUserByUsername(newUser.getUsername()) != null) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists.");
             } else {
-                userDao.createUser(newUser);
+                User user = userDao.createUser(newUser);
+                potluckDao.linkRegisteredGuestsToPotluckUserTable(user);
             }
         }
         catch (DaoException e) {
