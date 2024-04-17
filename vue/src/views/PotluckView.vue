@@ -10,6 +10,7 @@
       <div class="dish-needs">
      <h2>Dish Needs</h2>
       <DishNeedsList :dishNeeds="dishNeeds"/>
+
       </div>
     </div>
 </template>
@@ -65,6 +66,7 @@ export default {
   font-family: cursive;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   border-radius: 15px;
   align-items: center;
   background-color: rgb(252, 191, 188);

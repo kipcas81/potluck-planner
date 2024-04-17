@@ -68,7 +68,6 @@ export default {
   padding: 10px 20px;
   border-radius: 15px;
   margin-top: 10px;
-  margin-bottom: 80px;
   height: 115px;
   position: absolute; 
   top: 40px;
@@ -86,14 +85,14 @@ export default {
 .logo-left {
   transform: rotateY(180deg);
   position: relative; 
-  
-
 }
 .logo-right {
   position: relative;
-  
 }
-
+.potlucks {
+  position: relative;
+  top: 40px
+}
 
 
 
