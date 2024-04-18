@@ -80,9 +80,8 @@ public class Potluck {
         this.eventDate = LocalDate.parse(eventDate);
     }
 
-    public String getEventTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
-        return this.eventTime.format(formatter);
+    public LocalTime getEventTime() {
+        return eventTime;
     }
 
     public void setEventTime(String eventTime) {
