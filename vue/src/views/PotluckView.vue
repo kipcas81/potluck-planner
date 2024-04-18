@@ -16,7 +16,7 @@
       <div class="dish-needs">
      <h2>Dish Needs</h2>
       <DishNeedsList :dishNeeds="dishNeeds"/>
-      <button class="btn-delete" @click="deleteDishNeeds">Remove All Dish Needs</button>
+      <button class="btn-delete" @click="deleteDishNeeds" v-if="isHost()">Remove All Dish Needs</button>
       </div>
       <div class="dishes-head">
      <h2>Dishes</h2>

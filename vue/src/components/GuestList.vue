@@ -12,7 +12,7 @@
         <p v-else>
           {{ guest.guest_first_name }} {{ guest.guest_last_name }} | {{ guest.guest_email_address }} 
         </p>
-        <button class="btn-delete" v-on:click="(deleteGuest())" v-if="isCurrentUserGuest(guest)">Leave Potluck</button>
+        <button class="btn-delete" v-on:click="(deleteGuestThenGoHome())" v-if="isCurrentUserGuest(guest)">Leave Potluck</button>
       </div>
     </div>
     <button class="btn-delete" v-on:click="(deleteGuest())" v-if="showRemoveGuestsButton">Remove Selected Guests</button>
@@ -54,20 +54,22 @@ export default {
         });
       }
     },
+    deleteGuestThenGoHome(){
+      if (
+        confirm('Are you sure you want to leave this potluck? This cannot be undone, and you will need another invite to be able to see the details.')
+      ) {
+        FriendService.deleteGuest(this.guestsToRemove).then(()=>{
+          this.getGuests();
+          this.$router.push({path: '/'});
+        });
+      }
+    },
     isCurrentUserGuest(guest){
       return this.$store.state.user.email === guest.guest_email_address;
     },
     showCheckboxForGuest(guest) {
       return !this.currentUserInGuestList || this.isCurrentUserGuest(guest);
     },
-  //   removeSelf(){
-  //     if (
-  //       confirm('Are you sure you want to remove yourself from this potluck? This cannot be undone.')
-  //     ) {
-  //         const email = this.$store.state.user.email;
-  //         const email2 = 
-  //   }
-  // },
     putGuestsInArray(guest){
       const guestCopy = Object.assign({}, guest);
       const removableGuest = {
@@ -86,11 +88,6 @@ export default {
     this.guestsToRemove.push(removableGuest);
   }
     },
-    // isHost(){
-    //     console.log(this.$store.state.selectedPotluck);
-    //     console.log(this.$store.state.selectedPotluck.userId);
-    //         return this.$store.state.user.id === this.$store.state.selectedPotluck; 
-    //     }
   },
   created(){
     this.getGuests(this.$route.params.potluckId);

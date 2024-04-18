@@ -31,5 +31,8 @@ export default {
   },
   getAllDishes(potluckId){
     return axios.get(`allDishes?potluckId=${potluckId}`);
+  },
+  clonePotluck(potluckId){
+    return axios.post(`/duplicatePotluck?potluckId=${potluckId}`);
   }
 }

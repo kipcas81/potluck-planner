@@ -2,15 +2,8 @@
     <header class="flex">
 
     <div class="container">
-<<<<<<< HEAD
-        <!-- <h1>{{ potluck.eventName }}</h1> -->
-        <div class="description">
-            <h3>Description: {{ potluck.description }}</h3>
-        </div>
-=======
         <h1>{{ potluck.eventName }}</h1>
         <h2>{{ potluck.description }}</h2>
->>>>>>> f332adaa50d6ee3510dadee0dfcaadd2b38e9e2d
         <p>Dietary Restrictions: {{ potluck.dietaryRestrictions }}</p>
         <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
         <p>Location: {{ potluck.location }}</p>

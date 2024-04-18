@@ -1,8 +1,42 @@
 <template>
 <form v-on:submit.prevent="addNewDishNeed">
     <div>
-        <label for="dish_category">Required Dish</label>
-        <input id="dish_category" type="text" v-model="newDishNeeds.dish_category">
+        <label for="dish_category">Needed Dish Category:</label>
+        <input id="dish_category_input" list="dish_category" name="dish_category" v-model="newDishNeeds.dish_category">
+            <datalist id="dish_category">
+                <option value="Dessert"></option>
+                <option value="Appetizer"></option>
+                <option value="Entre"></option>
+                <option value="Sides"></option>
+                <option value="Salad"></option>
+                <option value="Soup"></option>
+                <option value="BBQ"></option>
+                <option value="Casseroles"></option>
+                <option value="Chicken"></option>
+                <option value="Fish"></option>
+                <option value="Pasta"></option>
+                <option value="Pizza"></option>
+                <option value="Beef"></option>
+                <option value="Breakfast"></option>
+                <option value="Pork"></option>
+                <option value="Pizza"></option>
+                <option value="Rice"></option>
+                <option value="Beans"></option>
+                <option value="Seafood"></option>
+                <option value="Vegetables"></option>
+                <option value="Mac and Cheese"></option>
+                <option value="Shrimp"></option>
+                <option value="Prawns"></option>
+                <option value="Bread"></option>
+                <option value="Curry"></option>
+                <option value="Sandwiches"></option>
+                <option value="Chips"></option>
+                <option value="Beer"></option>
+                <option value="Wine"></option>
+                <option value="Seltzers"></option>
+                <option value="Non-Alcoholic Drinks"></option>
+                <option value="Other"></option>
+            </datalist>
     </div>
     <div>
         <label for="servings">How many servings is this dish?</label>
