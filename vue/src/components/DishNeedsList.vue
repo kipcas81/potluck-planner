@@ -28,12 +28,13 @@ export default {
             if (
         confirm('Are you sure you want to delete all of the dish needs? This cannot be undone.')
       ) {
-            PotluckService.deleteDishNeeds(this.$route.params.potluckId).then(()=>{
+            PotluckService.deleteDishNeeds(this.$route.params.potluckId)
+            .then(()=>{
                 this.getAllDishNeeds();
             });
             
         }
-    }
+    },
     
 },
     created(){
