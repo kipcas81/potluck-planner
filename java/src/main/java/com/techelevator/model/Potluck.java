@@ -3,6 +3,7 @@ package com.techelevator.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class Potluck {
@@ -79,8 +80,9 @@ public class Potluck {
         this.eventDate = LocalDate.parse(eventDate);
     }
 
-    public LocalTime getEventTime() {
-        return eventTime;
+    public String getEventTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
+        return this.eventTime.format(formatter);
     }
 
     public void setEventTime(String eventTime) {
