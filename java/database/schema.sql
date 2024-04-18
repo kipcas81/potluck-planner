@@ -75,7 +75,7 @@ CREATE TABLE potluck_guests (
 	guest_id SERIAL,
 	guest_first_name varchar (50),
 	guest_last_name varchar (50),
-	guest_email_address varchar(50) NOT NULL UNIQUE,
+	guest_email_address varchar(50) NOT NULL,
 	guest_already_registered boolean default false,
 	CONSTRAINT PK_potluck_guests PRIMARY KEY (potluck_id, guest_id),
     CONSTRAINT FK_users_potluck_guests FOREIGN KEY (user_id) REFERENCES users(user_id),
