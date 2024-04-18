@@ -344,10 +344,10 @@ public class JdbcPotluckDao implements PotluckDao {
             String sql = "SELECT dish_id " +
                     "from potluck_guests pg " +
                     "join users u on u.email = pg.guest_email_address " +
-                    "join potluck_user_dish pud on pud.user_id = u.user_id " +
-                    "where pg.guest_email_address = ?;";
+                    "join potluck_user_dish pud on (pud.user_id = u.user_id and pud.potluck_id = pg.potluck_id) " +
+                    "where pg.guest_email_address = ? and pg.potluck_id = ?;";
             try {
-                SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
+                SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address(), guest.getPotluck_id());
                 while (result.next()) {
                     int dishId = result.getInt("dish_id");
                     deleteDish(guest.getPotluck_id(), dishId);
@@ -371,7 +371,6 @@ public class JdbcPotluckDao implements PotluckDao {
                 SqlRowSet result = jdbcTemplate.queryForRowSet(sql, guest.getGuest_email_address());
                 if (result.next()) {
                     userId = result.getInt("user_id");
-                    System.out.println(userId);
                 }
             } catch (CannotGetJdbcConnectionException e) {
                 throw new DaoException("Unable to connect to server or database", e);
