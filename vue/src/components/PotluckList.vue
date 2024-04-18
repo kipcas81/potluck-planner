@@ -8,6 +8,7 @@
      <p> <i class="fa-solid fa-location-dot" style="color: rgb(0, 0, 0);"></i>  Location: {{ potluck.location }}</p>
     <p> <i class="fa-regular fa-calendar" style="color: rgb(0, 0, 0);"></i>  Date: {{ potluck.eventDate }}</p>
     <p> <i class="fa-regular fa-clock" style="color: rgb(0, 0, 0);"></i> Start Time: {{ potluck.eventTime }}</p>
+    <input class="clonebtn" type="button" value="Duplicate Potluck" v-on:click="duplicatePotluck(potluck.potluckId)"/>
     </div>
 </template>
 
@@ -53,6 +54,14 @@ export default {
     getRandomImage(){
       const randomIndex = Math.floor(Math.random() * this.potluckImages.length);
       return this.potluckImages[randomIndex];
+    },
+    duplicatePotluck(potluckId){
+            if (
+                confirm('Are you sure you want to duplicate this potluck?')
+            ) {
+                PotluckService.clonePotluck(potluckId);
+                this.$router.push({path: '/'})
+        }
     }
     
   },

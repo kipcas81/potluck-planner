@@ -30,7 +30,7 @@ export default {
     return axios.post(`/dish?potluckId=${potluckId}`, dish);
   },
   getAllDishes(potluckId){
-    return axios.get(`allDishes?potluckId=${potluckId}`);
+    return axios.get(`/allDishes?potluckId=${potluckId}`);
   },
   clonePotluck(potluckId){
     return axios.post(`/duplicatePotluck?potluckId=${potluckId}`);
