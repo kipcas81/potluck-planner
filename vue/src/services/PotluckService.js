@@ -24,7 +24,7 @@ export default {
     return axios.get(`/dishNeeds?potluckId=${potluckId}`);
   },
   deleteDishNeeds(potluckId){
-    return axios.delete(`dishNeeds?potluckId=${potluckId}`)
+    return axios.delete(`/allDishNeeds?potluckId=${potluckId}`)
   },
   bringDish(potluckId, dish){
     return axios.post(`/dish?potluckId=${potluckId}`, dish);

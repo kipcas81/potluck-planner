@@ -56,7 +56,7 @@
     </div>
     <input class="submitbtn" type="submit" value="Save" />
     <input class="cancelbtn" type="button" value="Clear" @click="cancelForm" />
-    <input class="cancelbtn" type="button" value="Cancel" @click="this.$router.push('/')">
+    <input class="cancelbtn" type="button" value="Cancel" @click="this.$router.push({name: 'PotluckView', params: {potluckId: $route.params.potluckId}})">
 </form>
 <div>
     <h1>Dish Needs</h1>
