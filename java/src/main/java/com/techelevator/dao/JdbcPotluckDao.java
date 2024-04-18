@@ -77,6 +77,46 @@ public class JdbcPotluckDao implements PotluckDao {
         return potluckUsers;
     }
 
+
+    public Potluck duplicatePotluck(int potluckId, int userId) {
+        Potluck potluck = getPotluckById(potluckId);
+        Potluck createdPotluck = null;
+        int createdPotluckId = 0;
+        String insertPotluckSql = "INSERT INTO potlucks (user_id, event_name, description, event_date, event_time, location, potluck_dietary_restrictions, frequency_days, is_recurring, is_private, is_completed) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING potluck_id";
+
+        try {
+            createdPotluckId = jdbcTemplate.queryForObject(insertPotluckSql, Integer.class, userId, potluck.getEventName(), potluck.getDescription(), potluck.getEventDate(), potluck.getEventTime(), potluck.getLocation(), potluck.getDietaryRestrictions(), potluck.getFrequencyDays(), potluck.isRecurring(), potluck.isPrivate(), potluck.isCompleted());
+            createdPotluck = getPotluckById(createdPotluckId);
+            String insertPotluckUserSql = "INSERT INTO potluck_user (potluck_id, user_id, user_type) VALUES (?, ?, ?)";
+            jdbcTemplate.update(insertPotluckUserSql, createdPotluckId, userId, "Host");
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        } catch (BadSqlGrammarException e) {
+            throw new DaoException("Bad SQL Grammar, fix it and try again.", e);
+        }
+
+        List<Guest> guests = getGuests(potluckId);
+        for(Guest guest: guests) {
+            guest.setPotluck_id(createdPotluckId);
+            guest.setUser_id(userId);
+            guest.setGuest_id(0);
+        }
+        Guest[] createdPotluckInviteGuests = guests.toArray(new Guest[0]);
+        inviteGuests(createdPotluckInviteGuests,userId);
+
+        List<PotluckDishNeeds> potluckDishNeedsList = viewDishNeeds(potluckId);
+        for(PotluckDishNeeds potluckDishNeeds: potluckDishNeedsList) {
+            potluckDishNeeds.setPotluck_id(createdPotluckId);
+            potluckDishNeeds.setDish_serving_count_filled(0);
+            addDishNeeds(createdPotluckId,potluckDishNeeds);
+        }
+        return createdPotluck;
+    }
+
     @Override
     public Potluck createPotluck(Potluck potluck) {
         Potluck createdPotluck = potluck;

@@ -28,6 +28,7 @@ public interface PotluckDao {
     List<Potluck> getAllPotlucks(int userid);
     List<PotluckUser> getAllPotlucksAndUserTypes(int userid);
 
+    Potluck duplicatePotluck(int potluckId, int userId);
     Potluck createPotluck(Potluck potluck);
 
     boolean deletePotluck(int potluckId, int userId);
