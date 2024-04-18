@@ -47,7 +47,7 @@ export default {
                 confirm('Are you sure you want to duplicate this potluck?')
             ) {
                 PotluckService.clonePotluck(this.$route.params.potluckId);
-                this.$router.push({path: '/'})
+                this.$router.push({path: '/'});
         }
     }
 }
