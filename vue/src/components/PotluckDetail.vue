@@ -2,15 +2,8 @@
     <header class="flex">
 
     <div class="container">
-<<<<<<< HEAD
-        <!-- <h1>{{ potluck.eventName }}</h1> -->
-        <div class="description">
-            <h3>Description: {{ potluck.description }}</h3>
-        </div>
-=======
         <h1>{{ potluck.eventName }}</h1>
         <h2>{{ potluck.description }}</h2>
->>>>>>> f332adaa50d6ee3510dadee0dfcaadd2b38e9e2d
         <p>Dietary Restrictions: {{ potluck.dietaryRestrictions }}</p>
         <p>Starting at: {{ potluck.eventTime }} on {{ potluck.eventDate }}</p>
         <p>Location: {{ potluck.location }}</p>
@@ -20,7 +13,7 @@
             <button class="btn-edit" v-on:click="$router.push({name: 'EditPotluckView', params: {potluckId: potluckId}})">Edit</button>
             <button class="btn-delete" v-on:click="deletePotluck">Delete</button>
             <button class="inv-guest" v-on:click="$router.push({name: 'AddGuestView', params: {potluckId: potluckId}})" >Invite Guests</button>
-            <button class="update-dish-needs" v-on:click="$router.push({name: 'AddDishNeedsView', params: {potluckId: potluckId}})">Dish Needs</button>
+            <button class="update-dish-needs" v-on:click="$router.push({name: 'AddDishNeedsView', params: {potluckId: potluckId}})">Add Dish Needs</button>
         </div>
         </div>
     </header>

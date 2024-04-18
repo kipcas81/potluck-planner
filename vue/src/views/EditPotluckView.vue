@@ -26,7 +26,8 @@ export default {
                 recurring: false,
                 frequencyDays: 0,
                 location: "",
-                private: false
+                private: false, 
+                potluckId: this.$route.params.potluckId
             }
         };
     },
@@ -45,7 +46,7 @@ export default {
             if (
                 confirm('Are you sure you want to duplicate this potluck?')
             ) {
-                PotluckService.addPotluck(this.potluck);
+                PotluckService.clonePotluck(this.$route.params.potluckId);
                 this.$router.push({path: '/'})
         }
     }
@@ -58,5 +59,13 @@ export default {
 #edit-head {
     text-align: center;
     text-decoration: underline;
+}
+
+.clonebtn {
+  margin-right: 10px;
+  width: 10vw;
+  border-radius: 10px;
+  background-color: #bcf9fc;
+  border-color: #09C7D1;
 }
 </style>

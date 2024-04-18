@@ -5,7 +5,6 @@
         <p>{{ dishNeeds.dish_category }} | {{ dishNeeds.dish_serving_count_filled }} of {{ dishNeeds.dish_serving_count_needed }} servings filled</p>
     </div>
 </div>
-    <!-- <button class="btn-delete" v-on:click="(deleteDishNeeds())">Remove All Dish Needs</button> -->
 </div>
 </template>
 
